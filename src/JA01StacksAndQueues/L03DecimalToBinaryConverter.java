@@ -8,7 +8,7 @@ public class L03DecimalToBinaryConverter {
 
         Scanner scanner = new Scanner(System.in);
 
-        
+
 
     }
 
