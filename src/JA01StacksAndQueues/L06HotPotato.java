@@ -8,7 +8,7 @@ public class L06HotPotato {
 
         Scanner scanner = new Scanner(System.in);
 
-        
+
 
     }
 
