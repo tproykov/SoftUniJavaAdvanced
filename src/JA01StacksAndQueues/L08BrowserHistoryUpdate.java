@@ -8,7 +8,7 @@ public class L08BrowserHistoryUpdate {
 
         Scanner scanner = new Scanner(System.in);
 
-        
+
 
     }
 
