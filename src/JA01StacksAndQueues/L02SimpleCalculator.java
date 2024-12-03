@@ -12,19 +12,24 @@ public class L02SimpleCalculator {
 
         String[] input = scanner.nextLine().split("\\s+");
 
+        // Initialize the stack
         ArrayDeque<String> stack = new ArrayDeque<>();
-        Collections.addAll(stack, input);
+        Collections.addAll(stack, input);   // Adds all elements from the input array into the stack.
 
+        // Process the expression
         while (stack.size() > 1) {
-            int first = Integer.parseInt(stack.pop());
+            int firstOperand = Integer.parseInt(stack.pop());
             String operator = stack.pop();
-            int second = Integer.parseInt(stack.pop());
+            int secondOperand = Integer.parseInt(stack.pop());
 
+            // Perform operation
             switch (operator) {
-                case "+" -> stack.push(String.valueOf(first + second));
-                case "-" -> stack.push(String.valueOf(first - second));
+                case "+" -> stack.push(String.valueOf(firstOperand + secondOperand));
+                case "-" -> stack.push(String.valueOf(firstOperand - secondOperand));
             }
         }
+
+        // Output the result
         System.out.println(stack.pop());
     }
 }
