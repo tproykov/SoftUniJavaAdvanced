@@ -9,14 +9,15 @@ public class L01BrowserHistory {
 
         Scanner scanner = new Scanner(System.in);
 
+        // Initialization
         ArrayDeque<String> history = new ArrayDeque<>();
-
-        String input = scanner.nextLine();
-
         String current = "";
 
+        // Input and loop
+        String input = scanner.nextLine();
         while (!input.equals("Home")) {
 
+            // Handling the back command
             if (input.equals("back")) {
                 if (!history.isEmpty()) {
                     current = history.pop();
@@ -27,14 +28,16 @@ public class L01BrowserHistory {
                     continue;
                 }
             }
+            // Handling a new URL
             else {
                 if (!current.isEmpty()) {
                     history.push(current);
                 }
                 current = input;
             }
-            System.out.println(current);
 
+            // Output and continue
+            System.out.println(current);
             input = scanner.nextLine();
         }
     }
