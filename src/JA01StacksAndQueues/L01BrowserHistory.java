@@ -9,36 +9,24 @@ public class L01BrowserHistory {
 
         Scanner scanner = new Scanner(System.in);
 
-        // Initialization
         ArrayDeque<String> history = new ArrayDeque<>();
-        String current = "";
 
-        // Input and loop
-        String input = scanner.nextLine();
-        while (!input.equals("Home")) {
+        String input;
+        while (!(input = scanner.nextLine()).equals("Home")) {
 
-            // Handling the back command
             if (input.equals("back")) {
-                if (!history.isEmpty()) {
-                    current = history.pop();
+                if (history.size() > 1) {
+                    history.pop();
+                    System.out.println(history.peek());
                 }
                 else {
                     System.out.println("no previous URLs");
-                    input = scanner.nextLine();
-                    continue;
                 }
             }
-            // Handling a new URL
             else {
-                if (!current.isEmpty()) {
-                    history.push(current);
-                }
-                current = input;
+                history.push(input);
+                System.out.println(input);
             }
-
-            // Output and continue
-            System.out.println(current);
-            input = scanner.nextLine();
         }
     }
 }
