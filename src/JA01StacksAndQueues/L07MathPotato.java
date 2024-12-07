@@ -1,8 +1,6 @@
 package JA01StacksAndQueues;
 
-import java.util.ArrayDeque;
-import java.util.Collections;
-import java.util.Scanner;
+import java.util.*;
 
 public class L07MathPotato {
 
@@ -11,31 +9,45 @@ public class L07MathPotato {
         Scanner scanner = new Scanner(System.in);
 
         String[] players = scanner.nextLine().split("\\s+");
-        ArrayDeque<String> queue = new ArrayDeque<>();
-
-        for (int i = 1; i < players.length; i++) {
-            queue.offer(players[i]);
-
-
-
-        }
-
         int n = Integer.parseInt(scanner.nextLine());
-        int rotations = 0;
+
+        PriorityQueue<String> queue = new PriorityQueue<>();
+        Arrays.stream(players).forEach(queue::offer);
+
+        int cycle = 1;
 
         while (queue.size() > 1) {
+            // Rotate the queue n-1 times
+            for (int i = 1; i < n; i++) {
+                queue.offer(queue.poll());
+            }
 
-            String firstKid = queue.poll();
-
-            rotations++;
-
-            if (rotations % n == 0) {
-                System.out.println("Removed " + firstKid);
+            // If cycle is prime, just print the child's name
+            if (isPrime(cycle)) {
+                System.out.println("Prime " + queue.peek());
             } else {
-                queue.offer(firstKid);
+                // If cycle is composite, remove the child
+                System.out.println("Removed " + queue.poll());
+            }
+
+            cycle++;
+        }
+
+        // Print last child
+        System.out.println("Last is " + queue.poll());
+    }
+
+    private static boolean isPrime(int number) {
+        if (number <= 1) {
+            return false;
+        }
+
+        for (int i = 2; i <= Math.sqrt(number); i++) {  // Math.sqrt(number) massively optimises the process
+            if (number % i == 0) {
+                return false;
             }
         }
 
-        System.out.println("Last is " + queue.poll());
+        return true;
     }
 }
