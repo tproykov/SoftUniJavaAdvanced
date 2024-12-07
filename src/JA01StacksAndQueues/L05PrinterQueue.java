@@ -14,13 +14,19 @@ public class L05PrinterQueue {
         String filename;
         while (!(filename = scanner.nextLine()).equals("print")) {
 
-            queue.offer(filename);
+            if (filename.equals("cancel")) {
+                if (queue.isEmpty()) {
+                    System.out.println("Printer is on standby");
+                } else {
+                    System.out.println("Canceled " + queue.poll());
+                }
+            } else {
+                queue.offer(filename);
+            }
         }
 
-
-
-
-
+        for (String output : queue) {
+            System.out.println(output);
+        }
     }
-
 }
