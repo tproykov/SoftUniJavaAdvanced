@@ -15,7 +15,7 @@ public class L02SimpleCalculator {
         // Initialize the stack
         ArrayDeque<String> stack = new ArrayDeque<>();
         Collections.addAll(stack, input);   // Adds all elements from the input array into the stack.
-
+                                            // Please note this adds them from the tail!!
         // Process the expression
         while (stack.size() > 1) {
             int firstOperand = Integer.parseInt(stack.pop());
