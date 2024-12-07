@@ -13,6 +13,9 @@ public class L03DecimalToBinaryConverter {
 
         ArrayDeque<Integer> stack = new ArrayDeque<>();
 
+        if (decimal == 0) {
+            stack.push(0);
+        }
         while (decimal != 0) {
             stack.push(decimal % 2);
             decimal /= 2;
