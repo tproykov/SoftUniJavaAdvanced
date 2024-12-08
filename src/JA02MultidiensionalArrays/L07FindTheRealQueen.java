@@ -54,12 +54,11 @@ public class L07FindTheRealQueen {
 
                 // If we find another queen, check if it attacks our queen
                 if (chessBoard[row][col].equals("q")) {
-                    // Check same row or column
+
                     if (row == queenRow || col == queenCol) {
                         return false;
                     }
 
-                    // Check diagonals
                     if (Math.abs(row - queenRow) == Math.abs(col - queenCol)) {
                         return false;
                     }
