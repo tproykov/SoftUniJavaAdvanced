@@ -30,10 +30,10 @@ public class L01CompareMatrices {
         populateMatrix(matrix2, scanner);
 
         if (compareIntegerMatrices(matrix1, matrix2)) {
-            System.out.println("Yes");
+            System.out.println("equal");
         }
         else {
-            System.out.println("No");
+            System.out.println("not equal");
         }
     }
 
@@ -43,6 +43,7 @@ public class L01CompareMatrices {
             for (int col = 0; col < matrix[row].length; col++) {
                 matrix[row][col] = scanner.nextInt();
             }
+            scanner.nextLine();
         }
     }
 
