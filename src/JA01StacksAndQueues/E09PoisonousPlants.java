@@ -28,13 +28,15 @@ public class E09PoisonousPlants {
                 }
             }
 
-            // If no changes occurred or only one plant remains
+            // We've completed processing one day
+            days++;
+
+            // Check if stable: no changes occurred or only one plant remains?
             if (survivors.size() == prevSize || survivors.size() <= 1) {
-                return days;
+                return days - 1;  // since incremented days were just checked, stable means no more days passed
             }
 
             // Update for next day
-            days++;
             prevSize = survivors.size();
             current = new int[survivors.size()];
             for (int i = 0; i < survivors.size(); i++) {
