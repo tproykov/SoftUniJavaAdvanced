@@ -17,7 +17,7 @@ public class L01CompareMatrices {
 
         int[][] matrix1 = new int[rowsMatrix1][colsMatrix1];
 
-        populateMatrix(matrix1, scanner);
+        populateIntegerMatrix(matrix1, scanner);
 
         int[] dimensionsMatrix2 = Arrays.stream(scanner.nextLine().split("\\s+"))
                 .mapToInt(Integer::parseInt).toArray();
@@ -27,7 +27,7 @@ public class L01CompareMatrices {
 
         int[][] matrix2 = new int[rowsMatrix2][colsMatrix2];
 
-        populateMatrix(matrix2, scanner);
+        populateIntegerMatrix(matrix2, scanner);
 
         if (compareIntegerMatrices(matrix1, matrix2)) {
             System.out.println("equal");
@@ -37,7 +37,7 @@ public class L01CompareMatrices {
         }
     }
 
-    private static void populateMatrix(int[][] matrix, Scanner scanner) {
+    private static void populateIntegerMatrix(int[][] matrix, Scanner scanner) {
 
         for (int row = 0; row < matrix.length; row++) {
             for (int col = 0; col < matrix[row].length; col++) {
