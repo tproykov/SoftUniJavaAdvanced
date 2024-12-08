@@ -11,91 +11,83 @@ public class L08WrongMeasurements {
         // Read number of rows
         int rows = scanner.nextInt();
 
-        // First scan to determine number of columns
-        String firstLine = scanner.nextLine(); // consume the newline
-        firstLine = scanner.nextLine();
-        String[] firstRow = firstLine.trim().split("\\s+");
-        int cols = firstRow.length;
+        // Create matrix with same number of columns as rows
+        int[][] matrix = new int[rows][];
 
-        // Create and fill the matrix
-        int[][] matrix = new int[rows][cols];
-
-        // Fill first row from previously read line
-        for (int j = 0; j < cols; j++) {
-            matrix[0][j] = Integer.parseInt(firstRow[j]);
-        }
-
-        // Fill rest of the matrix
-        for (int i = 1; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
-                matrix[i][j] = scanner.nextInt();
+        // Read matrix rows
+        for (int i = 0; i < rows; i++) {
+            String line = scanner.nextLine().trim();
+            if (line.isEmpty()) {
+                line = scanner.nextLine().trim();
+            }
+            String[] numbers = line.split("\\s+");
+            matrix[i] = new int[numbers.length];
+            for (int j = 0; j < numbers.length; j++) {
+                matrix[i][j] = Integer.parseInt(numbers[j]);
             }
         }
 
-        // Read the values to be replaced
-        int wrongValue1 = scanner.nextInt();
-        int wrongValue2 = scanner.nextInt();
+        // Read position of wrong value
+        int wrongRow = scanner.nextInt();
+        int wrongCol = scanner.nextInt();
 
-        // Fix the matrix
-        fixMatrix(matrix, wrongValue1, wrongValue2);
+        // Get the wrong value from the specified position
+        int wrongValue = matrix[wrongRow][wrongCol];
 
-        // Print the result
-        printMatrix(matrix);
+        // Create a new matrix for results to avoid affecting calculations
+        int[][] result = new int[rows][];
+        for (int i = 0; i < rows; i++) {
+            result[i] = matrix[i].clone();
+        }
+
+        // Replace all occurrences of the wrong value with their own adjacent sums
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[i].length; j++) {
+                if (matrix[i][j] == wrongValue) {
+                    result[i][j] = calculateAdjacentSum(matrix, i, j, wrongValue);
+                }
+            }
+        }
+
+        // Print result
+        printMatrix(result);
 
         scanner.close();
     }
 
-    private static void fixMatrix(int[][] matrix, int wrongValue1, int wrongValue2) {
-        int rows = matrix.length;
-        int cols = matrix[0].length;
-
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
-                if (matrix[i][j] == wrongValue1 || matrix[i][j] == wrongValue2) {
-                    matrix[i][j] = calculateReplacement(matrix, i, j);
-                }
-            }
-        }
-    }
-
-    private static int calculateReplacement(int[][] matrix, int row, int col) {
+    private static int calculateAdjacentSum(int[][] matrix, int row, int col, int wrongValue) {
         int sum = 0;
-        int count = 0;
         int rows = matrix.length;
-        int cols = matrix[0].length;
+        int cols = matrix[row].length;
 
         // Check up
-        if (row > 0) {
-            sum += matrix[row - 1][col];
-            count++;
+        if (row > 0 && matrix[row-1][col] != wrongValue) {
+            sum += matrix[row-1][col];
         }
 
         // Check down
-        if (row < rows - 1) {
-            sum += matrix[row + 1][col];
-            count++;
+        if (row < rows-1 && matrix[row+1][col] != wrongValue) {
+            sum += matrix[row+1][col];
         }
 
         // Check left
-        if (col > 0) {
-            sum += matrix[row][col - 1];
-            count++;
+        if (col > 0 && matrix[row][col-1] != wrongValue) {
+            sum += matrix[row][col-1];
         }
 
         // Check right
-        if (col < cols - 1) {
-            sum += matrix[row][col + 1];
-            count++;
+        if (col < cols-1 && matrix[row][col+1] != wrongValue) {
+            sum += matrix[row][col+1];
         }
 
         return sum;
     }
 
     private static void printMatrix(int[][] matrix) {
-        for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix[0].length; j++) {
-                System.out.print(matrix[i][j]);
-                if (j < matrix[0].length - 1) {
+        for (int[] row : matrix) {
+            for (int j = 0; j < row.length; j++) {
+                System.out.print(row[j]);
+                if (j < row.length - 1) {
                     System.out.print(" ");
                 }
             }
