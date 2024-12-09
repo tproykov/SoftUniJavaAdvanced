@@ -1,5 +1,6 @@
 package JA02MultidiensionalArrays;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class E08TheHeiganDance {
@@ -29,25 +30,20 @@ public class E08TheHeiganDance {
             int rowHit = Integer.parseInt(tokens[1]);
             int colHit = Integer.parseInt(tokens[2]);
 
+            for (int row = rowHit - 1; row >= rowHit + 1; row++) {
+                for (int col = colHit - 1; col >= colHit + 1; col--) {
+
+                    if (isInside(matrix, row, col)) {
+                        matrix[row][col] = 1;
+                    }
+                }
+            }
+
+            
+
             switch (spellType) {
 
                 case "Cloud" -> {
-
-                    for (int row = rowHit - 1; row >= rowHit + 1; row++) {
-                        for (int col = colHit - 1; col >= colHit + 1; col--) {
-
-
-
-
-                            
-                        }
-
-
-
-                    }
-
-
-
 
                 }
 
@@ -57,9 +53,7 @@ public class E08TheHeiganDance {
 
 
 
-
-
-
+            resetMatrix(matrix);
             command = scanner.nextLine();
         }
 
@@ -67,4 +61,15 @@ public class E08TheHeiganDance {
 
     }
 
+    private static boolean isInside(int[][] matrix, int row, int col) {
+        return row >= 0 && row < matrix.length && col >= 0 && col < matrix.length;
+    }
+
+    private static void resetMatrix(int[][] matrix) {
+        for (int row = 0; row < matrix.length; row++) {
+            for (int col = 0; col < matrix[row].length; col++) {
+                matrix[row][col] = 0;
+            }
+        }
+    }
 }
