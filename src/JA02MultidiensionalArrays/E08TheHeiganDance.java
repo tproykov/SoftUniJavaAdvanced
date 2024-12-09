@@ -1,5 +1,6 @@
 package JA02MultidiensionalArrays;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -15,9 +16,15 @@ public class E08TheHeiganDance {
         int playerPoints = 18500;
         double heiganPoints = 3000000;
         String winner = "";
+        boolean activeCloud = false;
 
         String command = scanner.nextLine();
         while (true) {
+
+            if (activeCloud) {
+                playerPoints -= 3500;
+                activeCloud = false;
+            }
 
             heiganPoints -= damageToHeigan;
             if (heiganPoints <= 0) {
@@ -74,21 +81,27 @@ public class E08TheHeiganDance {
                 switch (spellType) {
 
                     case "Cloud" -> {
-
+                        playerPoints -= 3500;
+                        activeCloud = true;
                     }
 
                     case "Eruption" -> {
-
-
+                        playerPoints -= 6000;
                     }
                 }
             }
 
-
+            if (playerPoints <= 0) {
+                winner = "heigan";
+                break;
+            }
 
             resetMatrix(matrix);
             command = scanner.nextLine();
         }
+
+        System.out.println(winner + ": " + heiganPoints);
+        System.out.println(Arrays.toString(playerPosition));
     }
 
     private static boolean isInside(int[][] matrix, int row, int col) {
