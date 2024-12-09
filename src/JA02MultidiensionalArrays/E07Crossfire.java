@@ -1,6 +1,8 @@
 package JA02MultidiensionalArrays;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class E07Crossfire {
@@ -14,17 +16,22 @@ public class E07Crossfire {
         int rows = matrixDimensions[0];
         int cols = matrixDimensions[1];
 
-        int[][] matrix = new int[rows][cols];
+        List<List<Integer>> matrix = new ArrayList<>();
 
-        populateTheMatrix(matrix);
+        populateTheMatrix(matrix, rows, cols);
 
         String command;
         while (!"Nuke it from orbit".equals(command = scanner.nextLine())) {
 
             int[] commandParts = Arrays.stream(command.split(" ")).mapToInt(Integer::parseInt).toArray();
-            int row = commandParts[0];
-            int col = commandParts[1];
+            int targetRow = commandParts[0];
+            int targetCol = commandParts[1];
             int radius = commandParts[2];
+
+            for (int row = targetRow - radius; row <= targetRow + radius; row++) {
+                if
+
+            }
 
 
 
@@ -32,29 +39,27 @@ public class E07Crossfire {
 
         }
 
-
-
-
-
         printTheMatrix(matrix);
-
     }
 
-    private static void populateTheMatrix(int[][] matrix) {
+    private static void populateTheMatrix(List<List<Integer>> matrix, int rows, int cols) {
+
+        for (int row = 0; row < rows; row++) {
+            matrix.add(new ArrayList<>());
+        }
 
         int counter = 1;
-        for (int row = 0; row < matrix.length; row++) {
-            for (int col = 0; col < matrix[row].length; col++) {
-                matrix[row][col] = counter;
-                counter++;
+        for (int row = 0; row < rows; row++) {
+            for (int col = 0; col < cols; col++) {
+                matrix.get(row).add(counter++);
             }
         }
     }
 
-    private static void printTheMatrix(int[][] matrix) {
-        for (int[] ints : matrix) {
-            for (int anInt : ints) {
-                System.out.print(anInt + " ");
+    private static void printTheMatrix(List<List<Integer>> matrix) {
+        for (List<Integer> row : matrix) {
+            for (int number : row) {
+                System.out.print(number + " ");
             }
             System.out.println();
         }
