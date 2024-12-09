@@ -8,7 +8,11 @@ public class E08TheHeiganDance {
 
         Scanner scanner = new Scanner(System.in);
 
-        double damage = Double.parseDouble(scanner.nextLine());
+        double damageToHeigan = Double.parseDouble(scanner.nextLine());
+        int[] playerPosition = {8, 8};
+        int[][] matrix = new int[15][15];
+        int playerStartingPoints = 18500;
+        int heiganStartingPoints = 3000000;
 
         String command = scanner.nextLine();
         while (true) {
@@ -17,6 +21,8 @@ public class E08TheHeiganDance {
             String spell = tokens[0];
             int row = Integer.parseInt(tokens[1]);
             int col = Integer.parseInt(tokens[2]);
+
+
 
 
 
