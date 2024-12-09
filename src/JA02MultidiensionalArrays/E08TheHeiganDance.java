@@ -30,7 +30,7 @@ public class E08TheHeiganDance {
             int rowHit = Integer.parseInt(tokens[1]);
             int colHit = Integer.parseInt(tokens[2]);
 
-            for (int row = rowHit - 1; row >= rowHit + 1; row++) {
+            for (int row = rowHit - 1; row <= rowHit + 1; row++) {
                 for (int col = colHit - 1; col >= colHit + 1; col--) {
 
                     if (isInside(matrix, row, col)) {
@@ -39,26 +39,56 @@ public class E08TheHeiganDance {
                 }
             }
 
-            
+            int playerCurrentRow = playerPosition[0];
+            int playerCurrentCol = playerPosition[1];
+            boolean takeTheHit = false;
+            if (matrix[playerCurrentRow][playerCurrentCol] == 1) {
 
-            switch (spellType) {
+                if (isInside(matrix, playerCurrentRow - 1, playerCurrentCol)
+                        && matrix[playerCurrentRow - 1][playerCurrentCol] == 0) {
 
-                case "Cloud" -> {
-
+                    playerPosition[0] = playerCurrentRow - 1;
                 }
+                else if (isInside(matrix, playerCurrentRow, playerCurrentCol + 1)
+                        && matrix[playerCurrentRow][playerCurrentCol + 1] == 0) {
 
-                case "Eruption" -> {}
+                    playerPosition[1] = playerCurrentCol + 1;
+                }
+                else if (isInside(matrix, playerCurrentRow + 1, playerCurrentCol)
+                        && matrix[playerCurrentRow + 1][playerCurrentCol] == 0) {
+
+                    playerPosition[0] = playerCurrentRow + 1;
+                }
+                else if (isInside(matrix, playerCurrentRow, playerCurrentCol - 1)
+                        && matrix[playerCurrentRow][playerCurrentCol - 1] == 0) {
+
+                    playerPosition[1] = playerCurrentCol - 1;
+                }
+                else {
+                    takeTheHit = true;
+                }
             }
 
+            if (takeTheHit) {
+
+                switch (spellType) {
+
+                    case "Cloud" -> {
+
+                    }
+
+                    case "Eruption" -> {
+
+
+                    }
+                }
+            }
 
 
 
             resetMatrix(matrix);
             command = scanner.nextLine();
         }
-
-
-
     }
 
     private static boolean isInside(int[][] matrix, int row, int col) {
