@@ -1,7 +1,6 @@
 package JA02MultidiensionalArrays;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
 
 public class E08TheHeiganDance {
@@ -38,13 +37,16 @@ public class E08TheHeiganDance {
             int colHit = Integer.parseInt(tokens[2]);
 
             for (int row = rowHit - 1; row <= rowHit + 1; row++) {
-                for (int col = colHit - 1; col >= colHit + 1; col--) {
+
+                for (int col = colHit - 1; col <= colHit + 1; col--) {
 
                     if (isInside(matrix, row, col)) {
                         matrix[row][col] = 1;
                     }
                 }
             }
+
+            printMatrix(matrix);
 
             int playerCurrentRow = playerPosition[0];
             int playerCurrentCol = playerPosition[1];
@@ -113,6 +115,15 @@ public class E08TheHeiganDance {
             for (int col = 0; col < matrix[row].length; col++) {
                 matrix[row][col] = 0;
             }
+        }
+    }
+
+    private static void printMatrix(int[][] matrix) {
+        for (int[] ints : matrix) {
+            for (int anInt : ints) {
+                System.out.print(anInt + " ");
+            }
+            System.out.println();
         }
     }
 }
