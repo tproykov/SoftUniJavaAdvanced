@@ -42,16 +42,13 @@ public class E09ParkingSystem {
     }
 
     private static int calculateDistance(int[][] matrix, int entryRow, int destinationRow, int destinationCol) {
-        // Initial distance is the steps from entry to the row + 1 step to enter
         int distance = Math.abs(entryRow - destinationRow) + 1;
 
-        // If desired spot is free
         if (matrix[destinationRow][destinationCol] == 0) {
             matrix[destinationRow][destinationCol] = 1;
             return distance + destinationCol;
         }
 
-        // Find nearest free spot
         int nearestSpot = findNearestFreeSpot(matrix, destinationRow, destinationCol);
         matrix[destinationRow][nearestSpot] = 1;
         return distance + nearestSpot;
