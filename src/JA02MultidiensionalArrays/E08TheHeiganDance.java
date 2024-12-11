@@ -15,7 +15,7 @@ public class E08TheHeiganDance {
         boolean activeCloud = false;
         String lastSpell = "";
 
-        
+
         String command = scanner.nextLine();
         while (true) {
 
