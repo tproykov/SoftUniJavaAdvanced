@@ -12,7 +12,7 @@ public class E09ParkingSystem {
         int rows = matrixDimensions[0];
         int cols = matrixDimensions[1];
 
-        int[][] matrix = new int[rows][cols];
+        boolean[][] occupied = new boolean[rows][cols];
 
         String command = scanner.nextLine();
         while (!command.equals("stop")) {
@@ -21,10 +21,10 @@ public class E09ParkingSystem {
             int destinationRow = Integer.parseInt(commandParts[1]);
             int destinationCol = Integer.parseInt(commandParts[2]);
 
-            if (isRowFull(matrix, destinationRow)) {
+            if (isRowFull(occupied[destinationRow], cols)) {
                 System.out.println("Row " + destinationRow + " full");
             } else {
-                int distance = calculateDistance(matrix, entryRow, destinationRow, destinationCol);
+                int distance = calculateDistance(occupied[destinationRow], entryRow, destinationRow, destinationCol, cols);
                 System.out.println(distance);
             }
 
@@ -32,46 +32,61 @@ public class E09ParkingSystem {
         }
     }
 
-    private static boolean isRowFull(int[][] matrix, int row) {
-        for (int col = 1; col < matrix[row].length; col++) {
-            if (matrix[row][col] == 0) {
+    private static boolean isRowFull(boolean[] row, int cols) {
+        // Skip first column (index 0) as it's the entrance
+        for (int col = 1; col < cols; col++) {
+            if (!row[col]) {
                 return false;
             }
         }
         return true;
     }
 
-    private static int calculateDistance(int[][] matrix, int entryRow, int destinationRow, int destinationCol) {
+    private static int calculateDistance(boolean[] row, int entryRow, int destinationRow, int destinationCol, int cols) {
+        // Base distance: vertical movement + 1 step to enter
         int distance = Math.abs(entryRow - destinationRow) + 1;
 
-        if (matrix[destinationRow][destinationCol] == 0) {
-            matrix[destinationRow][destinationCol] = 1;
+        // If desired spot is free
+        if (!row[destinationCol]) {
+            row[destinationCol] = true;
             return distance + destinationCol;
         }
 
-        int nearestSpot = findNearestFreeSpot(matrix, destinationRow, destinationCol);
-        matrix[destinationRow][nearestSpot] = 1;
-        return distance + nearestSpot;
-    }
+        // Find nearest free spot efficiently
+        int leftSpot = -1;
+        int rightSpot = -1;
 
-    private static int findNearestFreeSpot(int[][] matrix, int row, int desiredCol) {
-        int cols = matrix[row].length;
-
-        // Search in both directions from the desired column
-        for (int offset = 0; offset < cols; offset++) {
-            // Check left if possible
-            int leftCol = desiredCol - offset;
-            if (leftCol > 0 && matrix[row][leftCol] == 0) {
-                return leftCol;
-            }
-
-            // Check right if possible
-            int rightCol = desiredCol + offset;
-            if (rightCol < cols && matrix[row][rightCol] == 0) {
-                return rightCol;
+        // Check left
+        for (int col = destinationCol - 1; col > 0; col--) {
+            if (!row[col]) {
+                leftSpot = col;
+                break;
             }
         }
 
-        return -1; // Should never reach here as we check isRowFull first
+        // Check right
+        for (int col = destinationCol + 1; col < cols; col++) {
+            if (!row[col]) {
+                rightSpot = col;
+                break;
+            }
+        }
+
+        // Determine closest spot
+        int finalSpot;
+        if (leftSpot == -1 && rightSpot == -1) {
+            return -1; // Should never happen as we check isRowFull first
+        } else if (leftSpot == -1) {
+            finalSpot = rightSpot;
+        } else if (rightSpot == -1) {
+            finalSpot = leftSpot;
+        } else {
+            int leftDistance = destinationCol - leftSpot;
+            int rightDistance = rightSpot - destinationCol;
+            finalSpot = (leftDistance <= rightDistance) ? leftSpot : rightSpot;
+        }
+
+        row[finalSpot] = true;
+        return distance + finalSpot;
     }
 }
