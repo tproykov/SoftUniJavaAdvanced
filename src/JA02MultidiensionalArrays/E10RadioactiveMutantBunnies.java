@@ -23,7 +23,29 @@ public class E10RadioactiveMutantBunnies {
             }
         }
 
-        String direction = scanner.nextLine();
+        char[] directions = scanner.nextLine().toCharArray();
+
+        for (int i = 0; i < directions.length; i++) {
+
+            char direction = directions[i];
+
+
+
+
+            switch (direction) {
+
+                case 'R' -> {}
+
+                case 'L' -> {}
+
+                case 'U' -> {}
+
+                case 'D' -> {}
+            }
+
+
+
+        }
 
 
 
