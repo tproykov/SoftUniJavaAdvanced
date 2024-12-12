@@ -6,7 +6,6 @@ import java.util.Scanner;
 public class E10RadioactiveMutantBunnies {
 
     public static void main(String[] args) {
-
         Scanner scanner = new Scanner(System.in);
 
         int[] lairDimensions = Arrays.stream(scanner.nextLine().split("\\s+"))
@@ -21,6 +20,7 @@ public class E10RadioactiveMutantBunnies {
         boolean playerWon = false;
         boolean playerDied = false;
 
+        // Read initial lair state
         for (int i = 0; i < rows; i++) {
             String line = scanner.nextLine();
             for (int j = 0; j < columns; j++) {
@@ -33,140 +33,91 @@ public class E10RadioactiveMutantBunnies {
             }
         }
 
-        char[] directions = scanner.nextLine().toCharArray();
+        char[] playerMoves = scanner.nextLine().toCharArray();
 
-        for (char direction : directions) {
+        for (char move : playerMoves) {
+            // Save the player's current position
+            int playerOldRow = playerRowPosition;
+            int playerOldCol = playerColumnPosition;
 
-            int playerNewRowPosition = playerRowPosition;
-            int playerNewColumnPosition = playerColumnPosition;
+            // Move player
+            switch (move) {
+                case 'R' -> playerColumnPosition++;
+                case 'L' -> playerColumnPosition--;
+                case 'U' -> playerRowPosition--;
+                case 'D' -> playerRowPosition++;
+            }
 
-            switch (direction) {
+            // Remove player from old position
+            lair[playerOldRow][playerOldCol] = '.';
 
-                case 'R' -> {
-                    playerNewColumnPosition++;
-                    if (!isInside(lair, playerRowPosition, playerNewColumnPosition)) {
-                        lair[playerRowPosition][playerColumnPosition] = '.';
-                        playerWon = true;
-                    }
-                    else if (steppedOnBunny(lair, playerRowPosition, playerNewColumnPosition)) {
-                        lair[playerRowPosition][playerColumnPosition] = '.';
-                        playerDied = true;
-                    }
-                    else {
-                        playerColumnPosition = playerNewColumnPosition;
-                    }
+            // Check if player is out of bounds (won)
+            if (!isInside(lair, playerRowPosition, playerColumnPosition)) {
+                playerWon = true;
+                playerRowPosition = playerOldRow;
+                playerColumnPosition = playerOldCol;
+            } else {
+                // Check if player moved onto a bunny
+                if (lair[playerRowPosition][playerColumnPosition] == 'B') {
+                    playerDied = true;
+                } else {
+                    // Update player position on board
+                    lair[playerRowPosition][playerColumnPosition] = 'P';
                 }
+            }
 
-                case 'L' -> {
-                    playerNewColumnPosition--;
-                    if (!isInside(lair, playerRowPosition, playerNewColumnPosition)) {
-                        lair[playerRowPosition][playerColumnPosition] = '.';
-                        playerWon = true;
-                    }
-                    else if (steppedOnBunny(lair, playerRowPosition, playerNewColumnPosition)) {
-                        lair[playerRowPosition][playerColumnPosition] = '.';
-                        playerDied = true;
-                    }
-                    else {
-                        playerColumnPosition = playerNewColumnPosition;
-                    }
-                }
+            // Create a copy of the lair for simultaneous bunny spreading
+            char[][] newLair = new char[rows][columns];
+            for (int i = 0; i < rows; i++) {
+                newLair[i] = Arrays.copyOf(lair[i], columns);
+            }
 
-                case 'U' -> {
-                    playerNewRowPosition--;
-                    if (!isInside(lair, playerNewRowPosition, playerColumnPosition)) {
-                        lair[playerRowPosition][playerColumnPosition] = '.';
-                        playerWon = true;
-                    }
-                    else if (steppedOnBunny(lair, playerNewRowPosition, playerColumnPosition)) {
-                        lair[playerRowPosition][playerColumnPosition] = '.';
-                        playerDied = true;
-                    }
-                    else {
-                        playerRowPosition = playerNewRowPosition;
-                    }
-                }
+            // Spread bunnies
+            for (int row = 0; row < rows; row++) {
+                for (int col = 0; col < columns; col++) {
+                    if (lair[row][col] == 'B') {
+                        // Spread in all four directions
+                        int[][] spreadDirections = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+                        for (int[] dir : spreadDirections) {
+                            int newRow = row + dir[0];
+                            int newCol = col + dir[1];
 
-                case 'D' -> {
-                    playerRowPosition++;
-                    if (!isInside(lair, playerNewRowPosition, playerColumnPosition)) {
-                        lair[playerRowPosition][playerColumnPosition] = '.';
-                        playerWon = true;
-                    }
-                    else if (steppedOnBunny(lair, playerNewRowPosition, playerColumnPosition)) {
-                        lair[playerRowPosition][playerColumnPosition] = '.';
-                        playerDied = true;
-                    }
-                    else {
-                        playerRowPosition = playerNewRowPosition;
+                            if (isInside(lair, newRow, newCol)) {
+                                if (lair[newRow][newCol] == 'P') {
+                                    playerDied = true;
+                                }
+                                newLair[newRow][newCol] = 'B';
+                            }
+                        }
                     }
                 }
             }
 
+            // Update the lair with new bunny positions
+            lair = newLair;
+
             if (playerWon) {
                 printLair(lair);
-                System.out.print("won: ");
-                System.out.print(playerRowPosition + " " + playerColumnPosition);
+                System.out.println("won: " + playerRowPosition + " " + playerColumnPosition);
                 return;
             }
 
             if (playerDied) {
                 printLair(lair);
-                System.out.print("dead: ");
-                System.out.print(playerRowPosition + " " + playerColumnPosition);
+                System.out.println("dead: " + playerRowPosition + " " + playerColumnPosition);
                 return;
-            }
-
-            for (int row = 0; row < rows; row++) {
-                for (int col = 0; col < columns; col++) {
-
-                    if (lair[row][col] == 'B') {
-
-                        for (int bunnyRow = row - 1; bunnyRow <= row + 1; bunnyRow++) {
-                            if (isInside(lair, bunnyRow, col)) {
-                                if (steppedOnPlayer(lair, bunnyRow, col)) {
-                                    playerDied = true;
-                                }
-                                lair[bunnyRow][col] = 'B';
-                            }
-                        }
-                        for (int bunnyCol = col - 1; bunnyCol <= col + 1; bunnyCol++) {
-                            if (isInside(lair, bunnyCol, row)) {
-                                if (steppedOnPlayer(lair, row, bunnyCol)) {
-                                    playerDied = true;
-                                }
-                                lair[row][bunnyCol] = 'B';
-                            }
-                        }
-                    }
-
-                    if (playerDied) {
-                        printLair(lair);
-                        System.out.print("died: ");
-                        System.out.print(playerRowPosition + " " + playerColumnPosition);
-                        return;
-                    }
-                }
             }
         }
     }
 
-    private static boolean isInside(char[][] lairs, int row, int column) {
-        return row >= 0 && row < lairs.length && column >= 0 && column < lairs[0].length;
-    }
-
-    private static boolean steppedOnBunny(char[][] lair, int row, int column) {
-        return lair[row][column] == 'B';
-    }
-
-    private static boolean steppedOnPlayer(char[][] lair, int row, int column) {
-        return lair[row][column] == 'P';
+    private static boolean isInside(char[][] lair, int row, int column) {
+        return row >= 0 && row < lair.length && column >= 0 && column < lair[0].length;
     }
 
     private static void printLair(char[][] lair) {
         for (char[] row : lair) {
             for (char character : row) {
-                System.out.print(character + "");
+                System.out.print(character);
             }
             System.out.println();
         }
