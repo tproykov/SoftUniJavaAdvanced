@@ -14,12 +14,12 @@ public class E10RadioactiveMutantBunnies {
         int rows = lairDimensions[0];
         int columns = lairDimensions[1];
 
-        char[][] lairs = new char[rows][columns];
+        char[][] lair = new char[rows][columns];
 
         for (int i = 0; i < rows; i++) {
             String line = scanner.nextLine();
             for (int j = 0; j < columns; j++) {
-                lairs[i][j] = line.charAt(j);
+                lair[i][j] = line.charAt(j);
             }
         }
 
@@ -29,19 +29,30 @@ public class E10RadioactiveMutantBunnies {
 
             char direction = directions[i];
 
+            for (int row = 0; row < rows; row++) {
+                for (int col = 0; col < columns; col++) {
+                    if (lair[row][col] == 'B') {
 
+                        int rowNextBunny = row;
+                        int colNextBunny = col;
+                        switch (direction) {
+                            case 'R' -> colNextBunny++;
+                            case 'L' -> colNextBunny--;
+                            case 'U' -> rowNextBunny--;
+                            case 'D' -> rowNextBunny++;
+                        }
 
-
-            switch (direction) {
-
-                case 'R' -> {}
-
-                case 'L' -> {}
-
-                case 'U' -> {}
-
-                case 'D' -> {}
+                        if (isInside(lair, rowNextBunny, colNextBunny)) {
+                            lair[rowNextBunny][colNextBunny] = 'B';
+                        }
+                    }
+                }
             }
+
+
+
+
+
 
 
 
@@ -49,6 +60,10 @@ public class E10RadioactiveMutantBunnies {
 
 
 
+    }
+
+    private static boolean isInside(char[][] lairs, int row, int column) {
+        return row >= 0 && row < lairs.length && column >= 0 && column < lairs[0].length;
     }
 
 
