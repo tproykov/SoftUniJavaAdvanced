@@ -20,7 +20,6 @@ public class E10RadioactiveMutantBunnies {
         boolean playerWon = false;
         boolean playerDied = false;
 
-        // Read initial lair state
         for (int i = 0; i < rows; i++) {
             String line = scanner.nextLine();
             for (int j = 0; j < columns; j++) {
@@ -36,11 +35,10 @@ public class E10RadioactiveMutantBunnies {
         char[] playerMoves = scanner.nextLine().toCharArray();
 
         for (char move : playerMoves) {
-            // Save the player's current position
+
             int playerOldRow = playerRowPosition;
             int playerOldCol = playerColumnPosition;
 
-            // Move player
             switch (move) {
                 case 'R' -> playerColumnPosition++;
                 case 'L' -> playerColumnPosition--;
@@ -48,35 +46,29 @@ public class E10RadioactiveMutantBunnies {
                 case 'D' -> playerRowPosition++;
             }
 
-            // Remove player from old position
             lair[playerOldRow][playerOldCol] = '.';
 
-            // Check if player is out of bounds (won)
             if (!isInside(lair, playerRowPosition, playerColumnPosition)) {
                 playerWon = true;
                 playerRowPosition = playerOldRow;
                 playerColumnPosition = playerOldCol;
             } else {
-                // Check if player moved onto a bunny
                 if (lair[playerRowPosition][playerColumnPosition] == 'B') {
                     playerDied = true;
                 } else {
-                    // Update player position on board
                     lair[playerRowPosition][playerColumnPosition] = 'P';
                 }
             }
 
-            // Create a copy of the lair for simultaneous bunny spreading
-            char[][] newLair = new char[rows][columns];
+            char[][] newLair = new char[rows][columns];  // a lair copy for simultaneous bunny spreading
             for (int i = 0; i < rows; i++) {
                 newLair[i] = Arrays.copyOf(lair[i], columns);
             }
 
-            // Spread bunnies
             for (int row = 0; row < rows; row++) {
                 for (int col = 0; col < columns; col++) {
                     if (lair[row][col] == 'B') {
-                        // Spread in all four directions
+
                         int[][] spreadDirections = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
                         for (int[] dir : spreadDirections) {
                             int newRow = row + dir[0];
@@ -93,7 +85,6 @@ public class E10RadioactiveMutantBunnies {
                 }
             }
 
-            // Update the lair with new bunny positions
             lair = newLair;
 
             if (playerWon) {
