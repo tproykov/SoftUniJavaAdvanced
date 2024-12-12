@@ -18,6 +18,7 @@ public class E10RadioactiveMutantBunnies {
 
         int playerRowPosition = 0;
         int playerColumnPosition = 0;
+        boolean playerWon = false;
         boolean playerDied = false;
 
         for (int i = 0; i < rows; i++) {
@@ -36,21 +37,80 @@ public class E10RadioactiveMutantBunnies {
 
         for (char direction : directions) {
 
+            int playerNewRowPosition = playerRowPosition;
+            int playerNewColumnPosition = playerColumnPosition;
+
             switch (direction) {
-                case 'R' -> playerColumnPosition++;
-                case 'L' -> playerColumnPosition--;
-                case 'U' -> playerRowPosition--;
-                case 'D' -> playerRowPosition++;
+
+                case 'R' -> {
+                    playerNewColumnPosition++;
+                    if (!isInside(lair, playerRowPosition, playerNewColumnPosition)) {
+                        lair[playerRowPosition][playerColumnPosition] = '.';
+                        playerWon = true;
+                    }
+                    else if (steppedOnBunny(lair, playerRowPosition, playerNewColumnPosition)) {
+                        lair[playerRowPosition][playerColumnPosition] = '.';
+                        playerDied = true;
+                    }
+                    else {
+                        playerColumnPosition = playerNewColumnPosition;
+                    }
+                }
+
+                case 'L' -> {
+                    playerNewColumnPosition--;
+                    if (!isInside(lair, playerRowPosition, playerNewColumnPosition)) {
+                        lair[playerRowPosition][playerColumnPosition] = '.';
+                        playerWon = true;
+                    }
+                    else if (steppedOnBunny(lair, playerRowPosition, playerNewColumnPosition)) {
+                        lair[playerRowPosition][playerColumnPosition] = '.';
+                        playerDied = true;
+                    }
+                    else {
+                        playerColumnPosition = playerNewColumnPosition;
+                    }
+                }
+
+                case 'U' -> {
+                    playerNewRowPosition--;
+                    if (!isInside(lair, playerNewRowPosition, playerColumnPosition)) {
+                        lair[playerRowPosition][playerColumnPosition] = '.';
+                        playerWon = true;
+                    }
+                    else if (steppedOnBunny(lair, playerNewRowPosition, playerColumnPosition)) {
+                        lair[playerRowPosition][playerColumnPosition] = '.';
+                        playerDied = true;
+                    }
+                    else {
+                        playerRowPosition = playerNewRowPosition;
+                    }
+                }
+
+                case 'D' -> {
+                    playerRowPosition++;
+                    if (!isInside(lair, playerNewRowPosition, playerColumnPosition)) {
+                        lair[playerRowPosition][playerColumnPosition] = '.';
+                        playerWon = true;
+                    }
+                    else if (steppedOnBunny(lair, playerNewRowPosition, playerColumnPosition)) {
+                        lair[playerRowPosition][playerColumnPosition] = '.';
+                        playerDied = true;
+                    }
+                    else {
+                        playerRowPosition = playerNewRowPosition;
+                    }
+                }
             }
 
-            if (!isInside(lair, playerRowPosition, playerColumnPosition)) {
+            if (playerWon) {
                 printLair(lair);
                 System.out.print("won: ");
                 System.out.print(playerRowPosition + " " + playerColumnPosition);
                 return;
             }
 
-            if (steppedOnBunny(lair, playerRowPosition, playerColumnPosition)) {
+            if (playerDied) {
                 printLair(lair);
                 System.out.print("dead: ");
                 System.out.print(playerRowPosition + " " + playerColumnPosition);
@@ -79,11 +139,12 @@ public class E10RadioactiveMutantBunnies {
                             }
                         }
                     }
-                    
+
                     if (playerDied) {
                         printLair(lair);
                         System.out.print("died: ");
                         System.out.print(playerRowPosition + " " + playerColumnPosition);
+                        return;
                     }
                 }
             }
