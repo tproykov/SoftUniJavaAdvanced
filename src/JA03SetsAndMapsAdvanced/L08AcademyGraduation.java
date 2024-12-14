@@ -12,6 +12,7 @@ public class L08AcademyGraduation {
 
         Map<String, Double> studentsGrades = new TreeMap<>();
 
+
         for (int i = 0; i < n; i++) {
 
             String studentName = scanner.nextLine();
