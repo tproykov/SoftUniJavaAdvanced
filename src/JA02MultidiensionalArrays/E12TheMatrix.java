@@ -18,11 +18,39 @@ public class E12TheMatrix {
 
         populateStringMatrix(matrix, scanner);
 
-        char 
+        char fillChar = scanner.nextLine().charAt(0);
 
+        int[] startPositions = Arrays.stream(scanner.nextLine().split(" "))
+                .mapToInt(Integer::parseInt).toArray();
+        int startRow = startPositions[0];
+        int startCol = startPositions[1];
 
+        String startChar = matrix[startRow][startCol];
 
+        floodFill(matrix, startRow, startCol, startChar, String.valueOf(fillChar));
 
+        printMatrix(matrix);
+    }
+
+    private static void floodFill(String[][] matrix, int row, int col, String startChar, String fillChar) {
+        // Check if current position is out of bounds
+        if (row < 0 || row >= matrix.length || col < 0 || col >= matrix[0].length) {
+            return;
+        }
+
+        // Check if current position is not the target character
+        if (!matrix[row][col].equals(startChar)) {
+            return;
+        }
+
+        // Fill current position
+        matrix[row][col] = fillChar;
+
+        // Recursively fill adjacent positions (up, down, left, right)
+        floodFill(matrix, row - 1, col, startChar, fillChar);  // up
+        floodFill(matrix, row + 1, col, startChar, fillChar);  // down
+        floodFill(matrix, row, col - 1, startChar, fillChar);  // left
+        floodFill(matrix, row, col + 1, startChar, fillChar);  // right
     }
 
     private static void populateStringMatrix(String[][] matrix, Scanner scanner) {
@@ -35,4 +63,12 @@ public class E12TheMatrix {
         }
     }
 
+    private static void printMatrix(String[][] matrix) {
+        for (String[] row : matrix) {
+            for (String element : row) {
+                System.out.print(element);
+            }
+            System.out.println();
+        }
+    }
 }
