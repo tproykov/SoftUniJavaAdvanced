@@ -43,14 +43,12 @@ public class E12TheMatrix {
             return;
         }
 
-        // Fill current position
         matrix[row][col] = fillChar;
 
-        // Recursively fill adjacent positions (up, down, left, right)
-        floodFill(matrix, row - 1, col, startChar, fillChar);  // up
-        floodFill(matrix, row + 1, col, startChar, fillChar);  // down
-        floodFill(matrix, row, col - 1, startChar, fillChar);  // left
-        floodFill(matrix, row, col + 1, startChar, fillChar);  // right
+        floodFill(matrix, row - 1, col, startChar, fillChar);
+        floodFill(matrix, row + 1, col, startChar, fillChar);
+        floodFill(matrix, row, col - 1, startChar, fillChar);
+        floodFill(matrix, row, col + 1, startChar, fillChar);
     }
 
     private static void populateStringMatrix(String[][] matrix, Scanner scanner) {
