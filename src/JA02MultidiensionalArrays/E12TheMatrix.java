@@ -14,9 +14,9 @@ public class E12TheMatrix {
         int rows = matrixDimensions[0];
         int cols = matrixDimensions[1];
 
-        String[][] matrix = new String[rows][cols];
+        char[][] matrix = new char[rows][cols];
 
-        populateStringMatrix(matrix, scanner);
+        populateCharMatrix(matrix, scanner);
 
         char fillChar = scanner.nextLine().charAt(0);
 
@@ -25,9 +25,9 @@ public class E12TheMatrix {
         int startRow = startPositions[0];
         int startCol = startPositions[1];
 
-        String startChar = matrix[startRow][startCol];
+        char startChar = matrix[startRow][startCol];
 
-        floodFill(matrix, startRow, startCol, startChar, String.valueOf(fillChar));
+        floodFill(matrix, startRow, startCol, startChar, fillChar);
 
         printMatrix(matrix);
     }
@@ -51,19 +51,19 @@ public class E12TheMatrix {
         floodFill(matrix, row, col + 1, startChar, fillChar);
     }
 
-    private static void populateStringMatrix(String[][] matrix, Scanner scanner) {
+    private static void populateCharMatrix(char[][] matrix, Scanner scanner) {
 
         for (int row = 0; row < matrix.length; row++) {
             for (int col = 0; col < matrix[row].length; col++) {
-                matrix[row][col] = scanner.next();
+                matrix[row][col] = scanner.next().charAt(0);
             }
             scanner.nextLine();
         }
     }
 
-    private static void printMatrix(String[][] matrix) {
-        for (String[] row : matrix) {
-            for (String element : row) {
+    private static void printMatrix(char[][] matrix) {
+        for (char[] row : matrix) {
+            for (char element : row) {
                 System.out.print(element);
             }
             System.out.println();
