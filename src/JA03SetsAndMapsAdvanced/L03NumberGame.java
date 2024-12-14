@@ -23,9 +23,9 @@ public class L03NumberGame {
             round++;
 
             int firstPlayerCard = firstPlayerHand.iterator().next();
-            int secondPlayerCard = secondPlayerHand.iterator().next();
-
             firstPlayerHand.remove(firstPlayerCard);
+
+            int secondPlayerCard = secondPlayerHand.iterator().next();
             secondPlayerHand.remove(secondPlayerCard);
 
             if (firstPlayerCard > secondPlayerCard) {
@@ -38,11 +38,11 @@ public class L03NumberGame {
             }
         }
 
-        if (firstPlayerHand.isEmpty()) {
-            System.out.println("First player wins!");
+        if (firstPlayerHand.size() > secondPlayerHand.size()) {
+            System.out.println("First player win!");
         }
-        else if (secondPlayerHand.isEmpty()) {
-            System.out.println("Second player wins!");
+        else if (secondPlayerHand.size() > firstPlayerHand.size()) {
+            System.out.println("Second player win!");
         }
         else {
             System.out.println("Draw!");
