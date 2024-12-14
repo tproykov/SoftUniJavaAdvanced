@@ -18,7 +18,7 @@ public class L03NumberGame {
                 .forEach(secondPlayerHand::add);
 
         int round = 0;
-        while (round <= 50 && !firstPlayerHand.isEmpty() && !secondPlayerHand.isEmpty()) {
+        while (round < 50 && !firstPlayerHand.isEmpty() && !secondPlayerHand.isEmpty()) {
 
             round++;
 
