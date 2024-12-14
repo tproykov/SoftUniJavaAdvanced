@@ -1,6 +1,7 @@
 package JA03SetsAndMapsAdvanced;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class E08UserLogs {
 
@@ -23,15 +24,18 @@ public class E08UserLogs {
             usersIps.get(userName).put(ipAddress, usersIps.get(userName).get(ipAddress) + 1);
         }
 
-        for (Map.Entry<String, LinkedHashMap<String, Integer>> entry : usersIps.entrySet()) {
+        for (Map.Entry<String, LinkedHashMap<String, Integer>> outerEntry : usersIps.entrySet()) {
 
-            System.out.println(entry.getKey() + ":");
+            System.out.println(outerEntry.getKey() + ":");
 
-            LinkedHashMap<String, Integer> ips = entry.getValue();
-            for (Map.Entry<String, Integer> ip : ips.entrySet()) {
+            LinkedHashMap<String, Integer> ips = outerEntry.getValue();
 
-                System.out.println(ip.getKey() + " => " + ip.getValue());
-            }
+            String result = ips.entrySet()
+                    .stream()
+                    .map(entry -> entry.getKey() + " => " + entry.getValue())
+                    .collect(Collectors.joining(", "));
+
+            System.out.println(result + ".");
         }
     }
 }
