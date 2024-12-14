@@ -20,11 +20,8 @@ public class L05AverageStudentGrades {
 
             if (!studentGrades.containsKey(studentName)) {
                 studentGrades.put(studentName, new ArrayList<>());
-                studentGrades.get(studentName).add(studentGrade);
             }
-            else {
-                studentGrades.get(studentName).add(studentGrade);
-            }
+            studentGrades.get(studentName).add(studentGrade);
         }
 
         for (Map.Entry<String, List<Double>> entry : studentGrades.entrySet()) {

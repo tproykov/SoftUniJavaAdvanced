@@ -19,11 +19,9 @@ public class L06ProductShop {
 
             if (!chainsProducts.containsKey(chainName)) {
                 chainsProducts.put(chainName, new ArrayList<>());
-                chainsProducts.get(chainName).add(productNameAndPrice);
             }
-            else {
-                chainsProducts.get(chainName).add(productNameAndPrice);
-            }
+
+            chainsProducts.get(chainName).add(productNameAndPrice);
         }
 
         printOutput(chainsProducts);
