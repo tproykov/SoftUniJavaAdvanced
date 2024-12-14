@@ -32,14 +32,12 @@ public class E12TheMatrix {
         printMatrix(matrix);
     }
 
-    private static void floodFill(String[][] matrix, int row, int col, String startChar, String fillChar) {
-        // Check if current position is out of bounds
+    private static void floodFill(char[][] matrix, int row, int col, char startChar, char fillChar) {
         if (row < 0 || row >= matrix.length || col < 0 || col >= matrix[0].length) {
             return;
         }
 
-        // Check if current position is not the target character
-        if (!matrix[row][col].equals(startChar)) {
+        if (matrix[row][col] != startChar) {
             return;
         }
 
