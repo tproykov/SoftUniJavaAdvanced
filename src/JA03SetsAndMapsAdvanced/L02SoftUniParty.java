@@ -1,9 +1,6 @@
 package JA03SetsAndMapsAdvanced;
 
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 
 public class L02SoftUniParty {
 
@@ -11,8 +8,8 @@ public class L02SoftUniParty {
 
         Scanner scanner = new Scanner(System.in);
 
-        Set<String> vipGuests = new LinkedHashSet<>();
-        Set<String> guests = new LinkedHashSet<>();
+        Set<String> vipGuests = new TreeSet<>();
+        Set<String> guests = new TreeSet<>();
 
         String input1;
         while (!(input1 = scanner.nextLine()).equals("PARTY")) {
