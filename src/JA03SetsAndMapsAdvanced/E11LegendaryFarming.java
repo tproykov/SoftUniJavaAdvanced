@@ -1,18 +1,14 @@
 package JA03SetsAndMapsAdvanced;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class E11LegendaryFarming {
 
     public static void main(String[] args) {
-
         Scanner scanner = new Scanner(System.in);
 
-        String[] input = scanner.nextLine().split("\\s+");
-
         Map<String, Integer> keyMaterials = new LinkedHashMap<>();
+        Map<String, Integer> junkMaterials = new TreeMap<>(); // Using TreeMap for automatic alphabetical sorting
 
         keyMaterials.put("shards", 0);
         keyMaterials.put("fragments", 0);
@@ -22,52 +18,40 @@ public class E11LegendaryFarming {
         String legendaryItem = "";
         boolean legendaryItemObtained = false;
 
-        while (true) {
+        while (!legendaryItemObtained) {
+            String[] input = scanner.nextLine().split("\\s+");
 
             for (int i = 1; i < input.length; i += 2) {
-
                 String material = input[i].toLowerCase();
                 int quantity = Integer.parseInt(input[i - 1]);
 
-                if (!keyMaterials.containsKey(material)) {
-                    keyMaterials.put(material, quantity);
-                } else {
+                if (material.equals("shards") || material.equals("fragments") || material.equals("motes")) {
                     keyMaterials.put(material, keyMaterials.get(material) + quantity);
-                }
 
-                int totalQuantity = keyMaterials.get(material);
-                if (totalQuantity >= 250 && (material.equals("shards")
-                        || material.equals("fragments")
-                        || material.equals("motes"))) {
-                    legendaryItemObtained = true;
-                    winningMaterial = material;
-                    keyMaterials.put(winningMaterial, keyMaterials.get(winningMaterial) - 250);
-                    break;
-                }
-            }
-
-            if (legendaryItemObtained) {
-                switch (winningMaterial) {
-                    case "shards" -> legendaryItem = "Shadowmourne";
-                    case "fragments" -> legendaryItem = "Valanyr";
-                    case "motes" -> legendaryItem = "Dragonwrath";
-                }
-                System.out.println(legendaryItem + " obtained!");
-
-                System.out.println("shards: " + keyMaterials.get("shards"));
-                System.out.println("fragments: " + keyMaterials.get("fragments"));
-                System.out.println("motes: " + keyMaterials.get("motes"));
-
-                for (String currentMaterial : keyMaterials.keySet()) {
-                    if (!currentMaterial.equals("shards") && !currentMaterial.equals("fragments")
-                            && !currentMaterial.equals("motes")) {
-                        System.out.println(currentMaterial + ": "
-                                + keyMaterials.get(currentMaterial));
+                    if (keyMaterials.get(material) >= 250) {
+                        legendaryItemObtained = true;
+                        winningMaterial = material;
+                        keyMaterials.put(material, keyMaterials.get(material) - 250);
+                        break;
                     }
+                } else {
+                    junkMaterials.put(material, junkMaterials.getOrDefault(material, 0) + quantity);
                 }
-                return;
             }
-            input = scanner.nextLine().split("\\s+");
         }
+
+        switch (winningMaterial) {
+            case "shards" -> legendaryItem = "Shadowmourne";
+            case "fragments" -> legendaryItem = "Valanyr";
+            case "motes" -> legendaryItem = "Dragonwrath";
+        }
+        System.out.println(legendaryItem + " obtained!");
+
+        keyMaterials.entrySet().stream()
+                .sorted(Map.Entry.<String, Integer>comparingByValue().reversed()
+                        .thenComparing(Map.Entry.comparingByKey()))
+                .forEach(entry -> System.out.println(entry.getKey() + ": " + entry.getValue()));
+
+        junkMaterials.forEach((key, value) -> System.out.println(key + ": " + value));
     }
 }
