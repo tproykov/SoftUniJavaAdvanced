@@ -14,5 +14,7 @@ public class L01ReadFile {
             System.out.print(Integer.toBinaryString(oneByte) + " ");
             oneByte = fileStream.read();
         }
+
+        fileStream.close();
     }
 }
