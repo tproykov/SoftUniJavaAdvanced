@@ -1,7 +1,6 @@
 package JA03SetsAndMapsAdvanced;
 
-import java.util.LinkedHashMap;
-import java.util.Scanner;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -33,6 +32,27 @@ public class E12SerbianUnleashed {
                 venuesSingersRevenue.get(venue).putIfAbsent(singer, 0);
                 venuesSingersRevenue.get(venue).put(singer, venuesSingersRevenue.get(venue)
                         .get(singer) + revenue);
+            }
+        }
+
+        printOutput(venuesSingersRevenue);
+    }
+
+    private static void printOutput(LinkedHashMap<String, LinkedHashMap<String, Integer>> map) {
+
+        for (Map.Entry<String, LinkedHashMap<String, Integer>> entry : map.entrySet()) {
+
+            System.out.println(entry.getKey());
+
+            LinkedHashMap<String, Integer> singersRevenue = entry.getValue();
+
+            List<Map.Entry<String, Integer>> sortedList = new ArrayList<>(singersRevenue.entrySet());
+
+            sortedList.sort((e1, e2) -> e2.getValue()
+                    .compareTo(e1.getValue()));
+
+            for (Map.Entry<String, Integer> singerEntry : sortedList) {
+                System.out.println("#  " + singerEntry.getKey() + " -> " + singerEntry.getValue());
             }
         }
     }
