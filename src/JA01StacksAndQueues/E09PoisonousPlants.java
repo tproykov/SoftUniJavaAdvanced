@@ -21,34 +21,33 @@ public class E09PoisonousPlants {
     }
 
     public static int countDaysUntilStable(int[] pesticides) {
-
         if (pesticides == null || pesticides.length <= 1) {
             return 0;
         }
 
         int[] current = pesticides.clone();
         int days = 0;
-        int prevSize = current.length;
 
         while (true) {
-
             ArrayList<Integer> survivors = new ArrayList<>();
-            survivors.add(current[0]);  // First plant always survives
+            survivors.add(current[0]);
+            boolean anyDied = false;
 
             for (int i = 1; i < current.length; i++) {
-                if (current[i] <= current[i-1]) {
+                if (current[i] <= current[i - 1]) {
                     survivors.add(current[i]);
+                } else {
+                    // This plant dies today
+                    anyDied = true;
                 }
+            }
+
+            if (!anyDied) {
+                return days;
             }
 
             days++;
 
-            // Check if stable: no changes occurred or only one plant remains?
-            if (survivors.size() == prevSize || survivors.size() <= 1) {
-                return days - 1;
-            }
-
-            prevSize = survivors.size();
             current = new int[survivors.size()];
             for (int i = 0; i < survivors.size(); i++) {
                 current[i] = survivors.get(i);
