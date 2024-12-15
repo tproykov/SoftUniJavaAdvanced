@@ -8,7 +8,7 @@ public class L01ReadFile {
 
         Scanner scanner = new Scanner(System.in);
 
-        
+
 
     }
 
