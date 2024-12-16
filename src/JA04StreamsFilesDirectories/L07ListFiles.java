@@ -6,7 +6,7 @@ public class L07ListFiles {
 
     public static void main(String[] args) {
 
-        File folder = new File("C:\\Users\\todor\\Zoho WorkDrive (Dr Todor Proykov)\\My Folders\\GitHub Repositories\\SoftUniJavaAdvanced\\src\\JA04StreamsFilesDirectories\\resources");
+        File folder = new File("src/JA04StreamsFilesDirectories/resources");
 
         File[] files = folder.listFiles();
         for (File file : files) {

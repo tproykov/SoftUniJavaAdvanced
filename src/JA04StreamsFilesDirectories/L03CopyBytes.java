@@ -8,10 +8,10 @@ public class L03CopyBytes {
 
     public static void main(String[] args) throws IOException {
 
-        String pathToRead = "C:\\Users\\todor\\Zoho WorkDrive (Dr Todor Proykov)\\My Folders\\GitHub Repositories\\SoftUniJavaAdvanced\\src\\JA04StreamsFilesDirectories\\resources\\input.txt";
+        String pathToRead = "src/JA04StreamsFilesDirectories/resources/input.txt";
         FileInputStream fileInputStream = new FileInputStream(pathToRead);
 
-        String pathToWrite = "C:\\Users\\todor\\Zoho WorkDrive (Dr Todor Proykov)\\My Folders\\GitHub Repositories\\SoftUniJavaAdvanced\\src\\JA04StreamsFilesDirectories\\resources\\03.CopyBytesOutput.txt";
+        String pathToWrite = "src/JA04StreamsFilesDirectories/resources/03.CopyBytesOutput.txt";
         FileOutputStream fileOutputStream = new FileOutputStream(pathToWrite);
 
         int oneByte = fileInputStream.read();

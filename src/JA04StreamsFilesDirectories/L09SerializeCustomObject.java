@@ -16,7 +16,7 @@ public class L09SerializeCustomObject {
 //        oos.close();
 
 
-        FileInputStream fis = new FileInputStream("C:\\Users\\todor\\Zoho WorkDrive (Dr Todor Proykov)\\My Folders\\GitHub Repositories\\SoftUniJavaAdvanced\\src\\JA04StreamsFilesDirectories\\resources\\output.txt");
+        FileInputStream fis = new FileInputStream("src/JA04StreamsFilesDirectories/resources/output.txt");
         ObjectInputStream ois = new ObjectInputStream(fis);
 
         Person person = (Person) ois.readObject();

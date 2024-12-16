@@ -10,7 +10,7 @@ public class L05WriteEveryThirdLine {
 
     public static void main(String[] args) throws FileNotFoundException {
 
-        String path = "C:\\Users\\todor\\Zoho WorkDrive (Dr Todor Proykov)\\My Folders\\GitHub Repositories\\SoftUniJavaAdvanced\\src\\JA04StreamsFilesDirectories\\resources\\input.txt";
+        String path = "src/JA04StreamsFilesDirectories/resources/input.txt";
 
         FileInputStream fileInputStream = new FileInputStream(path);
         Scanner scanner = new Scanner(fileInputStream);

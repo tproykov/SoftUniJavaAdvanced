@@ -10,7 +10,7 @@ public class L06SortLines {
 
     public static void main(String[] args) throws IOException {
 
-        String path = "C:\\Users\\todor\\Zoho WorkDrive (Dr Todor Proykov)\\My Folders\\GitHub Repositories\\SoftUniJavaAdvanced\\src\\JA04StreamsFilesDirectories\\resources\\input.txt";
+        String path = "src/JA04StreamsFilesDirectories/resources/input.txt";
 
         List<String> lines = Files.readAllLines(Path.of(path));
 

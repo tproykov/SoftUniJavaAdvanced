@@ -6,7 +6,7 @@ import java.util.Queue;
 
 public class L08NestedFolders {
     public static void main(String[] args) {
-        File folder = new File("C:\\Users\\todor\\Zoho WorkDrive (Dr Todor Proykov)\\My Folders\\GitHub Repositories\\SoftUniJavaAdvanced\\src\\JA04StreamsFilesDirectories\\resources");
+        File folder = new File("src/JA04StreamsFilesDirectories/resources");
 
         int folderCount = 0;
         Queue<File> folders = new ArrayDeque<>();
