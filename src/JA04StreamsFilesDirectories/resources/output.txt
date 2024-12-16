@@ -1,4 +1,4 @@
 Vowels: 41
-Others: 72
+Other symbols: 72
 Punctuation: 6
 

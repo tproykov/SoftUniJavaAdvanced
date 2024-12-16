@@ -50,7 +50,7 @@ public class E04CountCharacterTypes {
             }
 
             bufferedWriter.write("Vowels: " + vowels + "\n");
-            bufferedWriter.write("Others: " + others + "\n");
+            bufferedWriter.write("Other symbols: " + others + "\n");
             bufferedWriter.write("Punctuation: " + punctuation + "\n");
             bufferedWriter.newLine();
 
