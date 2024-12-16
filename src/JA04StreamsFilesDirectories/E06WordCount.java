@@ -27,7 +27,7 @@ public class E06WordCount {
 
                 String[] words = line.split(" ");
                 wordList.addAll(Arrays.asList(words));
-                
+
                 line = wordReader.readLine();
             }
 
