@@ -32,9 +32,5 @@ public class E05LineNumbers {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-
-
     }
-
 }
