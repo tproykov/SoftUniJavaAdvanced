@@ -1,0 +1,4 @@
+Vowels: 41
+Others: 90
+Punctuation: 6
+
