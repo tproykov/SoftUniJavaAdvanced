@@ -1,6 +1,7 @@
 package JA05FunctionalProgramming;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class L03CountUpperCaseWords {
@@ -9,18 +10,11 @@ public class L03CountUpperCaseWords {
 
         Scanner scanner = new Scanner(System.in);
 
-        String[] words = Arrays.stream(scanner.nextLine()
-                        .split("\\s+"))
+        List<String> words = Arrays.stream(scanner.nextLine().split("\\s+"))
                 .filter(word -> Character.isUpperCase(word.charAt(0)))
-                .toArray(String[]::new);
+                .toList();
 
-        System.out.println(words.length);
-        for (String word : words) {
-            System.out.println(word);
-        }
-
-
-
+        System.out.println(words.size());
+        words.forEach(System.out::println);
     }
-
 }
