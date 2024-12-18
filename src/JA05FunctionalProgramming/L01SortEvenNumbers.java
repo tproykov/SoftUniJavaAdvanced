@@ -14,9 +14,9 @@ public class L01SortEvenNumbers {
                 .filter(n -> n % 2 == 0)
                 .toList();
 
-        System.out.println(numbers.stream()
-                .map(String::valueOf)
-                .collect(Collectors.joining(", ")));
+        System.out.println(numbers.toString()
+                .replaceAll("\\[", "")
+                .replaceAll("]", ""));
 
         System.out.println(numbers.stream()
                 .sorted()
