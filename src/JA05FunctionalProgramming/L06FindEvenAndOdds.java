@@ -1,6 +1,7 @@
 package JA05FunctionalProgramming;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.function.Predicate;
@@ -11,9 +12,7 @@ public class L06FindEvenAndOdds {
 
         Scanner scanner = new Scanner(System.in);
 
-        String[] input = scanner.nextLine().split("\\s+");
-        int lowerBound = Integer.parseInt(input[0]);
-        int upperBound = Integer.parseInt(input[1]);
+        int[] bounds = Arrays.stream(scanner.nextLine().split("\\s+")).mapToInt(Integer::parseInt).toArray();
         String condition = scanner.nextLine();
 
         Predicate<Integer> predicate = condition.equals("even")
@@ -21,7 +20,7 @@ public class L06FindEvenAndOdds {
                 : number -> number % 2 != 0;
 
         List<Integer> numbers = new ArrayList<>();
-        for (int i = lowerBound; i <= upperBound; i++) {
+        for (int i = bounds[0]; i <= bounds[1]; i++) {
             if (predicate.test(i)) {
                 numbers.add(i);
             }
