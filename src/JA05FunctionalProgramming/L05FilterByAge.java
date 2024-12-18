@@ -12,7 +12,7 @@ public class L05FilterByAge {
 
         Scanner scanner = new Scanner(System.in);
 
-        int n = Integer.parseInt(args[0]);
+        int n = Integer.parseInt(scanner.nextLine());
 
         Map<String, Integer> people = new LinkedHashMap<>();
         for (int i = 0; i < n; i++) {
