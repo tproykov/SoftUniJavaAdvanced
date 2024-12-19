@@ -8,7 +8,7 @@ public class E06PredicateForNames {
 
         Scanner scanner = new Scanner(System.in);
 
-        
+
 
     }
 
