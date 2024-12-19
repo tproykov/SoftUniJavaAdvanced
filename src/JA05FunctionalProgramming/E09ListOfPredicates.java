@@ -8,7 +8,7 @@ public class E09ListOfPredicates {
 
         Scanner scanner = new Scanner(System.in);
 
-        
+
 
     }
 
