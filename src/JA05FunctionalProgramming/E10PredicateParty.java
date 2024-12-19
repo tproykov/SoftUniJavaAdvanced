@@ -8,7 +8,7 @@ public class E10PredicateParty {
 
         Scanner scanner = new Scanner(System.in);
 
-        
+
 
     }
 
