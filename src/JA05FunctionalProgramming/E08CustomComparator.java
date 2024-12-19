@@ -8,7 +8,7 @@ public class E08CustomComparator {
 
         Scanner scanner = new Scanner(System.in);
 
-        
+
 
     }
 
