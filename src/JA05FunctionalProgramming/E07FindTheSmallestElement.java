@@ -8,7 +8,7 @@ public class E07FindTheSmallestElement {
 
         Scanner scanner = new Scanner(System.in);
 
-        
+
 
     }
 
