@@ -8,7 +8,7 @@ public class E11ThePartyReservation {
 
         Scanner scanner = new Scanner(System.in);
 
-        
+
 
     }
 
