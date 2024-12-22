@@ -1,4 +1,4 @@
-package JA06DefiningClasses.L01CarInfo;
+package JA06DefiningClasses.L02CarConstructors;
 
 public class Car {
 
