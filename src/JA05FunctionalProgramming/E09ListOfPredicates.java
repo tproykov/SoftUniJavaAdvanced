@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class E09ListOfPredicates {
@@ -23,10 +24,9 @@ public class E09ListOfPredicates {
                 .allMatch(x -> num % x == 0);
 
         String result = IntStream.rangeClosed(1, n)
-                .filter(num -> isDivisible.test(num))
-                .mapToObj(String::valueOf)
-                .reduce((a, b) -> a + " " + b)
-                .orElse("");
+                .filter(isDivisible::test)
+                .mapToObj(Integer::toString)
+                .collect(Collectors.joining(" "));
 
         System.out.println(result);
     }
