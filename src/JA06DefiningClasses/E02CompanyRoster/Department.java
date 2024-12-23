@@ -1,23 +1,25 @@
 package JA06DefiningClasses.E02CompanyRoster;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class Department {
 
     private String name;
-    private Set<Employee> employees;
+    private List<Employee> employees;
 
     public Department(String name) {
         this.name = name;
-        this.employees = new HashSet<>();
+        this.employees = new ArrayList<>();
     }
 
     public String getName() {
         return name;
     }
 
-    public Set<Employee> getEmployees() {
+    public List<Employee> getEmployees() {
         return employees;
     }
 

@@ -32,30 +32,30 @@ public class Main {
 
             Employee employee;
 
-            if (input.contains("email") && input.contains("age")) {
+            if (tokens.length == 6) {
                 String email = tokens[4];
                 int age = Integer.parseInt(tokens[5]);
                 employee = new Employee(name, salary, position, departmentName, email, age);
                 department.addEmployee(employee);
-            } else {
-                if (input.contains("email")) {
-                    String email = tokens[4];
-                    employee = new Employee(name, salary, position, departmentName, email);
-                    department.addEmployee(employee);
-                } else if (input.contains("age")) {
+            } else if (tokens.length == 5) {
+                if (tokens[4].matches("\\d+")) {
                     int age = Integer.parseInt(tokens[4]);
                     employee = new Employee(name, salary, position, departmentName, age);
                     department.addEmployee(employee);
                 } else {
-                    employee = new Employee(name, salary, position, departmentName);
+                    String email = tokens[4];
+                    employee = new Employee(name, salary, position, departmentName, email);
                     department.addEmployee(employee);
                 }
+            } else {
+                employee = new Employee(name, salary, position, departmentName);
+                department.addEmployee(employee);
             }
         }
 
         Department department = departmentMap
                 .values()
-                .stream().min((d1, d2) -> Double.compare(d2.getAvgSalary(), d1.getAvgSalary()))
+                .stream().max((d1, d2) -> Double.compare(d1.getAvgSalary(), d2.getAvgSalary()))
                 .get();
 
         System.out.printf("Highest Average Salary: %s\n", department.getName());
