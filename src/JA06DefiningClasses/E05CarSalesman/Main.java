@@ -13,7 +13,6 @@ public class Main {
         int n = Integer.parseInt(scanner.nextLine());
 
         List<Engine> engines = new ArrayList<>();
-
         for (int i = 0; i < n; i++) {
 
             String[] tokens = scanner.nextLine().split("\\s+");
@@ -50,7 +49,26 @@ public class Main {
 
         int m = Integer.parseInt(scanner.nextLine());
 
+        List<Car> cars = new ArrayList<>();
         for (int i = 0; i < m; i++) {
+
+            String[] tokens = scanner.nextLine().split("\\s+");
+            String model = tokens[0];
+            String engine = tokens[1];
+
+            Car car;
+            if (tokens.length == 4) {
+                int weight = Integer.parseInt(tokens[2]);
+                String color = tokens[3];
+
+                car = new Car(model, Engine, weight, color)
+            }
+
+
+
+            
+
+
 
 
 
