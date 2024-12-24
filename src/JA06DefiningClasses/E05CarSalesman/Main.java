@@ -25,9 +25,24 @@ public class Main {
             Engine engine;
             if (tokens.length == 4) {
                 int displacement = Integer.parseInt(tokens[2]);
-                int efficiency = Integer.parseInt(tokens[3]);
+                String efficiency = tokens[3];
 
                 engine = new Engine(model, power, displacement, efficiency);
+            }
+            else if (tokens.length == 3) {
+                if (tokens[2].matches("")) {
+
+
+
+
+
+                    
+                }
+
+
+
+
+
             }
 
 
@@ -42,7 +57,6 @@ public class Main {
 
 
 
-            Engine engine = new Engine();
 
 
 
