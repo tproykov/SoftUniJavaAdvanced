@@ -5,17 +5,33 @@ public class Engine {
     private String model;
     private int horsePower;
     private int displacement;
-    private int efficiency;
+    private String efficiency;
 
-    public Engine(String model, int horsePower) {
+    public Engine(String model, int horsePower, int displacement, String efficiency) {
         this.model = model;
         this.horsePower = horsePower;
-        this.displacement = 0;
-        this.efficiency = 0;
-
-
-
-        
-
+        this.displacement = displacement;
+        this.efficiency = efficiency;
     }
+
+    public Engine(String model, int horsePower, int displacement) {
+        this(model, horsePower, displacement, "");
+    }
+
+    public Engine(String model, int horsePower, String efficiency) {
+        this(model, horsePower, 0, efficiency);
+    }
+
+    public Engine(String model, int horsePower) {
+        this(model, horsePower, 0, "");
+    }
+
+
+    
+
+
+
+
+
+
 }
