@@ -12,8 +12,6 @@ public class Main {
 
         int n = Integer.parseInt(scanner.nextLine());
 
-        int m = Integer.parseInt(scanner.nextLine());
-
         List<Engine> engines = new ArrayList<>();
 
         for (int i = 0; i < n; i++) {
@@ -28,40 +26,38 @@ public class Main {
                 String efficiency = tokens[3];
 
                 engine = new Engine(model, power, displacement, efficiency);
+                engines.add(engine);
             }
             else if (tokens.length == 3) {
-                if (tokens[2].matches("")) {
+                if (tokens[2].matches("\\d+")) {
+                    int displacement = Integer.parseInt(tokens[2]);
 
-
-
-
-
-                    
+                    engine = new Engine(model, power, displacement);
+                    engines.add(engine);
                 }
+                else {
+                    String efficiency = tokens[2];
 
-
-
-
-
+                    engine = new Engine(model, power, efficiency);
+                    engines.add(engine);
+                }
             }
+            else {
+                engine = new Engine(model, power);
+                engines.add(engine);
+            }
+        }
+
+        int m = Integer.parseInt(scanner.nextLine());
+
+        for (int i = 0; i < m; i++) {
 
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+            
         }
 
 
