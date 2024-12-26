@@ -55,7 +55,6 @@ public class Main {
             String model = tokens[0];
             String engineModel = tokens[1];
 
-            // Find the engine object with the given model
             Engine engineObject = null;
             for (Engine eng : engines) {
                 if (eng.getModel().equals(engineModel)) {
@@ -70,10 +69,10 @@ public class Main {
                 String color = tokens[3];
                 car = new Car(model, engineObject, weight, color);
             } else if (tokens.length == 3) {
-                try {
+                if (tokens[2].matches("\\d+")) {
                     int weight = Integer.parseInt(tokens[2]);
                     car = new Car(model, engineObject, weight);
-                } catch (NumberFormatException e) {
+                } else {
                     String color = tokens[2];
                     car = new Car(model, engineObject, color);
                 }
@@ -83,14 +82,8 @@ public class Main {
             cars.add(car);
         }
 
-// Print all cars
         for (Car car : cars) {
             System.out.println(car);
         }
-
-
-
-
     }
-
 }
