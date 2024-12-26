@@ -26,6 +26,13 @@ public class Car {
         this(model, engine, 0, "");
     }
 
-
-
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(this.model).append(":").append(System.lineSeparator());
+        sb.append(this.engine.toString()).append(System.lineSeparator());
+        sb.append("Weight: ").append(this.weight == 0 ? "n/a" : this.weight).append(System.lineSeparator());
+        sb.append("Color: ").append(this.color.isEmpty() ? "n/a" : this.color);
+        return sb.toString();
+    }
 }
