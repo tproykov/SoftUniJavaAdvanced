@@ -4,19 +4,38 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Person {
+    private String firstName;
+    private String lastName;
+    private String birthDate;
+    private List<Person> parents;
+    private List<Person> children;
 
-    String firstName;
-    String lastName;
-    String birthDate;
-    private List<Person> parents = new ArrayList<>();
-    private List<Person> children = new ArrayList<>();
-
-    Person(String firstName, String lastName) {
+    public Person(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.parents = new ArrayList<>();
+        this.children = new ArrayList<>();
     }
 
-    Person(String birthDate) {
+    public Person(String birthDate) {
+        this.birthDate = birthDate;
+        this.parents = new ArrayList<>();
+        this.children = new ArrayList<>();
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(String birthDate) {
         this.birthDate = birthDate;
     }
 
@@ -24,16 +43,8 @@ public class Person {
         return parents;
     }
 
-    public void setParents(List<Person> parents) {
-        this.parents = parents;
-    }
-
     public List<Person> getChildren() {
         return children;
-    }
-
-    public void setChildren(List<Person> children) {
-        this.children = children;
     }
 
     @Override

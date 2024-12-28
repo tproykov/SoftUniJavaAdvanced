@@ -5,77 +5,89 @@ import java.util.Map;
 
 public class FamilyTree {
 
-    Map<String, Person> peopleByName = new HashMap<>();
-    Map<String, Person> peopleByBirthDate = new HashMap<>();
+    private Map<String, Person> peopleByName;
+    private Map<String, Person> peopleByBirthDate;
+
+    public FamilyTree() {
+        this.peopleByName = new HashMap<>();
+        this.peopleByBirthDate = new HashMap<>();
+    }
 
     private Person getOrCreatePerson(String identifier) {
-        // Check if it's a date (contains '/')
+        identifier = identifier.trim();
         if (identifier.contains("/")) {
             if (!peopleByBirthDate.containsKey(identifier)) {
                 peopleByBirthDate.put(identifier, new Person(identifier));
             }
             return peopleByBirthDate.get(identifier);
         } else {
-            // It's a name
-            String[] names = identifier.split(" ");
-            String key = identifier;
-            if (!peopleByName.containsKey(key)) {
-                peopleByName.put(key, new Person(names[0], names[1]));
+            if (!peopleByName.containsKey(identifier)) {
+                String[] names = identifier.split("\\s+");
+                peopleByName.put(identifier, new Person(names[0], names[1]));
             }
-            return peopleByName.get(key);
+            return peopleByName.get(identifier);
         }
     }
 
     private void mergePeople(Person person1, Person person2) {
-        if (person1.firstName != null && person2.birthDate != null) {
-            person1.birthDate = person2.birthDate;
-            peopleByBirthDate.put(person2.birthDate, person1);
-        } else if (person2.firstName != null && person1.birthDate != null) {
-            person2.birthDate = person1.birthDate;
-            peopleByBirthDate.put(person1.birthDate, person2);
+
+        if (person1.getFirstName() != null && person2.getBirthDate() != null) {
+            person1.setBirthDate(person2.getBirthDate());
+            peopleByBirthDate.put(person2.getBirthDate(), person1);
+        } else if (person2.getFirstName() != null && person1.getBirthDate() != null) {
+            person2.setBirthDate(person1.getBirthDate());
+            peopleByBirthDate.put(person1.getBirthDate(), person2);
         }
     }
 
     public void addRelation(String leftSide, String rightSide) {
+
         Person parent = getOrCreatePerson(leftSide);
         Person child = getOrCreatePerson(rightSide);
 
         if (!parent.getChildren().contains(child)) {
             parent.getChildren().add(child);
         }
+
         if (!child.getParents().contains(parent)) {
             child.getParents().add(parent);
         }
     }
 
     public void addPersonInfo(String name, String birthDate) {
+
         Person personByName = getOrCreatePerson(name);
         Person personByDate = getOrCreatePerson(birthDate);
+
         mergePeople(personByName, personByDate);
     }
 
     public void printPerson(String identifier) {
+
         Person person = getOrCreatePerson(identifier);
 
-        // Find the complete person info if we only have partial
-        if (person.firstName == null) {
-            person = peopleByBirthDate.get(person.birthDate);
-        } else if (person.birthDate == null) {
-            String fullName = person.firstName + " " + person.lastName;
+        if (person.getFirstName() == null) {
+            person = peopleByBirthDate.get(person.getBirthDate());
+        } else if (person.getBirthDate() == null) {
+            String fullName = person.getFirstName() + " " + person.getLastName();
             person = peopleByName.get(fullName);
         }
 
         System.out.println(person);
 
         if (!person.getParents().isEmpty()) {
+
             System.out.println("Parents:");
+
             for (Person parent : person.getParents()) {
                 System.out.println(parent);
             }
         }
 
         if (!person.getChildren().isEmpty()) {
+
             System.out.println("Children:");
+
             for (Person child : person.getChildren()) {
                 System.out.println(child);
             }
