@@ -1,5 +1,7 @@
 package JA07Workshop.E01CustomLinkedList;
 
+import java.util.NoSuchElementException;
+
 public class DoublyLinkedList {
 
     class Node {
@@ -45,19 +47,52 @@ public class DoublyLinkedList {
     }
 
     public int get(int index) {
+        checkIndex(index);
+
+        Node current;
+        if (index <= this.size / 2) {
+            current = this.head;
+            for (int i = 0; i < index; i++) {
+                current = current.next;
+            }
+        }
+        else {
+            current = this.tail;
+            for (int i = this.size - 1; i > index; i--) {
+                current = current.prev;
+            }
+        }
+        return current.element;
+    }
+
+    private void checkIndex(int index) {
         if (index < 0 || index >= this.size) {
             throw new IndexOutOfBoundsException("This is invalid index!");
         }
-
-        Node currentNode = this.head;
-        for (int i = 0; i < this.size; i++) {
-            if (i == index) {
-                break;
-            }
-            currentNode = currentNode.next;
-        }
-        return currentNode.element;
     }
+
+    public int removeFirst() {
+        checkIfEmpty();
+        int element = this.head.element;
+        this.head = this.head.next;
+
+        if (this.head == null) {
+            this.tail = null;
+        }
+        else {
+            this.head.prev = null;
+        }
+
+        this.size--;
+        return element;
+    }
+
+    private void checkIfEmpty() {
+        if (this.head == null) {
+            throw new NoSuchElementException("The list is empty!");
+        }
+    }
+
 
 
 

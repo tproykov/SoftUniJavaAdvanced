@@ -13,21 +13,14 @@ public class Main {
         doublyLinkedList.addFirst(5);
 
 
-        System.out.println(doublyLinkedList.get(3));
+        System.out.println(doublyLinkedList.get(2));
 
-
-
+        doublyLinkedList.removeFirst();
+        System.out.println(doublyLinkedList.get(2));
 
 
 
 
 
     }
-
-
-
-
-
-
-
 }
