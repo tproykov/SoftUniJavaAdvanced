@@ -41,6 +41,30 @@ public class SmartArray {
         }
     }
 
+    public int remove(int index) {
+        checkIndex(index);
+        int temp = this.data[index];
+        for (int i = index; i < this.size - 1; i++) {
+            this.data[i] = this.data[i + 1];
+        }
+        this.data[this.size - 1] = 0;
+        this.size--;
+
+        if (this.size <= this.capacity / 4) {
+            shrink();
+        }
+        return temp;
+    }
+
+    private void shrink() {
+        this.capacity /= 2;
+        int[] tempData = new int[this.capacity];
+        for (int i = 0; i < this.size; i++) {
+            tempData[i] = this.data[i];
+        }
+        this.data = tempData;
+    }
+
     public int size() {
         return this.size;
     }
