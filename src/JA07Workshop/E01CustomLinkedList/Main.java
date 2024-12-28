@@ -13,10 +13,10 @@ public class Main {
         doublyLinkedList.addFirst(5);
 
 
-        System.out.println(doublyLinkedList.get(2));
+        doublyLinkedList.forEach(System.out::println);
 
-        doublyLinkedList.removeFirst();
-        System.out.println(doublyLinkedList.get(2));
+
+
 
 
 

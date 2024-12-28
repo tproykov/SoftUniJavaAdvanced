@@ -1,6 +1,7 @@
 package JA07Workshop.E01CustomLinkedList;
 
 import java.util.NoSuchElementException;
+import java.util.function.Consumer;
 
 public class DoublyLinkedList {
 
@@ -87,14 +88,34 @@ public class DoublyLinkedList {
         return element;
     }
 
+    public int removeLast() {
+        checkIfEmpty();
+        int element = this.tail.element;
+        this.tail = this.tail.prev;
+
+        if (this.tail == null) {
+            this.head = null;
+        }
+        else {
+            this.tail.next = null;
+        }
+
+        this.size--;
+        return element;
+    }
+
     private void checkIfEmpty() {
         if (this.head == null) {
             throw new NoSuchElementException("The list is empty!");
         }
     }
 
+    public void forEach(Consumer<Integer> consumer) {
+        Node currentNode = this.head;
 
-
-
-
+        while (currentNode != null) {
+            consumer.accept(currentNode.element);
+            currentNode = currentNode.next;
+        }
+    }
 }
