@@ -11,6 +11,7 @@ public class Main {
 
         String line;
         while (!(line = scanner.nextLine()).equals("End")) {
+
             if (line.contains(" - ")) {
                 String[] parts = line.split(" - ");
                 familyTree.addRelation(parts[0].trim(), parts[1].trim());

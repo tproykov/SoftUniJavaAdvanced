@@ -32,6 +32,10 @@ public class Person {
         return index;
     }
 
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
     public String getFirstName() {
         return firstName;
     }
@@ -66,9 +70,9 @@ public class Person {
 
     @Override
     public String toString() {
-        // If we have a name, show "FirstName LastName birthDate"; else just the birthDate
+
         if (firstName != null && lastName != null) {
-            return firstName + " " + lastName + " " + (birthDate != null ? birthDate : "");
+            return firstName + " " + lastName + (birthDate != null ? " " + birthDate : "");
         }
         return birthDate != null ? birthDate : "";
     }

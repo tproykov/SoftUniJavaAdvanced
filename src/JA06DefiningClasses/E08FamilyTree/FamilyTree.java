@@ -16,11 +16,11 @@ public class FamilyTree {
     }
 
     private Person getOrCreatePerson(String identifier) {
-
         identifier = identifier.trim();
 
         if (identifier.contains("/")) {
             Person person = peopleByBirthDate.get(identifier);
+
             if (person == null) {
                 person = new Person(identifier);
                 peopleByBirthDate.put(identifier, person);
@@ -32,6 +32,7 @@ public class FamilyTree {
                     }
                 }
             }
+
             return person;
 
         } else {
@@ -49,7 +50,6 @@ public class FamilyTree {
                     }
                 }
             }
-
             return person;
         }
     }
@@ -59,10 +59,11 @@ public class FamilyTree {
             return;
         }
 
+        main.setIndex(Math.min(main.getIndex(), other.getIndex()));
+
         if (main.getFirstName() == null && other.getFirstName() != null) {
             main.setFirstName(other.getFirstName());
             main.setLastName(other.getLastName());
-
             String fullName = main.getFirstName() + " " + main.getLastName();
             peopleByName.put(fullName, main);
         }
@@ -77,6 +78,7 @@ public class FamilyTree {
                 main.getParents().add(p);
             }
         }
+
         for (Person c : other.getChildren()) {
             if (!main.getChildren().contains(c)) {
                 main.getChildren().add(c);
@@ -125,7 +127,6 @@ public class FamilyTree {
     public void addPersonInfo(String name, String birthDate) {
         Person personByName = getOrCreatePerson(name);
         Person personByDate = getOrCreatePerson(birthDate);
-
         mergePeople(personByName, personByDate);
     }
 
@@ -143,23 +144,19 @@ public class FamilyTree {
 
         List<Person> sortedParents = person.getParents().stream()
                 .sorted(Comparator.comparingInt(Person::getIndex))
-                .collect(Collectors.toList());
+                .toList();
         List<Person> sortedChildren = person.getChildren().stream()
                 .sorted(Comparator.comparingInt(Person::getIndex))
-                .collect(Collectors.toList());
+                .toList();
 
-        if (!sortedParents.isEmpty()) {
-            System.out.println("Parents:");
-            for (Person parent : sortedParents) {
-                System.out.println(parent);
-            }
+        System.out.println("Parents:");
+        for (Person parent : sortedParents) {
+            System.out.println(parent);
         }
 
-        if (!sortedChildren.isEmpty()) {
-            System.out.println("Children:");
-            for (Person child : sortedChildren) {
-                System.out.println(child);
-            }
+        System.out.println("Children:");
+        for (Person child : sortedChildren) {
+            System.out.println(child);
         }
     }
 }
