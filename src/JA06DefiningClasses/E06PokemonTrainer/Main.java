@@ -23,9 +23,8 @@ public class Main {
             trainers.get(trainerName).addPokemon(pokemon);
         }
 
-        String command2;
-        while (!"End".equals(command2 = scanner.nextLine())) {
-            String element = command2;
+        String element;
+        while (!"End".equals(element = scanner.nextLine())) {
 
             for (Trainer trainer : trainers.values()) {
                 if (trainer.hasElementType(element)) {
@@ -38,7 +37,7 @@ public class Main {
 
         trainers.values().stream()
                 .sorted((t1, t2) -> Integer.compare(t2.getNumberOfBadges(), t1.getNumberOfBadges()))
-                .forEach(trainer -> System.out.printf("%s %d %d%n",
+                .forEach(trainer -> System.out.printf("%s %d %d\n",
                         trainer.getName(),
                         trainer.getNumberOfBadges(),
                         trainer.getCollectionOfPokemons().size()));
