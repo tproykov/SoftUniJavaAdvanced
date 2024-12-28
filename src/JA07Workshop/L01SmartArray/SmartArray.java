@@ -37,7 +37,7 @@ public class SmartArray {
 
     private void checkIndex(int index) {
         if (index < 0 || index >= this.size) {
-            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + this.size);
+            throw new IndexOutOfBoundsException("Invalid index!");
         }
     }
 
