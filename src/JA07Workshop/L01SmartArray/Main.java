@@ -7,8 +7,6 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Scanner scanner = new Scanner(System.in);
-
         SmartArray smartArray = new SmartArray();
 
         smartArray.add(1);
@@ -30,10 +28,5 @@ public class Main {
 
         smartArray.forEach(System.out::println);
 
-
-
-
-
     }
-
 }
