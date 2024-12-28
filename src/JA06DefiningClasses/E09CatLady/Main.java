@@ -13,7 +13,8 @@ public class Main {
         Map<String, Cat> cats = new HashMap<>();
 
         String input;
-        while (!(input = scanner.nextLine()).equals("End")) {
+        while (!("End".equals(input = scanner.nextLine()))) {
+
             String[] tokens = input.split("\\s+");
             String breed = tokens[0];
             String name = tokens[1];
@@ -21,22 +22,19 @@ public class Main {
 
             Cat cat;
             switch (breed) {
-                case "Siamese":
-                    cat = new Siamese(name, value);
-                    break;
-                case "Cymric":
-                    cat = new Cymric(name, value);
-                    break;
-                case "StreetExtraordinaire":
-                    cat = new StreetExtraordinaire(name, value);
-                    break;
-                default:
+                case "Siamese" -> cat = new Siamese(name, value);
+                case "Cymric" -> cat = new Cymric(name, value);
+                case "StreetExtraordinaire" -> cat = new StreetExtraordinaire(name, value);
+                default -> {
                     continue;
+                }
             }
+
             cats.put(name, cat);
         }
 
         String catName = scanner.nextLine();
+
         if (cats.containsKey(catName)) {
             System.out.println(cats.get(catName));
         }
