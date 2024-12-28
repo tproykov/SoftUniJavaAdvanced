@@ -8,7 +8,7 @@ public class E093MouseInTheKitchen {
 
         Scanner scanner = new Scanner(System.in);
 
-        
+
 
     }
 
