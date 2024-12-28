@@ -1,5 +1,7 @@
 package JA07Workshop.L01SmartArray;
 
+import java.util.function.Consumer;
+
 public class SmartArray {
 
     private int[] data;
@@ -15,7 +17,6 @@ public class SmartArray {
     public void add(int element) {
         if (this.size == this.capacity) {
             grow();
-
         }
         this.data[size] = element;
         this.size++;
@@ -63,6 +64,36 @@ public class SmartArray {
             tempData[i] = this.data[i];
         }
         this.data = tempData;
+    }
+
+    public void add(int index, int element) {
+        checkIndex(index);
+        if (this.size == this.capacity) {
+            grow();
+        }
+        int lastElement = this.data[this.size - 1];
+        for (int i = this.size - 1; i > index; i--) {
+            this.data[i] = this.data[i - 1];
+
+        }
+        this.data[this.size] = lastElement;
+        this.size++;
+        this.data[index] = element;
+    }
+
+    public boolean contains(int element) {
+        for (int i = 0; i < this.size; i++) {
+            if (this.data[i] == element) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void forEach(Consumer<Integer> consumer) {
+        for (int i = 0; i < this.size; i++) {
+            consumer.accept(this.data[i]);
+        }
     }
 
     public int size() {

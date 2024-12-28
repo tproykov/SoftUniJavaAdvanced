@@ -11,20 +11,26 @@ public class Main {
 
         SmartArray smartArray = new SmartArray();
 
+        smartArray.add(1);
+        smartArray.add(2);
+        smartArray.add(3);
+        smartArray.add(4);
         smartArray.add(5);
-        smartArray.add(7);
-        smartArray.add(8);
-        smartArray.add(9);
-        smartArray.add(10);
+        smartArray.add(6);
 
+        smartArray.add(0, 7);
 
-
-
-
-
+        System.out.println(smartArray.get(0));
         for (int i = 0; i < smartArray.size(); i++) {
             System.out.print(smartArray.get(i) + " ");
         }
+        System.out.println();
+
+        System.out.println(smartArray.contains(3));
+
+        smartArray.forEach(System.out::println);
+
+
 
 
 
