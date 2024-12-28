@@ -9,13 +9,24 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
 
-        ArrayList<Integer> list = new ArrayList<>();
-        list.add(5);
-        list.add(10);
-        list.add(15);
-        list.add(20);
-
         SmartArray smartArray = new SmartArray();
+
+        smartArray.add(5);
+        smartArray.add(7);
+        smartArray.add(8);
+        smartArray.add(9);
+        smartArray.add(10);
+
+
+
+
+
+
+        for (int i = 0; i < smartArray.size(); i++) {
+            System.out.print(smartArray.get(i) + " ");
+        }
+
+
 
     }
 
