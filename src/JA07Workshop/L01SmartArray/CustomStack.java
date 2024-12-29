@@ -1,6 +1,7 @@
 package JA07Workshop.L01SmartArray;
 
 import java.util.NoSuchElementException;
+import java.util.function.Consumer;
 
 public class CustomStack {
     private static final int INITIAL_CAPACITY = 4;
@@ -47,15 +48,14 @@ public class CustomStack {
         }
     }
 
-    public void peek() {
+    public int peek() {
         checkIfEmpty(this.items);
-        int element = this.items[this.size - 1];
-        return element;
-
+        return this.items[this.size - 1];
     }
 
-
-
-
-
+    public void forEach(Consumer<Integer> consumer) {
+        for (int i = 0; i < this.size; i++) {
+            consumer.accept(this.items[i]);
+        }
+    }
 }
