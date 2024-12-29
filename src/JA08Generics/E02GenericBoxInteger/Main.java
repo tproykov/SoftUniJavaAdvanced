@@ -1,7 +1,5 @@
 package JA08Generics.E02GenericBoxInteger;
 
-import JA08Generics.E01GenericBox.Box;
-
 import java.util.Scanner;
 
 public class Main {
