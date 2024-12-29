@@ -48,6 +48,9 @@ public class CustomStack {
     }
 
     public void peek() {
+        checkIfEmpty(this.items);
+        int element = this.items[this.size - 1];
+        return element;
 
     }
 
