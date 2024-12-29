@@ -1,20 +1,53 @@
 package JA08Generics.E01GenericBox;
 
-public class Box<T extends Comparable<T>> implements Comparable<Box<T>> {
+import java.util.ArrayList;
+import java.util.List;
 
-    public T element;
+public class Box<T extends Comparable<T>> {
 
-    public Box(T element) {
-        this.element = element;
+    private List<T> values;
+
+    public Box() {
+        this.values = new ArrayList<>();
+    }
+
+    public void add(T value) {
+        this.values.add(value);
+    }
+
+    public void swap(int index1, int index2) {
+
+        // Collections.swap(this.values, index1, index2);
+        T firstValue = values.get(index1);
+        T secondValue = values.get(index2);
+
+        this.values.set(index1, secondValue);
+        this.values.set(index2, firstValue);
+    }
+
+    public int countGreaterValues(T valueToCompare) {
+
+        int count = 0;
+        for (T value : this.values) {
+
+            int comparingResult = value.compareTo(valueToCompare);
+            if (comparingResult > 0) {
+                count++;
+            }
+        }
+        return count;
     }
 
     @Override
     public String toString() {
-        return String.format("%s: %s", this.element.getClass().getName(), this.element);
-    }
 
-    @Override
-    public int compareTo(Box<T> o) {
-        return this.element.compareTo(o.element);
+        StringBuilder sb = new StringBuilder();
+        for (T value : this.values) {
+            //"{class full name}: {value}"
+            String formattedValue = String.format("%s: %s", value.getClass().getName(), value);
+            sb.append(formattedValue).append(System.lineSeparator());
+        }
+
+        return sb.toString();
     }
 }
