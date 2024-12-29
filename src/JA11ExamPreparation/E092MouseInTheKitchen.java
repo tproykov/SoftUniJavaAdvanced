@@ -2,7 +2,7 @@ package JA11ExamPreparation;
 
 import java.util.Scanner;
 
-public class E093MouseInTheKitchen {
+public class E092MouseInTheKitchen {
 
     public static void main(String[] args) {
 
