@@ -13,11 +13,9 @@ public class Main {
         int n = Integer.parseInt(scanner.nextLine());
 
         for (int i = 0; i < n; i++) {
-            String line = scanner.nextLine();
-            JA08Generics.E01GenericBox.Box<String> box = new Box<>(line);
+            int number = Integer.parseInt(scanner.nextLine());
+            Box<Integer> box = new Box<>(number);
             System.out.println(box);
         }
-
     }
-
 }
