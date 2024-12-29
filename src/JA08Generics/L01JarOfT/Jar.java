@@ -14,7 +14,7 @@ public class Jar <T> {
         this.elements.push(element);
     }
 
-    public T remove(T element) {
+    public T remove() {
         return this.elements.pop();
     }
 }

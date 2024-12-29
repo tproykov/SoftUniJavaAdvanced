@@ -4,10 +4,12 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Jar<String> jarOfTexts = new Jar<>();
-        jarOfTexts.add("Hello");
-        jarOfTexts.add("World");
-        jarOfTexts.remove("Hello");
-        System.out.println(jarOfTexts);
+        Jar<Pickle> jarOfPickles = new Jar<>();
+
+        jarOfPickles.add(new Pickle());
+        jarOfPickles.add(new Pickle());
+
+        Pickle pickle = jarOfPickles.remove();
+
     }
 }
