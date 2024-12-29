@@ -2,9 +2,10 @@ package JA08Generics.E02CustomList;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
-public class CustomList<T extends Comparable<T>> {
+public class CustomList<T extends Comparable<T>> implements Iterable<T> {
 
     private List<T> elements;
 
@@ -59,5 +60,10 @@ public class CustomList<T extends Comparable<T>> {
             stringBuilder.append(element.toString()).append(System.lineSeparator());
         }
         return stringBuilder.toString().trim();
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return this.elements.iterator();
     }
 }
