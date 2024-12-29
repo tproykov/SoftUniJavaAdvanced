@@ -1,4 +1,4 @@
-package JA08Generics.E07CustomList;
+package JA08Generics.E02CustomList;
 
 import java.util.Scanner;
 
