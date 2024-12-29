@@ -1,8 +1,8 @@
-package JA08Generics.E01GenericBox;
+package JA08Generics.E02GenericBoxInteger;
 
-public class Box<T extends Comparable<T>> implements Comparable<Box<T>> {
+public class Box<T extends Comparable<T>> implements Comparable<JA08Generics.E01GenericBox.Box<T>> {
 
-    public T element;
+    private T element;
 
     public Box(T element) {
         this.element = element;
@@ -14,7 +14,7 @@ public class Box<T extends Comparable<T>> implements Comparable<Box<T>> {
     }
 
     @Override
-    public int compareTo(Box<T> o) {
+    public int compareTo(JA08Generics.E01GenericBox.Box<T> o) {
         return this.element.compareTo(o.element);
     }
 }
