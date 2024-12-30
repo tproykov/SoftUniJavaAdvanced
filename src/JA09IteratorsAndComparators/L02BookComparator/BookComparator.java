@@ -13,8 +13,4 @@ public class BookComparator implements Comparator<Book> {
         }
         return result;
     }
-
-
-
-
 }
