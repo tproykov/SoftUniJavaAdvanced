@@ -1,4 +1,4 @@
-package JA09IteratorsAndComparators.E01Demo;
+package JA09IteratorsAndComparators.E00Demo;
 
 import java.util.Comparator;
 
