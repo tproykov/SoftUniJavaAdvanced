@@ -29,7 +29,7 @@ public class ListyIterator<T> {
             throw new IllegalStateException("Invalid operation!");
         }
         else {
-            System.out.print(this.elements.get(this.currentIndex));
+            System.out.println(this.elements.get(this.currentIndex));
         }
     }
 }
