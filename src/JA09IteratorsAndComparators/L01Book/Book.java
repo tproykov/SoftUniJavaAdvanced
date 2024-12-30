@@ -3,7 +3,7 @@ package JA09IteratorsAndComparators.L01Book;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Book {
+public class Book implements Comparable<Book> {
 
     private String title;
     private int year;
@@ -40,5 +40,14 @@ public class Book {
         for (String author : authors) {
             this.authors.add(author);
         }
+    }
+
+    public int compareTo(Book otherBook) {
+
+        int result = this.title.compareTo(otherBook.getTitle());
+        if (result == 0) {
+            result = Integer.compare(this.year, otherBook.getYear());
+        }
+        return result;
     }
 }
