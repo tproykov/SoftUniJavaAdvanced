@@ -1,4 +1,4 @@
 package JA11ExamPreparation;
 
-public class E122NavyBattle {
+public class E132NavyBattle {
 }
