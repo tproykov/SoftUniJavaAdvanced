@@ -9,7 +9,7 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
 
-        ListyIterator<String> listyIterator;
+        ListyIterator<String> listyIterator = null;
 
         String input;
         while (!("END".equals(input = scanner.nextLine()))) {
@@ -21,20 +21,26 @@ public class Main {
 
                 case "Create" -> {
                     String[] elements = Arrays.stream(tokens).skip(1).toArray(String[]::new);
-                    listyIterator = new ListyIterator(elements);
+                    listyIterator = new ListyIterator<>(elements);
                 }
 
-                case "HasNext"  -> {}
+                case "Move"  -> {
+                    System.out.println(listyIterator.move());
+                }
 
-                case "Print" -> {}
+                case "Print" -> {
+                    try {
+                        listyIterator.print();
+                    }
+                    catch (IllegalStateException ex) {
+                        System.out.println(ex.getMessage());;
+                    }
+                }
 
-                case "Move" -> {}
-
+                case "HasNext" -> {
+                    System.out.println(listyIterator.hasNext());
+                }
             }
-
-
-
         }
     }
-
 }
