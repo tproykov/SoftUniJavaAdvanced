@@ -13,9 +13,9 @@ public class E011ClickBait {
                 .map(Integer::parseInt)
                 .collect(Collectors.toCollection(ArrayDeque::new));
 
-        ArrayDeque<Integer> popularityScores = Arrays.stream(scanner.nextLine().split(" "))
+        Stack<Integer> popularityScores = Arrays.stream(scanner.nextLine().split(" "))
                 .map(Integer::parseInt)
-                .collect(Collectors.toCollection(ArrayDeque::new));
+                .collect(Collectors.toCollection(Stack::new));
 
         int targetEngagementValue = Integer.parseInt(scanner.nextLine());
 
@@ -23,15 +23,15 @@ public class E011ClickBait {
 
         while (!engagementScores.isEmpty() && !popularityScores.isEmpty()) {
 
-            int suggestedLink = engagementScores.pop();
-            int featuredArticle = popularityScores.pollLast();
+            int suggestedLink = engagementScores.poll();
+            int featuredArticle = popularityScores.pop();
 
             if (featuredArticle > suggestedLink) {
 
                 int remainder = featuredArticle % suggestedLink;
                 finalFeed.add(remainder);
                 if (remainder != 0) {
-                    popularityScores.addLast(remainder * 2);
+                    popularityScores.push(remainder * 2);
                 }
             }
             else if (featuredArticle < suggestedLink) {
