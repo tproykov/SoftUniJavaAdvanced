@@ -51,16 +51,15 @@ public class E012SpaceMission {
 
             resources -= 5;
 
-            if (resources < 5 && grid[spaceshipRowPosition][spaceshipColumnPosition] != 'R') {
-                strandedInSpace = true;
-                grid[spaceshipRowPosition][spaceshipColumnPosition] = 'S';
-                break;
-            }
-
             if (isOutOfGrid(gridDimensions, spaceshipRowPosition, spaceshipColumnPosition)) {
                 lostInSpace = true;
                 grid[spaceshipPreviousRowPosition][spaceshipPreviousColumnPosition] = 'S';
                 break;
+            }
+
+            if (grid[spaceshipRowPosition][spaceshipColumnPosition] == 'M') {
+                resources -= 5;
+                grid[spaceshipRowPosition][spaceshipColumnPosition] = '.';
             }
 
             if (grid[spaceshipRowPosition][spaceshipColumnPosition] == 'R') {
@@ -70,15 +69,17 @@ public class E012SpaceMission {
                 }
             }
 
-            if (grid[spaceshipRowPosition][spaceshipColumnPosition] == 'M') {
-                resources -= 5;
-                grid[spaceshipRowPosition][spaceshipColumnPosition] = '.';
-            }
-
             if (grid[spaceshipRowPosition][spaceshipColumnPosition] == 'P') {
                 reachedDestination = true;
                 break;
             }
+
+            if (resources < 5 && grid[spaceshipRowPosition][spaceshipColumnPosition] != 'R') {
+                strandedInSpace = true;
+                grid[spaceshipRowPosition][spaceshipColumnPosition] = 'S';
+                break;
+            }
+
         }
 
         if (reachedDestination) {
