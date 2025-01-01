@@ -84,7 +84,7 @@ public class E012SpaceMission {
 
         if (reachedDestination) {
             System.out.println("Mission accomplished! The spaceship reached Planet B with " + resources
-                    + " resources left");
+                    + " resources left.");
         }
         else if (strandedInSpace) {
             System.out.println("Mission failed! The spaceship was stranded in space.");
