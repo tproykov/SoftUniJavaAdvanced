@@ -1,6 +1,7 @@
 package JA11ExamPreparation.E023WorldOfTanks;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class Terrain {
@@ -11,42 +12,95 @@ public class Terrain {
 
     public Terrain(String type, int area) {
         this.type = type;
-        this.area = area;
         this.tanks = new ArrayList<>();
+        this.area = area;
     }
 
-// • Method addTank(Tank tank) – adds an entity to the collection of Tanks.
-//    If the Tank with the same combination of brand and model exists on the Terrain, return the following String:
-//    o	"Tank with this brand and model already exists!"
-//    If the Terrain type is "Swamp" and the weight of the tank you are trying to add to this Terrain is more than 14000 return the following String:
-//    o	"This {tank brand} is too heavy for this terrain!"
-//    If the Tank is added successfully to the Terrain return the following String:
-//    o	"Tank {tank brand} {tank model} added."
+    public String getType() {
+        return type;
+    }
 
-// • Method removeTank(String brand, String model) – removes a Tank by given brand and model, if such exists, and returns boolean (true if it is removed, otherwise – false)
+    public int getArea() {
+        return area;
+    }
 
-//•	Method getTanksByBarrelCaliberMoreThan(int barrelCaliber)– returns String that lists the Tanks that meet the search criteria (with barrel caliber more than the searched one) in the following format:
-//    o	Tanks with caliber more than {barrel caliber}mm: {Tank brand1}, {Tank brand2}, …{Tank brandn}"
-//    If there are no Tanks matching the requested caliber on the Terrain, return:
-//    o	"There are no tanks with the specified caliber."
+    public List<Tank> getTanks() {
+        return tanks;
+    }
 
-// • Method getTankByBrandAndModel(String brand, String model) – returns the matching Tank, if such exists, otherwise – returns null.
+    public String addTank(Tank tank) {
 
-// • Method getTheMostArmoredTank() – returns String –  the tank with the thickest armor in the following format:
-//    o	"{tank brand} {tank model} is the most armored tank with {armor thikness}mm. armor thickness."
+        for (Tank t : tanks) {
+            if (t.getBrand().equals(tank.getBrand()) && t.getModel().equals(tank.getModel())) {
+                return "Tank with this brand and model already exists!";
+            }
+        }
+
+        if (this.type.equals("Swamp") && tank.getWeight() > 14000) {
+            return String.format("This %s is too heavy for this terrain!", tank.getBrand());
+        }
+
+        tanks.add(tank);
+        return String.format("Tank %s %s added.", tank.getBrand(), tank.getModel());
+    }
+
+    public boolean removeTank(String brand, String model) {
+        for (Tank t : tanks) {
+            if (t.getBrand().equals(brand) && t.getModel().equals(model)) {
+                tanks.remove(t);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public String getTanksByBarrelCaliberMoreThan(int barrelCaliber) {
+        List<Tank> tanks = getTanks().stream().filter(t -> t.getBarrelCaliber() > barrelCaliber).toList();
+        List<String> tankBrands = tanks.stream().map(Tank::getBrand).toList();
+
+        return !tankBrands.isEmpty()
+                ? String.format("Tanks with caliber more than %dmm: ", barrelCaliber)
+                    + String.join(", ", tankBrands.toString().replaceAll("[\\[\\]]", ""))
+                : "There are no tanks with the specified caliber.";
+    }
+
+    public Tank getTankByBrandAndModel(String brand, String model) {
+        return tanks.stream().filter(t -> t.getBrand().equals(brand) && t.getModel().equals(model))
+                .findFirst().orElse(null);
+    }
+
+    public String getTheMostArmoredTank() {
+        Tank mostArmoredTank = tanks.stream().max(Comparator.comparing(Tank::getArmor)).orElse(null);
+        assert mostArmoredTank != null;
+        return String.format("%s %s is the most armored tank with %dmm. armor thickness.",
+                mostArmoredTank.getBrand(),
+                mostArmoredTank.getModel(),
+                mostArmoredTank.getArmor());
+    }
     
-// • Method getCount() – returns the count of Tanks on the given Terrain.
+    public int getCount() {
+        return tanks.size();
+    }
 
-//•	Method getStatistics() – returns a String in the following format (print the Tanks in order of addition):
-//    o	"Tanks located in the {terrain type (lowercased)}:
-//            -- {tank brand1} {tank model1}
-//-- {tank brand2} {tank model2}
-//(…)
-//        -- {tank brandn} {tank modeln}"
-//    If there are no Tanks on some of the Terrains print only this text:
-//    o	"There are no tanks in the {terrain type (lowercased)}."
+    public String getStatistics() {
 
+        StringBuilder build = new StringBuilder();
 
+        if (tanks.isEmpty()) {
+            build.append("There are no tanks in the ").append(toLowerCase()).append(".");
+        } else {
+            build.append("Tanks located in the ").append(toLowerCase()).append(":");
+            for (Tank tank : tanks) {
+                build.append("\n");
+                build.append("-- ").append(tank.getBrand()).append(" ").append(tank.getModel());
+            }
+        }
+        return build.toString();
+    }
+
+    private String toLowerCase() {
+        return String.format(this.type).toLowerCase();
+    }
 
 
 }
