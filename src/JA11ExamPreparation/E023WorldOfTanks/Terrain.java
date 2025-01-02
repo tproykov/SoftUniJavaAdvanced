@@ -77,25 +77,25 @@ public class Terrain {
                 mostArmoredTank.getModel(),
                 mostArmoredTank.getArmor());
     }
-    
+
     public int getCount() {
         return tanks.size();
     }
 
     public String getStatistics() {
 
-        StringBuilder build = new StringBuilder();
+        StringBuilder stringbuilder = new StringBuilder();
 
         if (tanks.isEmpty()) {
-            build.append("There are no tanks in the ").append(toLowerCase()).append(".");
+            stringbuilder.append("There are no tanks in the ").append(toLowerCase()).append(".");
         } else {
-            build.append("Tanks located in the ").append(toLowerCase()).append(":");
+            stringbuilder.append("Tanks located in the ").append(toLowerCase()).append(":");
             for (Tank tank : tanks) {
-                build.append("\n");
-                build.append("-- ").append(tank.getBrand()).append(" ").append(tank.getModel());
+                stringbuilder.append("\n");
+                stringbuilder.append("-- ").append(tank.getBrand()).append(" ").append(tank.getModel());
             }
         }
-        return build.toString();
+        return stringbuilder.toString();
     }
 
     private String toLowerCase() {
