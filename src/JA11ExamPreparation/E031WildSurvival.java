@@ -29,15 +29,18 @@ public class E031WildSurvival {
                 beeGroups.poll();
                 if (beesKilled > firstBeeGroup) {
                     beeEaterGroups.pop();
-
-                    
+                    int beeEatersSurvived = lastBeeEaterGroup - firstBeeGroup / 7;
+                    beeEaterGroups.push(beeEatersSurvived);
                 }
                 else {
                     beeEaterGroups.pop();
                 }
             }
             else {
-
+                int remainingBees = firstBeeGroup - beesKilled;
+                beeGroups.poll();
+                beeGroups.offer(remainingBees);
+                beeEaterGroups.pop();
             }
         }
 
