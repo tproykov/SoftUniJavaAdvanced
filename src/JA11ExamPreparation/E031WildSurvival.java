@@ -20,24 +20,24 @@ public class E031WildSurvival {
                 .collect(Collectors.toCollection(Stack::new));
 
         while (!beeGroups.isEmpty() && !beeEaterGroups.isEmpty()) {
-
             int firstBeeGroup = beeGroups.peek();
             int lastBeeEaterGroup = beeEaterGroups.peek();
-            int beeEatersNeeded = firstBeeGroup / 7;
 
-            if (lastBeeEaterGroup > beeEatersNeeded) {
+            int beesKilled = lastBeeEaterGroup * 7;
+
+            if (beesKilled >= firstBeeGroup) {
                 beeGroups.poll();
-                int beeEatersSurvived = lastBeeEaterGroup - beeEatersNeeded;
-                beeEaterGroups.pop();
-                beeEaterGroups.push(beeEatersSurvived);
-            } else if (lastBeeEaterGroup < beeEatersNeeded) {
-                beeEaterGroups.pop();
-                int beesSurvived = firstBeeGroup % 7 + (beeEatersNeeded - lastBeeEaterGroup) * 7;
-                beeGroups.poll();
-                beeGroups.offer(beesSurvived);
-            } else {
-                beeGroups.poll();
-                beeEaterGroups.pop();
+                if (beesKilled > firstBeeGroup) {
+                    beeEaterGroups.pop();
+
+                    
+                }
+                else {
+                    beeEaterGroups.pop();
+                }
+            }
+            else {
+
             }
         }
 
