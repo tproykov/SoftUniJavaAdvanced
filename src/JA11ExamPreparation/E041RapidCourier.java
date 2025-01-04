@@ -17,7 +17,7 @@ public class E041RapidCourier {
                 .map(Integer::parseInt)
                 .collect(Collectors.toCollection(LinkedList::new));
 
-        int totalDelivered = 0;
+        int totalWeightDelivered = 0;
         while (!packageWeights.isEmpty() && !courierCapacities.isEmpty()) {
 
             int lastPackageWeight = packageWeights.peek();
@@ -28,24 +28,26 @@ public class E041RapidCourier {
                 int newCourierCapacity = firstCourierCapacity - lastPackageWeight * 2;
 
                 if (newCourierCapacity > 0) {
-                    firstCourierCapacity = newCourierCapacity;
-                    courierCapacities.offer(firstCourierCapacity);
+                    courierCapacities.poll();
+                    courierCapacities.offer(newCourierCapacity);
                 }
                 else {
                     courierCapacities.poll();
                 }
 
-                totalDelivered += lastPackageWeight;
+                totalWeightDelivered += lastPackageWeight;
                 packageWeights.pop();
             }
             else {
-                totalDelivered += firstCourierCapacity;
-                int remainingWeight = lastPackageWeight -= firstCourierCapacity;
+                totalWeightDelivered += firstCourierCapacity;
+                int remainingWeight = lastPackageWeight - firstCourierCapacity;
                 packageWeights.pop();
                 packageWeights.push(remainingWeight);
                 courierCapacities.poll();
             }
         }
+
+        System.out.println("Total weight: " + totalWeightDelivered + " kg");
 
         if (packageWeights.isEmpty() && courierCapacities.isEmpty()) {
             System.out.println("Congratulations, all packages were delivered successfully by the couriers today.");
@@ -63,7 +65,7 @@ public class E041RapidCourier {
                     .stream()
                     .map(Object::toString)
                     .collect(Collectors.joining(", ")));
-            System.out.println("but there are no more packages to deliver.");
+            System.out.println(" but there are no more packages to deliver.");
         }
     }
 }
