@@ -8,7 +8,7 @@ public class E052EscapeTheMaze {
 
         Scanner scanner = new Scanner(System.in);
 
-        
+
     }
 
 }
