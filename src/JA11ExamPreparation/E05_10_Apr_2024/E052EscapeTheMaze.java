@@ -21,7 +21,7 @@ public class E052EscapeTheMaze {
                 if (matrix[i][j] == 'P') {
                     travellerRowPosition = i;
                     travellerColPosition = j;
-                    matrix[j][i] = '-';
+                    matrix[i][j] = '-';
                 }
             }
         }
@@ -32,6 +32,9 @@ public class E052EscapeTheMaze {
 
             String command = scanner.nextLine();
 
+            int travellerPreviousRowPosition = travellerRowPosition;
+            int travellerPreviousColPosition = travellerColPosition;
+
             switch (command) {
                 case "up" -> travellerRowPosition--;
                 case "down" -> travellerRowPosition++;
@@ -40,6 +43,8 @@ public class E052EscapeTheMaze {
             }
 
             if (isOutOfBounds(matrixSize, travellerRowPosition, travellerColPosition)) {
+                travellerRowPosition = travellerPreviousRowPosition;
+                travellerColPosition = travellerPreviousColPosition;
                 continue;
             }
 
@@ -71,7 +76,7 @@ public class E052EscapeTheMaze {
         }
 
         if (health <= 0) {
-            System.out.println("Player is dead.Maze over!");
+            System.out.println("Player is dead. Maze over!");
         }
         else {
             System.out.println("Player escaped the maze. Danger passed!");
@@ -90,7 +95,7 @@ public class E052EscapeTheMaze {
     private static void printMatrix(char[][] matrix) {
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix.length; j++) {
-                System.out.print(matrix[i][j] + "");
+                System.out.print(matrix[i][j]);
             }
             System.out.println();
         }
