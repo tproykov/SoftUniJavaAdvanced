@@ -36,24 +36,12 @@ public class Surfer {
         return experience;
     }
 
-    public void setExperience(int experience) {
-        this.experience = experience;
-    }
-
     public boolean ownsASurfBoard() {
         return ownsASurfBoard;
     }
 
-    public void setOwnsASurfBoard(boolean ownsASurfBoard) {
-        this.ownsASurfBoard = ownsASurfBoard;
-    }
-
     public int getMoney() {
         return money;
-    }
-
-    public void setMoney(int money) {
-        this.money = money;
     }
 
     @Override

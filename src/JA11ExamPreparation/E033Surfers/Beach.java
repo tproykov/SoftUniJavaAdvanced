@@ -16,15 +16,16 @@ public class Beach {
         this.surfers = new ArrayList<>();
     }
 
-    public void addSurfer(Surfer surfer) {
+    public String addSurfer(Surfer surfer) {
 
         if (!surfer.ownsASurfBoard() && surfer.getMoney() < 50) {
-            System.out.println(surfer.getName() + " has not enough money to rent a surfboard.");
+            return String.format("%s has not enough money to rent a surfboard.", surfer.getName());
         } else if (surfboardsForRent == 0) {
-            System.out.println("There are no free surfboards.");
+            return "There are no free surfboards.";
         } else {
             surfers.add(surfer);
             surfboardsForRent--;
+            return String.format("Surfer %s added.", surfer.getName());
         }
     }
 
@@ -55,20 +56,20 @@ public class Beach {
         return surfers.size();
     }
 
-    public String getSurfersWithPersonalSurfBoards() {
+    public String getSurfersWithPersonalSurfboards() {
 
         if (surfers.isEmpty()) {
             return "There are no surfers.";
         }
 
-        List<String> surfersWithPersonalSurfBoards = new ArrayList<>();
+        List<String> surfersWithPersonalSurfboards = new ArrayList<>();
         for (Surfer surfer : surfers) {
             if (surfer.ownsASurfBoard()) {
-                surfersWithPersonalSurfBoards.add(surfer.getName());
+                surfersWithPersonalSurfboards.add(surfer.getName());
             }
         }
 
-        return "Surfers who have their own surfboards: " + String.join(", ", surfersWithPersonalSurfBoards);
+        return "Surfers who have their own surfboards: " + String.join(", ", surfersWithPersonalSurfboards);
     }
 
     public String getReport() {
