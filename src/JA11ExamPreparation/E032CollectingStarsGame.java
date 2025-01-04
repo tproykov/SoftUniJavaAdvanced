@@ -15,10 +15,9 @@ public class E032CollectingStarsGame {
         int playerColPosition = 0;
 
         for (int row = 0; row < fieldSize; row++) {
-            char[] line = scanner.nextLine().replaceAll(" ", "").toCharArray();
-
+            String[] line = scanner.nextLine().split(" ");
             for (int col = 0; col < fieldSize; col++) {
-                field[row][col] = line[col];
+                field[row][col] = line[col].charAt(0);
                 if (field[row][col] == 'P') {
                     playerRowPosition = row;
                     playerColPosition = col;
@@ -31,6 +30,9 @@ public class E032CollectingStarsGame {
         boolean playerWon = false;
         while (true) {
             String command = scanner.nextLine();
+
+            int playerPreviousRowPosition = playerRowPosition;
+            int playerPreviousColPosition = playerColPosition;
 
             switch (command) {
                 case "up" -> playerRowPosition--;
@@ -50,7 +52,8 @@ public class E032CollectingStarsGame {
 
             if (field[playerRowPosition][playerColPosition] == '#') {
                 stars--;
-
+                playerRowPosition = playerPreviousRowPosition;
+                playerColPosition = playerPreviousColPosition;
             }
 
             if (stars == 0) {
