@@ -5,7 +5,7 @@ public class Surfer {
     private String name;
     private int age;
     private int experience;
-    private boolean ownsASurfBoard;
+    private Boolean ownsASurfBoard;
     private int money;
 
     public Surfer(String name, int age, int experience, boolean ownsASurfBoard, int money) {

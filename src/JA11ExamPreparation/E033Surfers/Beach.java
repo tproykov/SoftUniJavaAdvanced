@@ -18,15 +18,19 @@ public class Beach {
 
     public String addSurfer(Surfer surfer) {
 
-        if (!surfer.ownsASurfBoard() && surfer.getMoney() < 50) {
-            return String.format("%s has not enough money to rent a surfboard.", surfer.getName());
-        } else if (surfboardsForRent == 0) {
-            return "There are no free surfboards.";
-        } else {
-            surfers.add(surfer);
+        if (!surfer.ownsASurfBoard()) {
+            if (surfboardsForRent == 0) {
+                return "There are no free surfboards.";
+            }
+            if (surfer.getMoney() < 50) {
+                return String.format("%s has not enough money to rent a surfboard.", surfer.getName());
+            }
+
             surfboardsForRent--;
-            return String.format("Surfer %s added.", surfer.getName());
         }
+
+        surfers.add(surfer);
+        return String.format("Surfer %s added.", surfer.getName());
     }
 
     public boolean removeSurfer(String name) {
