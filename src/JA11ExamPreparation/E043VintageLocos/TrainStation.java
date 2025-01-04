@@ -62,11 +62,11 @@ public class TrainStation {
         }
     }
 
-    private boolean removeLocomotive(String name) {
+    public boolean removeLocomotive(String name) {
         return locomotives.removeIf(locomotive -> locomotive.getName().equals(name));
     }
 
-    private String getFastestLocomotive() {
+    public String getFastestLocomotive() {
 
         if (locomotives.isEmpty()) {
             return "There are no locomotives.";
@@ -78,7 +78,7 @@ public class TrainStation {
                 , fastestLocomotive.getName(), fastestLocomotive.getMaxSpeed());
     }
 
-    private String getLocomotive(String name) {
+    public String getLocomotive(String name) {
 
         return locomotives.stream()
                 .map(Locomotive::getName)
@@ -87,11 +87,11 @@ public class TrainStation {
                 .orElse(null);
     }
 
-    private int getCount() {
+    public int getCount() {
         return locomotives.size();
     }
 
-    private String getOldestLocomotive() {
+    public String getOldestLocomotive() {
         if (locomotives.isEmpty()) {
             return "There are no locomotives.";
         }
@@ -103,7 +103,7 @@ public class TrainStation {
         }
     }
 
-    private String getStatistics() {
+    public String getStatistics() {
 
         if (locomotives.isEmpty()) {
             return "There are no locomotives departing from " + this.name + " station.";
