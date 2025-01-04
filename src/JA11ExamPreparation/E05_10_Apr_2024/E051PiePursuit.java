@@ -23,9 +23,11 @@ public class E051PiePursuit {
             int piecesInLastPie = piecesInPies.peek();
 
             if (firstContestantCapacity > piecesInLastPie) {
-                firstContestantCapacity -= piecesInLastPie;
+                int remainingCapacity = firstContestantCapacity - piecesInLastPie;
                 contestantCapacities.poll();
-                contestantCapacities.offer(firstContestantCapacity);
+                if (remainingCapacity > 0) {
+                    contestantCapacities.offer(remainingCapacity);
+                }
                 piecesInPies.pop();
             }
             else if (firstContestantCapacity == piecesInLastPie) {
@@ -45,11 +47,14 @@ public class E051PiePursuit {
                 else if (remainingPiePieces == 1) {
                     piecesInPies.push(remainingPiePieces);
                 }
+                else {
+                    piecesInPies.push(remainingPiePieces);
+                }
             }
         }
 
         if (piecesInPies.isEmpty() && !contestantCapacities.isEmpty()) {
-            System.out.println("We wil have to wait for more pies to be baked!");
+            System.out.println("We will have to wait for more pies to be baked!");
             System.out.print("Contestants left: ");
             System.out.println(contestantCapacities.stream().map(String::valueOf)
                     .collect(Collectors.joining(", ")));
