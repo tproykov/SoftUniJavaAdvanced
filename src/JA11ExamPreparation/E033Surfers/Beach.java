@@ -72,23 +72,22 @@ public class Beach {
     }
 
     public String getReport() {
+        if (this.surfers.isEmpty()) {
+            return String.format("There are no surfers on %s beach.", this.name);
+        }
 
+        StringBuilder report = new StringBuilder();
+        report.append(String.format("Beach %s was visited by the following surfers:\n", this.name));
 
+        for (int i = 0; i < surfers.size(); i++) {
+            Surfer surfer = surfers.get(i);
+            String experience = surfer.getExperience() > 0
+                    ? surfer.getExperience() + " years experience"
+                    : "no experience";
 
+            report.append(String.format("%d. %s with %s.\n", i + 1, surfer.getName(), experience));
+        }
 
-
-        return null;
+        return report.toString().trim(); // Remove trailing newline for clean output
     }
-
-
-
 }
-
-
-
-
-
-
-
-
-
