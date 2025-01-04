@@ -93,7 +93,7 @@ public class LaunchPad {
     public String getStatistics() {
 
         if (spacecrafts.isEmpty()) {
-            return String.format("Spacecrafts launched from %s: none\n", this.name);
+            return String.format("Spacecrafts launched from %s:\nnone\n", this.name);
         } else {
             StringBuilder statistics = new StringBuilder();
 
