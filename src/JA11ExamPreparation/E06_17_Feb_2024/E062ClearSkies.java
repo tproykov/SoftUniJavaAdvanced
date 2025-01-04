@@ -28,15 +28,11 @@ public class E062ClearSkies {
 
         int armor = 300;
         int enemyPlaneCounter = 0;
-        int damageCounter = 0;
         boolean jetfighterCrashed = false;
         boolean allEnemiesShotDown = false;
 
         while (true) {
             String command = scanner.nextLine();
-
-//            int jetfighterOldRowPosition = jetfighterRowPosition;
-//            int jetfighterOldColPosition = jetfighterColPosition;
 
             matrix[jetfighterRowPosition][jetfighterColPosition] = '-';
 
@@ -49,22 +45,13 @@ public class E062ClearSkies {
 
             if (matrix[jetfighterRowPosition][jetfighterColPosition] == 'E') {
                 enemyPlaneCounter++;
-
                 if (enemyPlaneCounter < 4) {
-                    damageCounter++;
                     armor -= 100;
                 }
-
                 matrix[jetfighterRowPosition][jetfighterColPosition] = '-';
 
                 if (enemyPlaneCounter == 4) {
                     allEnemiesShotDown = true;
-                    matrix[jetfighterRowPosition][jetfighterColPosition] = 'J';
-                    break;
-                }
-
-                if (damageCounter == 3) {
-                    jetfighterCrashed = true;
                     matrix[jetfighterRowPosition][jetfighterColPosition] = 'J';
                     break;
                 }
@@ -84,8 +71,8 @@ public class E062ClearSkies {
 
         if (allEnemiesShotDown) {
             System.out.println("Mission accomplished, you neutralized the aerial threat!");
-        } else {
-            System.out.printf("Mission failed, your jetfighter was shot down! Last coordinates [%d, %d]!\n",
+        } else if (jetfighterCrashed) {
+            System.out.printf("Mission failed, your jetfighter was shot down! Last coordinates [%d, %d]!%n",
                     jetfighterRowPosition, jetfighterColPosition);
         }
 
