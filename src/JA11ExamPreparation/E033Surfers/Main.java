@@ -2,11 +2,11 @@ package JA11ExamPreparation.E033Surfers;
 
 public class Main {
     public static void main(String[] args) {
-//Initialize the repositories (Beach)
+
         Beach malibu = new Beach("Malibu", 3);
         Beach playaLaRopa = new Beach("Playa La Ropa", 2);
         Beach veleka = new Beach("Veleka", 0);
-//Initialize entities (Surfer)
+
         Surfer john = new Surfer("John", 40, 10, true, 100);
         Surfer mike = new Surfer("Mike", 20, 1, false, 59);
         Surfer charlie = new Surfer("Charlie", 55, 19, true, 50);
@@ -28,8 +28,5 @@ public class Main {
         System.out.println(malibu.getReport());
         System.out.println(playaLaRopa.getReport());
         System.out.println(veleka.getReport());
-
-
-
     }
 }
