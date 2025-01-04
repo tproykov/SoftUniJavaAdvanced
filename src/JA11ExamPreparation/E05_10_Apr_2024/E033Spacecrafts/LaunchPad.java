@@ -64,7 +64,7 @@ public class LaunchPad {
                 .max(Comparator.comparing(Spacecraft::getWeight))
                 .get();
 
-        return String.format("%s - %dkg.\n", heaviestSpacecraft.getName(), heaviestSpacecraft.getWeight());
+        return String.format("%s - %dkg.", heaviestSpacecraft.getName(), heaviestSpacecraft.getWeight());
     }
 
     public Spacecraft getSpacecraft(String name) {
@@ -84,10 +84,9 @@ public class LaunchPad {
                 .collect(Collectors.toList());
 
         if (spacecraftsByMissionType.isEmpty()) {
-            throw new NoSuchElementException("There are no spacecrafts to respond this criteria");
-        } else {
-            return spacecraftsByMissionType;
+            System.out.println("There are no spacecrafts to respond this criteria.");
         }
+        return spacecraftsByMissionType;
     }
 
     public String getStatistics() {
@@ -101,7 +100,7 @@ public class LaunchPad {
 
             for (int i = 0; i < spacecrafts.size(); i++) {
                 Spacecraft spacecraft = spacecrafts.get(i);
-                statistics.append(String.format("%s - %s\n", i + 1, spacecraft.getName()));
+                statistics.append(String.format("%s. %s\n", i + 1, spacecraft.getName()));
             }
 
             return statistics.toString();
