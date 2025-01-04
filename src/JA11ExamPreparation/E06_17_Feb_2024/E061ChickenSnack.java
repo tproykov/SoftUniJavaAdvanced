@@ -13,7 +13,7 @@ public class E061ChickenSnack {
                 .map(Integer::parseInt)
                 .collect(Collectors.toCollection(Stack::new));
 
-        Queue<Integer> pricesOfFood = Arrays.stream(scanner.nextLine().split(""))
+        Queue<Integer> pricesOfFood = Arrays.stream(scanner.nextLine().split(" "))
                 .map(Integer::parseInt)
                 .collect(Collectors.toCollection(LinkedList::new));
 
@@ -34,8 +34,13 @@ public class E061ChickenSnack {
                 int change = lastAmountOfMoney - firstPriceOfFood;
                 pricesOfFood.poll();
                 amountsOfMoney.pop();
-                int nextAmountOfMoney = amountsOfMoney.pop() + change;
-                amountsOfMoney.push(nextAmountOfMoney);
+                if (!amountsOfMoney.isEmpty()) {
+                    int nextAmountOfMoney = amountsOfMoney.pop() + change;
+                    amountsOfMoney.push(nextAmountOfMoney);
+                }
+                else {
+                    amountsOfMoney.push(change);
+                }
             }
             else {
                 amountsOfMoney.pop();
