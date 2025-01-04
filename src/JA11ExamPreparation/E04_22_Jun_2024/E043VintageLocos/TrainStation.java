@@ -72,7 +72,9 @@ public class TrainStation {
             return "There are no locomotives.";
         }
 
-        Locomotive fastestLocomotive = locomotives.stream().max(Comparator.comparing(Locomotive::getMaxSpeed)).get();
+        Locomotive fastestLocomotive = locomotives.stream()
+                .max(Comparator.comparing(Locomotive::getMaxSpeed))
+                .get();
 
         return String.format("%s is the fastest locomotive with a maximum speed of %d km/h."
                 , fastestLocomotive.getName(), fastestLocomotive.getMaxSpeed());
