@@ -51,14 +51,14 @@ public class TrainStation {
     }
 
     public void addLocomotive(Locomotive locomotive) {
-        if (this.capacity >= locomotives.size() && this.railGauge == locomotive.getGauge()) {
-            locomotives.add(locomotive);
-        } else if (this.railGauge == locomotive.getGauge()) {
+        if (locomotives.size() >= this.capacity) {
+            System.out.println("This train station is full!");
+        } else if (this.railGauge != locomotive.getGauge()) {
             int difference = Math.abs(this.railGauge - locomotive.getGauge());
             System.out.println("The rail gauge of this station does not match the locomotive gauge! Difference: "
                     + difference + " mm.");
         } else {
-            System.out.println("This train station is full!");
+            locomotives.add(locomotive);
         }
     }
 
@@ -78,11 +78,9 @@ public class TrainStation {
                 , fastestLocomotive.getName(), fastestLocomotive.getMaxSpeed());
     }
 
-    public String getLocomotive(String name) {
-
+    public Locomotive getLocomotive(String name) {
         return locomotives.stream()
-                .map(Locomotive::getName)
-                .filter(locomotiveName -> locomotiveName.equals(name))
+                .filter(locomotive -> locomotive.getName().equals(name))
                 .findFirst()
                 .orElse(null);
     }
