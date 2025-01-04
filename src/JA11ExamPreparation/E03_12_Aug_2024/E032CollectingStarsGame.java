@@ -1,4 +1,4 @@
-package JA11ExamPreparation;
+package JA11ExamPreparation.E03_12_Aug_2024;
 
 import java.util.Scanner;
 

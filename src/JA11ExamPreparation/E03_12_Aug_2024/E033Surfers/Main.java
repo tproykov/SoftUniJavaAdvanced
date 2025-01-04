@@ -1,4 +1,4 @@
-package JA11ExamPreparation.E033Surfers;
+package JA11ExamPreparation.E03_12_Aug_2024.E033Surfers;
 
 public class Main {
     public static void main(String[] args) {

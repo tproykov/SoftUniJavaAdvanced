@@ -1,4 +1,4 @@
-package JA11ExamPreparation.E023WorldOfTanks;
+package JA11ExamPreparation.E02_20_Oct_2024.E023WorldOfTanks;
 
 public class Main {
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package JA11ExamPreparation;
+package JA11ExamPreparation.E01_11_Dec_2024;
 
 import java.util.*;
 import java.util.stream.Collectors;
