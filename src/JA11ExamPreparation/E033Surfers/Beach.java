@@ -18,23 +18,29 @@ public class Beach {
 
     public String addSurfer(Surfer surfer) {
 
-        if (!surfer.ownsASurfBoard()) {
-            if (surfboardsForRent == 0) {
-                return "There are no free surfboards.";
-            }
-            if (surfer.getMoney() < 50) {
-                return String.format("%s has not enough money to rent a surfboard.", surfer.getName());
-            }
-
-            surfboardsForRent--;
+        if (surfers.stream().anyMatch(s -> s.getName().equals(surfer.getName()))) {
+            throw new RuntimeException("This surfer already exists!");
         }
 
+        if (!surfer.isOwnsASurfBoard()) {
+            if (this.surfboardsForRent > 0) {
+                if (surfer.getMoney() >= 50) {
+                    this.surfboardsForRent--;
+                } else {
+                    return String.format("%s has not enough money to rent a surfboard.", surfer.getName());
+                }
+            } else {
+                return "There are no free surfboards.";
+            }
+        }
         surfers.add(surfer);
+
         return String.format("Surfer %s added.", surfer.getName());
     }
 
-    public boolean removeSurfer(String name) {
-        return surfers.removeIf(surfer -> surfer.getName().equals(name));
+    public Boolean removeSurfer(String name) {
+        return surfers.removeIf(surfer -> surfer.getName()
+                .equals(name));
     }
 
     public String getMostExperiencedSurfer() {
@@ -68,7 +74,7 @@ public class Beach {
 
         List<String> surfersWithPersonalSurfboards = new ArrayList<>();
         for (Surfer surfer : surfers) {
-            if (surfer.ownsASurfBoard()) {
+            if (surfer.isOwnsASurfBoard()) {
                 surfersWithPersonalSurfboards.add(surfer.getName());
             }
         }

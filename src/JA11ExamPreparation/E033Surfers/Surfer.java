@@ -8,7 +8,7 @@ public class Surfer {
     private Boolean ownsASurfBoard;
     private int money;
 
-    public Surfer(String name, int age, int experience, boolean ownsASurfBoard, int money) {
+    public Surfer(String name, int age, int experience, Boolean ownsASurfBoard, int money) {
         this.name = name;
         this.age = age;
         this.experience = experience;
@@ -36,16 +36,28 @@ public class Surfer {
         return experience;
     }
 
-    public boolean ownsASurfBoard() {
+    public void setExperience(int experience) {
+        this.experience = experience;
+    }
+
+    public Boolean isOwnsASurfBoard() {
         return ownsASurfBoard;
+    }
+
+    public void setOwnsASurfBoard(Boolean ownsASurfBoard) {
+        this.ownsASurfBoard = ownsASurfBoard;
     }
 
     public int getMoney() {
         return money;
     }
 
+    public void setMoney(int money) {
+        this.money = money;
+    }
+
     @Override
     public String toString() {
-        return String.format("Surfer %s is %d years old and has %d years surfing experience.", name, age, experience);
+        return String.format("Surfer %s is %d years old and has %d years surfing experience.", getName(), getAge(), getExperience());
     }
 }
