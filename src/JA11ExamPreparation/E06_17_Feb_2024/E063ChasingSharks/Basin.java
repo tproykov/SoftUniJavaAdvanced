@@ -89,8 +89,12 @@ public class Basin {
         return String.format("Sharks in %s:\n", this.name) +
                 sharks.stream()
                         .map(shark -> String.format(
-                                "This %s is %d centimeters long, eats %s and inhabits %s.",
-                                shark.getKind(), shark.getLength(), shark.getFood(), shark.getHabitation()))
+                                "The %s is %d centimeters long, eats %s and inhabits %s.",
+                                shark.getKind(),
+                                shark.getLength(),
+                                shark.getFood(),
+                                shark.getHabitation()
+                        ))
                         .collect(Collectors.joining("\n"));
     }
 }
