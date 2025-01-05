@@ -10,7 +10,7 @@ public class E072TheGambler {
 
         int matrixSize = Integer.parseInt(scanner.nextLine());
 
-        int[][] matrix = new int[matrixSize][matrixSize];
+        char[][] matrix = new char[matrixSize][matrixSize];
         int gamblerRowPosition = 0;
         int gamblerColPosition = 0;
 
@@ -44,19 +44,20 @@ public class E072TheGambler {
 
             if (isOutOfBounds(matrixSize, gamblerRowPosition, gamblerColPosition)) {
                 gameOver = true;
-                money = 0;
                 break;
             }
 
-            matrix[gamblerRowPosition][gamblerColPosition] = 'G';
 
             if (matrix[gamblerRowPosition][gamblerColPosition] == 'W') {
                 money += 100;
+                matrix[gamblerRowPosition][gamblerColPosition] = 'G';
             } else if (matrix[gamblerRowPosition][gamblerColPosition] == 'P') {
                 money -= 200;
+                matrix[gamblerRowPosition][gamblerColPosition] = 'G';
             } else if (matrix[gamblerRowPosition][gamblerColPosition] == 'J') {
                 jackpot = true;
                 money += 100000;
+                matrix[gamblerRowPosition][gamblerColPosition] = 'G';
                 break;
             }
 
@@ -64,6 +65,19 @@ public class E072TheGambler {
                 gameOver = true;
                 break;
             }
+        }
+
+        if (gameOver) {
+            System.out.println("Game over! You lost everything!");
+        }
+        else if (jackpot) {
+            System.out.println("You win the Jackpot!");
+            System.out.println("End of the game. Total amount: " + money + "$");
+            printMatrix(matrix);
+        }
+        else {
+            System.out.println("End of the game. Total amount: " + money + "$");
+            printMatrix(matrix);
         }
 
 
@@ -74,7 +88,7 @@ public class E072TheGambler {
                 || gamblerRowPosition < 0 || gamblerColPosition < 0;
     }
 
-    public static void printMatrix(int[][] matrix) {
+    public static void printMatrix(char[][] matrix) {
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix.length; j++) {
                 System.out.print(matrix[i][j]);
