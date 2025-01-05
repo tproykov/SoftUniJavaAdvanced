@@ -3,6 +3,7 @@ package JA11ExamPreparation.E06_17_Feb_2024.E063ChasingSharks;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Basin {
 
@@ -66,7 +67,30 @@ public class Basin {
         return LargestShark;
     }
 
-    
+    public Shark getShark(String kind) {
+        return sharks.stream()
+                .filter(Shark -> Shark.getKind().equals(kind))
+                .findFirst()
+                .orElse(null);
+    }
 
+    public int getCount() {
+        return sharks.size();
+    }
 
+    public int getAverageLength() {
+        return (int) sharks.stream()
+                .mapToInt(Shark::getLength)
+                .average()
+                .orElse(0.0);
+    }
+
+    public String report() {
+        return String.format("Sharks in %s:\n", this.name) +
+                sharks.stream()
+                        .map(shark -> String.format(
+                                "This %s is %d centimeters long, eats %s and inhabits %s.",
+                                shark.getKind(), shark.getLength(), shark.getFood(), shark.getHabitation()))
+                        .collect(Collectors.joining("\n"));
+    }
 }
