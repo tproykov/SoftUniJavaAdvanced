@@ -60,6 +60,9 @@ public class E072TheGambler {
                 matrix[gamblerRowPosition][gamblerColPosition] = 'G';
                 break;
             }
+            else {
+                matrix[gamblerRowPosition][gamblerColPosition] = 'G';
+            }
 
             if (money <= 0) {
                 gameOver = true;
