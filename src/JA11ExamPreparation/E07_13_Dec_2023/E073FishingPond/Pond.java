@@ -74,7 +74,7 @@ public class Pond {
         for (Fish fish : fishList) {
             report.append("This ").append(fish.getSpecies())
                     .append(" is ").append(fish.getAge()).append(" years old and reproduces through ")
-                    .append(fish.getMatingSeason()).append("\n");
+                    .append(fish.getMatingSeason()).append(".\n");
         }
         return report.toString();
     }
