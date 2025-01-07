@@ -18,6 +18,7 @@ public class E092MouseInTheKitchen {
         char[][] matrix = new char[matrixRows][matrixColumns];
         int mouseRowPosition = 0;
         int mouseColumnPosition = 0;
+        int amountOfCheese = 0;
 
         for (int row = 0; row < matrixRows; row++) {
             String line = scanner.nextLine();
@@ -28,10 +29,14 @@ public class E092MouseInTheKitchen {
                     mouseColumnPosition = column;
                     matrix[row][column] = '*';
                 }
+                if (matrix[row][column] == 'C') {
+                    amountOfCheese++;
+                }
             }
         }
 
         boolean catAttacks = false;
+        boolean trapped = false;
 
         String command;
         while (!"danger".equals(command = scanner.nextLine())) {
@@ -53,16 +58,39 @@ public class E092MouseInTheKitchen {
                 break;
             }
 
-            
+            if (matrix[mouseRowPosition][mouseColumnPosition] == 'C') {
+                amountOfCheese--;
+                if (amountOfCheese == 0) {
+                    matrix[mouseRowPosition][mouseColumnPosition] = 'M';
+                    break;
+                }
+            } else if (matrix[mouseRowPosition][mouseColumnPosition] == 'T') {
+                trapped = true;
+                matrix[mouseRowPosition][mouseColumnPosition] = 'M';
+                break;
+            } else if (matrix[mouseRowPosition][mouseColumnPosition] == '@') {
+                mouseRowPosition = mouseOldRowPosition;
+                mouseColumnPosition = mouseOldColumnPosition;
+                matrix[mouseRowPosition][mouseColumnPosition] = 'M';
+            } else {
+                matrix[mouseRowPosition][mouseColumnPosition] = 'M';
 
-
-
-
-
+            }
         }
 
+        if (amountOfCheese == 0) {
+            System.out.println("Happy mouse! All the cheese is eaten, good night!");
+        } else {
+            if (catAttacks) {
+                System.out.println("No more cheese for tonight!");
+            } else if (trapped) {
+                System.out.println("Mouse is trapped!");
+            } else {
+                System.out.println("Mouse will come back later!");
+            }
+        }
 
-
+        printMatrix(matrix);
     }
 
     public static boolean isOutOfBounds(int rows, int cols, int mouseRowPosition, int mouseColumnPosition) {
@@ -72,7 +100,10 @@ public class E092MouseInTheKitchen {
 
     public static void printMatrix(char[][] matrix) {
         for (char[] row : matrix) {
-            System.out.println(Arrays.toString(row));
+            for (char ch : row) {
+                System.out.print(ch);
+            }
+            System.out.println();
         }
     }
 }
