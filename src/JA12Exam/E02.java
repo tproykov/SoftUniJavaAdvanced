@@ -24,6 +24,24 @@ public class E02 {
                     matrix[row][col] = 'O';
                 }
             }
+        }
+
+        String command;
+        while (!"end".equals(command = scanner.nextLine())) {
+
+            int playerOldRowPosition = playerRowPosition;
+            int playerOldColPosition = playerColPosition;
+
+
+            switch (command) {
+                case "up" -> playerRowPosition--;
+                case "down" -> playerRowPosition++;
+                case "left" -> playerColPosition--;
+                case "right" -> playerColPosition++;
+            }
+
+
+
 
         }
 
@@ -31,4 +49,17 @@ public class E02 {
 
     }
 
+    public static boolean isOutOfBounds(int matrixSize, int playerRowPosition, int playerColPosition) {
+        return playerRowPosition >= matrixSize || playerColPosition >= matrixSize
+                || playerRowPosition < 0 || playerColPosition < 0;
+    }
+
+    public static void printMatrix(char[][] matrix) {
+        for (char[] chars : matrix) {
+            for (int col = 0; col < matrix.length; col++) {
+                System.out.print(chars[col]);
+            }
+        }
+        System.out.println();
+    }
 }
