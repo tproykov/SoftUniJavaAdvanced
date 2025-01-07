@@ -8,7 +8,7 @@ public class E02 {
 
         Scanner scanner = new Scanner(System.in);
 
-        
+
 
     }
 
