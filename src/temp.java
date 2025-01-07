@@ -8,6 +8,10 @@ public class temp {
 
         Scanner scanner = new Scanner(System.in);
 
+        ArrayDeque<String> stackA = new ArrayDeque<>();
+
+        Stack<String> stackB = new Stack<>();
+
 
 
     }
