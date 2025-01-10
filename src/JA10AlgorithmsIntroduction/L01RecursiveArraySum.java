@@ -18,15 +18,14 @@ public class L01RecursiveArraySum {
     public static int recursiveArraySum(int[] array, int index) {
 
         // base case
-        if (index == array.length) {
-            return 0;
-
+        if (index == 0) {
+            return array[0];
         }
 
-        return array[index] + recursiveArraySum(array, index + 1);
+        return array[index] + recursiveArraySum(array, index - 1);
     }
 
     public static int recursiveArraySum(int[] array) {
-        return recursiveArraySum(array, 0);
+        return recursiveArraySum(array, array.length - 1);
     }
 }
