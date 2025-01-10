@@ -1,4 +1,4 @@
 package JA10AlgorithmsIntroduction;
 
-public class L04 {
+public class L07BinarySearch {
 }

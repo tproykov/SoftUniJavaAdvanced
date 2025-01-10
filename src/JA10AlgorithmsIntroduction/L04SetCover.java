@@ -1,4 +1,4 @@
 package JA10AlgorithmsIntroduction;
 
-public class L03 {
+public class L04SetCover {
 }
