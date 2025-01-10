@@ -17,6 +17,7 @@ public class L01RecursiveArraySum {
 
     public static int recursiveArraySum(int[] array, int index) {
 
+        // base case
         if (index == array.length) {
             return 0;
 

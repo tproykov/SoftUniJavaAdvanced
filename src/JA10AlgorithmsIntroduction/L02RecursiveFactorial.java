@@ -1,4 +1,4 @@
 package JA10AlgorithmsIntroduction;
 
-public class L02 {
+public class L02RecursiveFactorial {
 }
