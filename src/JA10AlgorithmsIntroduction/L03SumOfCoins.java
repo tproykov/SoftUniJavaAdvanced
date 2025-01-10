@@ -41,7 +41,7 @@ public class L03SumOfCoins {
             else {
                 int countOfCurrentCoin = targetSum / coin;
             }
-            usedCoins.put(coin, usedCoins.getOrDefault(coin, 0) + );
+            usedCoins.put(coin, usedCoins.getOrDefault(coin, 0) + 1);
         }
 
         return usedCoins;
