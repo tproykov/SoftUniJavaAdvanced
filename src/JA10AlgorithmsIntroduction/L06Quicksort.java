@@ -3,8 +3,6 @@ package JA10AlgorithmsIntroduction;
 import java.util.Arrays;
 import java.util.Scanner;
 
-import static java.util.Arrays.sort;
-
 public class L06Quicksort {
 
     public static void main(String[] args) {
@@ -16,24 +14,28 @@ public class L06Quicksort {
                 .toArray();
 
         quickSort(array);
+
+        System.out.println(String.join(" ", Arrays.stream(array)
+                .mapToObj(String::valueOf)
+                .toArray(String[]::new)));
     }
 
     private static void quickSort(int[] array) {
-        sort(array, 0, array.length - 1);
+        quickSort(array, 0, array.length - 1);
     }
 
     private static void quickSort(int[] array, int left, int right) {
 
         if (left < right) {
             int partitioningIndex = partition(array, left, right);
-            sort(array, left, partitioningIndex - 1);
-            sort(array, partitioningIndex + 1, right);
+            quickSort(array, left, partitioningIndex - 1);
+            quickSort(array, partitioningIndex + 1, right);
         }
     }
 
     private static int partition(int[] array, int left, int right) {
 
-        int pivot = array[left];
+        int pivot = array[right];
         int i = left - 1;
         for (int j = left; j < right; j++) {
             if (array[j] <= pivot) {
