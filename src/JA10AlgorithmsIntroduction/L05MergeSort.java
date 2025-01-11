@@ -12,7 +12,10 @@ public class L05MergeSort {
         int[] array = Arrays.stream(scanner.nextLine().split(" "))
                 .mapToInt(Integer::parseInt).toArray();
 
-        System.out.println(mergeSort(array));
+        System.out.println(Arrays.stream(mergeSort(array))
+        .mapToObj(String::valueOf)
+                .reduce((a,b) -> a + " " + b)
+                .orElse(""));
     }
 
     private static int[] mergeSort(int[] array) {
