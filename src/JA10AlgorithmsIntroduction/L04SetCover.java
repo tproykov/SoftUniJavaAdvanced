@@ -62,29 +62,31 @@ public class L04SetCover {
         List<int[]> selectedSets = new ArrayList<>();
 
         while (!universeSet.isEmpty()) {
-
-            int notChosenCount = 0;
-            int[] chosenSet = sets.getFirst();
+            int maxCoverage = 0;
+            int[] bestSet = null;
 
             for (int[] set : sets) {
-
-                int count = 0;
+                int currentCoverage = 0;
                 for (int element : set) {
                     if (universeSet.contains(element)) {
-                        count++;
+                        currentCoverage++;
                     }
                 }
 
-                if (notChosenCount < count) {
-                    notChosenCount = count;
-                    chosenSet = set;
+                if (currentCoverage > maxCoverage) {
+                    maxCoverage = currentCoverage;
+                    bestSet = set;
                 }
             }
 
-            selectedSets.add(chosenSet);
+            if (bestSet == null) {
+                break;
+            }
 
-            for (int element : chosenSet) {
-                universeSet.remove(element);
+            selectedSets.add(bestSet);
+
+            for (int element : bestSet) {
+                universeSet.remove(Integer.valueOf(element));  // Use valueOf to ensure we remove the Integer object
             }
         }
 
