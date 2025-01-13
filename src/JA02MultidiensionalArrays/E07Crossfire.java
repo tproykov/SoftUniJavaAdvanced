@@ -4,76 +4,105 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 public class E07Crossfire {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
+        // 1) Read matrix dimensions
         int[] matrixDimensions = Arrays.stream(scanner.nextLine().split(" "))
                 .mapToInt(Integer::parseInt).toArray();
         int rows = matrixDimensions[0];
         int cols = matrixDimensions[1];
 
+        // 2) Populate the matrix
         List<List<Integer>> matrix = new ArrayList<>();
         populateTheMatrix(matrix, rows, cols);
 
+        // 3) Process each command
         String command;
-        while (!"Nuke it from orbit".equals(command = scanner.nextLine())) {
-            int[] commandParts = Arrays.stream(command.split(" ")).mapToInt(Integer::parseInt).toArray();
+        while (!(command = scanner.nextLine()).equals("Nuke it from orbit")) {
+            int[] commandParts = Arrays.stream(command.split(" "))
+                    .mapToInt(Integer::parseInt).toArray();
             int targetRow = commandParts[0];
             int targetCol = commandParts[1];
             int radius = commandParts[2];
 
-            for (int row = targetRow - radius; row <= targetRow + radius; row++) {
-                if (isInside(matrix, row, targetCol)) {
-                    matrix.get(row).set(targetCol, 0);
+            // --- 3a) Gather all cells to remove in a Set ---
+            // Using "row_col" strings in a set to avoid duplicates
+            Set<String> cellsToRemove = new HashSet<>();
+
+            // Vertical cells (same col, rows in [targetRow - radius .. targetRow + radius])
+            for (int r = targetRow - radius; r <= targetRow + radius; r++) {
+                if (r >= 0 && r < matrix.size()) {
+                    // We only add if the column is valid for that row (check later).
+                    cellsToRemove.add(r + "_" + targetCol);
                 }
             }
 
-            for (int col = targetCol - radius; col <= targetCol + radius; col++) {
-                if (isInside(matrix, targetRow, col)) {
-                    matrix.get(targetRow).set(col, 0);
+            // Horizontal cells (same row, cols in [targetCol - radius .. targetCol + radius])
+            if (targetRow >= 0 && targetRow < matrix.size()) {
+                int rowSize = matrix.get(targetRow).size();
+                for (int c = Math.max(targetCol - radius, 0); c <= targetCol + radius; c++) {
+                    if (c >= 0 && c < rowSize) {
+                        cellsToRemove.add(targetRow + "_" + c);
+                    }
                 }
             }
 
-            matrix = removeZeroesFromMatrix(matrix);
+            // --- 3b) Organize removals by row ---
+            // Key = row index, Value = list of column indices (to remove in descending order)
+            Map<Integer, List<Integer>> removalsByRow = new HashMap<>();
+            for (String cell : cellsToRemove) {
+                String[] parts = cell.split("_");
+                int r = Integer.parseInt(parts[0]);
+                int c = Integer.parseInt(parts[1]);
+
+                // Check if (r,c) is inside matrix bounds right now
+                if (r >= 0 && r < matrix.size()) {
+                    if (c >= 0 && c < matrix.get(r).size()) {
+                        removalsByRow.putIfAbsent(r, new ArrayList<>());
+                        removalsByRow.get(r).add(c);
+                    }
+                }
+            }
+
+            // --- 3c) Remove cells from each row in descending column order ---
+            for (Map.Entry<Integer, List<Integer>> entry : removalsByRow.entrySet()) {
+                int r = entry.getKey();
+                List<Integer> colsToRemove = entry.getValue();
+                // Sort columns descending so we remove from right to left
+                colsToRemove.sort((a, b) -> b - a);
+
+                List<Integer> rowData = matrix.get(r);
+                for (int colIndex : colsToRemove) {
+                    if (colIndex >= 0 && colIndex < rowData.size()) {
+                        rowData.remove(colIndex);
+                    }
+                }
+            }
+
+            // --- 3d) Remove any empty rows ---
+            matrix.removeIf(List::isEmpty);
         }
 
+        // 4) Print the matrix
         printTheMatrix(matrix);
     }
 
-    private static List<List<Integer>> removeZeroesFromMatrix(List<List<Integer>> matrix) {
-        List<List<Integer>> newMatrix = new ArrayList<>();
-
-        for (List<Integer> row : matrix) {
-            List<Integer> newRow = new ArrayList<>();
-            for (Integer num : row) {
-                if (num != 0) {
-                    newRow.add(num);
-                }
-            }
-            if (!newRow.isEmpty()) {
-                newMatrix.add(newRow);
-            }
-        }
-        return newMatrix;
-    }
-
-    private static boolean isInside(List<List<Integer>> matrix, int row, int col) {
-        return row >= 0 && row < matrix.size() && col >= 0 && col < matrix.get(row).size();
-    }
-
     private static void populateTheMatrix(List<List<Integer>> matrix, int rows, int cols) {
-        for (int row = 0; row < rows; row++) {
-            matrix.add(new ArrayList<>());
-        }
-
         int counter = 1;
         for (int row = 0; row < rows; row++) {
+            List<Integer> newRow = new ArrayList<>();
             for (int col = 0; col < cols; col++) {
-                matrix.get(row).add(counter++);
+                newRow.add(counter++);
             }
+            matrix.add(newRow);
         }
     }
 
