@@ -5,7 +5,6 @@ import java.util.Scanner;
 public class E08TheHeiganDance {
 
     public static void main(String[] args) {
-
         Scanner scanner = new Scanner(System.in);
 
         double damageToHeigan = Double.parseDouble(scanner.nextLine());
@@ -15,23 +14,31 @@ public class E08TheHeiganDance {
         boolean activeCloud = false;
         String lastSpell = "";
 
-
-        String command = scanner.nextLine();
-        while (true) {
-
+        while (playerPoints > 0 && heiganPoints > 0) {
             heiganPoints -= damageToHeigan;
+
+            // Handle active cloud damage first
+            if (activeCloud) {
+                playerPoints -= 3500;
+                activeCloud = false;  // Reset cloud after damage is applied
+                if (playerPoints <= 0) {
+                    printGameResult(heiganPoints, playerPoints, "Plague Cloud", playerPosition);
+                    return;
+                }
+            }
+
+            // If Heigan is dead, end the game without applying new spell
             if (heiganPoints <= 0) {
                 printGameResult(heiganPoints, playerPoints, lastSpell, playerPosition);
                 return;
             }
 
-            if (activeCloud) {
-                playerPoints -= 3500;
-                activeCloud = false;
-                if (playerPoints <= 0) {
-                    printGameResult(heiganPoints, playerPoints, "Plague Cloud", playerPosition);
-                    return;
-                }
+            // Get next spell
+            String command;
+            if (scanner.hasNextLine()) {
+                command = scanner.nextLine();
+            } else {
+                break;
             }
 
             String[] tokens = command.split("\\s+");
@@ -47,24 +54,16 @@ public class E08TheHeiganDance {
                     if (spellType.equals("Cloud")) {
                         playerPoints -= 3500;
                         activeCloud = true;
-                        if (playerPoints <= 0) {
-                            printGameResult(heiganPoints, playerPoints, "Plague Cloud", playerPosition);
-                            return;
-                        }
                     } else {
                         playerPoints -= 6000;
-                        if (playerPoints <= 0) {
-                            printGameResult(heiganPoints, playerPoints, spellType, playerPosition);
-                            return;
-                        }
+                    }
+
+                    if (playerPoints <= 0) {
+                        printGameResult(heiganPoints, playerPoints, spellType, playerPosition);
+                        return;
                     }
                 }
             }
-
-            if (!scanner.hasNextLine()) {
-                break;
-            }
-            command = scanner.nextLine();
         }
 
         printGameResult(heiganPoints, playerPoints, lastSpell, playerPosition);
@@ -79,21 +78,18 @@ public class E08TheHeiganDance {
     }
 
     private static boolean tryToMove(int[] playerPosition, int hitRow, int hitCol) {
-        if (canMoveTo(playerPosition[0] - 1, playerPosition[1], hitRow, hitCol)) {
-            playerPosition[0]--;
-            return true;
-        }
-        if (canMoveTo(playerPosition[0], playerPosition[1] + 1, hitRow, hitCol)) {
-            playerPosition[1]++;
-            return true;
-        }
-        if (canMoveTo(playerPosition[0] + 1, playerPosition[1], hitRow, hitCol)) {
-            playerPosition[0]++;
-            return true;
-        }
-        if (canMoveTo(playerPosition[0], playerPosition[1] - 1, hitRow, hitCol)) {
-            playerPosition[1]--;
-            return true;
+        // Try moving in order: up, right, down, left
+        int[][] moves = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+
+        for (int[] move : moves) {
+            int newRow = playerPosition[0] + move[0];
+            int newCol = playerPosition[1] + move[1];
+
+            if (canMoveTo(newRow, newCol, hitRow, hitCol)) {
+                playerPosition[0] = newRow;
+                playerPosition[1] = newCol;
+                return true;
+            }
         }
         return false;
     }
@@ -106,7 +102,7 @@ public class E08TheHeiganDance {
         if (heiganPoints <= 0) {
             System.out.println("Heigan: Defeated!");
         } else {
-            System.out.printf("Heigan: %.2f\n", heiganPoints);
+            System.out.printf("Heigan: %.2f%n", heiganPoints);
         }
 
         if (playerPoints <= 0) {
