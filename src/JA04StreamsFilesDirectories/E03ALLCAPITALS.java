@@ -28,7 +28,7 @@ public class E03ALLCAPITALS {
                 line = bufferedReader.readLine();
             }
         } catch (IOException e) {
-            throw new RuntimeException(e);  
+            throw new RuntimeException(e);
         }
     }
 }
