@@ -18,4 +18,4 @@ public class E06PredicateForNames {
                 .filter(checkLength)
                 .forEach(System.out::println);
     }
-}
+} 
