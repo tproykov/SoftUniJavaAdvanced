@@ -60,4 +60,4 @@ public class E10PredicateParty {
         result.addAll(guestsToAdd);
         return result;
     }
-}
+} 
