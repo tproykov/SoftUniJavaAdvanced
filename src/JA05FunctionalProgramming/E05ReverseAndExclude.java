@@ -28,4 +28,4 @@ public class E05ReverseAndExclude {
 
         numbers.stream().filter(isNotEven).forEach(printNumbers);
     }
-}
+} 
