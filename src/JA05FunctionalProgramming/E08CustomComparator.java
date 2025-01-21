@@ -27,4 +27,4 @@ public class E08CustomComparator {
                 .sorted(customComparator)
                 .forEach(n -> System.out.print(n + " "));
     }
-} 
+}
