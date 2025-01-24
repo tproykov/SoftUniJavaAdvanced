@@ -6,9 +6,7 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class E01MonsterExtermination {
-
     public static void main(String[] args) {
-
         Scanner scanner = new Scanner(System.in);
 
         ArrayDeque<Integer> monstersArmour = Arrays.stream(scanner.nextLine().split(","))
@@ -23,28 +21,27 @@ public class E01MonsterExtermination {
 
         int totalMonstersKilled = 0;
         while (!monstersArmour.isEmpty() && !strikingImpacts.isEmpty()) {
-
             int firstMonsterArmour = monstersArmour.peekFirst();
             int lastStrikingImpacts = strikingImpacts.peekLast();
 
             if (lastStrikingImpacts >= firstMonsterArmour) {
                 totalMonstersKilled++;
-                monstersArmour.poll();
-                strikingImpacts.pop();
                 int remainingStrikingImpact = lastStrikingImpacts - firstMonsterArmour;
-                if (remainingStrikingImpact > 0 && !strikingImpacts.isEmpty()) {
-                    int newStrikingImpact = remainingStrikingImpact + strikingImpacts.pop();
-                    strikingImpacts.push(newStrikingImpact);
-                }
-                else if (strikingImpacts.isEmpty()) {
-                    strikingImpacts.push(remainingStrikingImpact);
+                monstersArmour.pollFirst();
+                strikingImpacts.pollLast();
+                if (remainingStrikingImpact > 0) {
+                    if (!strikingImpacts.isEmpty()) {
+                        remainingStrikingImpact += strikingImpacts.pollLast();
+
+                    }
+                    strikingImpacts.offerLast(remainingStrikingImpact);
                 }
             }
             else {
-                monstersArmour.poll();
-                strikingImpacts.pop();
                 int remainingMonsterArmour = firstMonsterArmour - lastStrikingImpacts;
-                monstersArmour.offer(remainingMonsterArmour);
+                monstersArmour.pollFirst();
+                strikingImpacts.pollLast();
+                monstersArmour.offerLast(remainingMonsterArmour);
             }
         }
 
@@ -52,7 +49,7 @@ public class E01MonsterExtermination {
             System.out.println("All monsters have been killed!");
         }
         else {
-            System.out.println("The soldiers have bee defeated.");
+            System.out.println("The soldier has been defeated.");
         }
 
         System.out.println("Total monsters killed: " + totalMonstersKilled);
