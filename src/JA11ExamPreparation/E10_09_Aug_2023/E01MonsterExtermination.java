@@ -11,7 +11,7 @@ public class E01MonsterExtermination {
 
         Scanner scanner = new Scanner(System.in);
 
-        ArrayDeque<Integer> monstersArmour = Arrays.stream(scanner.nextLine().split("\\s+"))
+        ArrayDeque<Integer> monstersArmour = Arrays.stream(scanner.nextLine().split(","))
                 .mapToInt(Integer::parseInt)
                 .boxed()
                 .collect(Collectors.toCollection(ArrayDeque::new));
@@ -21,11 +21,40 @@ public class E01MonsterExtermination {
                 .boxed()
                 .collect(Collectors.toCollection(ArrayDeque::new));
 
+        int totalMonstersKilled = 0;
+        while (!monstersArmour.isEmpty() && !strikingImpacts.isEmpty()) {
 
+            int firstMonsterArmour = monstersArmour.peekFirst();
+            int lastStrikingImpacts = strikingImpacts.peekLast();
 
+            if (lastStrikingImpacts >= firstMonsterArmour) {
+                totalMonstersKilled++;
+                monstersArmour.poll();
+                strikingImpacts.pop();
+                int remainingStrikingImpact = lastStrikingImpacts - firstMonsterArmour;
+                if (remainingStrikingImpact > 0 && !strikingImpacts.isEmpty()) {
+                    int newStrikingImpact = remainingStrikingImpact + strikingImpacts.pop();
+                    strikingImpacts.push(newStrikingImpact);
+                }
+                else if (strikingImpacts.isEmpty()) {
+                    strikingImpacts.push(remainingStrikingImpact);
+                }
+            }
+            else {
+                monstersArmour.poll();
+                strikingImpacts.pop();
+                int remainingMonsterArmour = firstMonsterArmour - lastStrikingImpacts;
+                monstersArmour.offer(remainingMonsterArmour);
+            }
+        }
 
+        if (monstersArmour.isEmpty()) {
+            System.out.println("All monsters have been killed!");
+        }
+        else {
+            System.out.println("The soldiers have bee defeated.");
+        }
 
+        System.out.println("Total monsters killed: " + totalMonstersKilled);
     }
-
-
 }
