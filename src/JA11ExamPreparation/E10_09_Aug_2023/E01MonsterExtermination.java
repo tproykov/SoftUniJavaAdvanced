@@ -27,22 +27,23 @@ public class E01MonsterExtermination {
                 int remainingStrikingImpact = lastStrikingImpacts - firstMonsterArmour;
                 if (remainingStrikingImpact > 0) {
                     if (!strikingImpacts.isEmpty()) {
-                        remainingStrikingImpact += strikingImpacts.pop();
-
+                        int nextStrike = strikingImpacts.pop();
+                        strikingImpacts.push(remainingStrikingImpact + nextStrike);
+                    } else {
+                        strikingImpacts.push(remainingStrikingImpact);
                     }
-                    strikingImpacts.push(remainingStrikingImpact);
                 }
-            }
-            else {
+            } else {
                 int remainingMonsterArmour = firstMonsterArmour - lastStrikingImpacts;
-                monstersArmour.offer(remainingMonsterArmour);
+                if (remainingMonsterArmour > 0) {
+                    monstersArmour.offer(remainingMonsterArmour);
+                }
             }
         }
 
         if (monstersArmour.isEmpty()) {
             System.out.println("All monsters have been killed!");
-        }
-        else {
+        } else {
             System.out.println("The soldier has been defeated.");
         }
 
