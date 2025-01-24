@@ -22,7 +22,7 @@ public class E01MonsterExtermination {
                 .collect(Collectors.toCollection(ArrayDeque::new));
 
 
-        
+
 
 
     }
