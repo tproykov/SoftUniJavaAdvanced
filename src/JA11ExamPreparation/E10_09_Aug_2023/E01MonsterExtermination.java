@@ -19,31 +19,43 @@ public class E01MonsterExtermination {
 
         int totalMonstersKilled = 0;
         while (!monstersArmour.isEmpty() && !strikingImpacts.isEmpty()) {
-            int firstMonsterArmour = monstersArmour.poll();
-            int lastStrikingImpacts = strikingImpacts.pop();
+            int firstMonsterArmour = monstersArmour.peek();
+            int lastStrikingImpacts = strikingImpacts.peek();
 
             if (lastStrikingImpacts >= firstMonsterArmour) {
                 totalMonstersKilled++;
                 int remainingStrikingImpact = lastStrikingImpacts - firstMonsterArmour;
+
                 if (remainingStrikingImpact > 0) {
-                    if (!strikingImpacts.isEmpty()) {
-                        int nextStrike = strikingImpacts.pop();
-                        strikingImpacts.push(remainingStrikingImpact + nextStrike);
-                    } else {
+                    monstersArmour.poll();
+                    if (strikingImpacts.size() == 1) {
+                        strikingImpacts.pop();
                         strikingImpacts.push(remainingStrikingImpact);
                     }
+                    else {
+                        strikingImpacts.pop();
+                        int tempStrikingImpact = remainingStrikingImpact;
+                        int previousStrike = strikingImpacts.pop();
+                        strikingImpacts.push(previousStrike + tempStrikingImpact);
+                    }
+                }
+                else {
+                    strikingImpacts.pop();
+                    monstersArmour.poll();
                 }
             } else {
                 int remainingMonsterArmour = firstMonsterArmour - lastStrikingImpacts;
-                if (remainingMonsterArmour > 0) {
-                    monstersArmour.offer(remainingMonsterArmour);
-                }
+                strikingImpacts.pop();
+                monstersArmour.poll();
+                monstersArmour.offer(remainingMonsterArmour);
             }
         }
 
         if (monstersArmour.isEmpty()) {
             System.out.println("All monsters have been killed!");
-        } else {
+        }
+
+        if (strikingImpacts.isEmpty()) {
             System.out.println("The soldier has been defeated.");
         }
 
