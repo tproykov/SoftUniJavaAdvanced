@@ -19,7 +19,7 @@ public class E01ApocalypsePreparation {
 
         Map<Integer, String> table = new HashMap<>();
         table.put(30, "Patch");
-        table.put(40, "Bandages");
+        table.put(40, "Bandage");
         table.put(100, "MedKit");
 
         Map<String, Integer> items = new HashMap<>();
@@ -83,7 +83,6 @@ public class E01ApocalypsePreparation {
 
         for (Map.Entry<String, Integer> item : orderedItems) {
             System.out.println(item.getKey() + " - " + item.getValue());
-
         }
 
         if (!textiles.isEmpty()) {
