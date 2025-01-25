@@ -47,7 +47,9 @@ public class Magazine {
     }
 
     public boolean removeCloth(String color) {
-        return this.data.removeIf(cloth -> cloth.getColor().equals(color));
+        Cloth cloth = this.getCloth(color);
+        data.remove(cloth);
+        return cloth != null;
     }
 
     public Cloth getSmallestCloth() {
