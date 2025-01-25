@@ -52,10 +52,12 @@ public class E01ApocalypsePreparation {
 
                     if (!medicines.isEmpty()) {
                         medicines.offerLast(medicines.pollLast() + remainder);
-                    } else {
+                    }
+                    else {
                         medicines.offerLast(remainder);
                     }
-                } else {
+                }
+                else {
                     textiles.pollFirst();
                     medicines.offerLast(medicines.pollLast() + 10);
                 }
