@@ -13,12 +13,35 @@ public class VendingMachine {
         this.drinks = new ArrayList<>();
     }
 
+    public int getButtonCapacity() {
+        return buttonCapacity;
+    }
+
+    public void setButtonCapacity(int buttonCapacity) {
+        this.buttonCapacity = buttonCapacity;
+    }
+
+    public List<Drink> getDrinks() {
+        return drinks;
+    }
+
+    public void setDrinks(List<Drink> drinks) {
+        this.drinks = drinks;
+    }
+
     public int getCount() {
         return this.drinks.size();
     }
 
     public void addDrink(Drink drink) {
-        this.drinks.add(drink);
+        if (buttonCapacity > drinks.size()) {
+            this.drinks.add(drink);
+        }
+    }
+
+    public boolean removeDrink(String name) {
+        return this.drinks.removeIf(drink -> drink.getName().equals(name));
+
     }
 
 
