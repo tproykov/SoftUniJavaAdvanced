@@ -40,6 +40,6 @@ public class Drink {
 
     @Override
     public String toString() {
-        return String.format("Name: %s, Price: $%.1f, Volume: %d ml", name, price, volume);
+        return String.format("Name: %s, Price: $%s, Volume: %d ml", name, price, volume);
     }
 }
