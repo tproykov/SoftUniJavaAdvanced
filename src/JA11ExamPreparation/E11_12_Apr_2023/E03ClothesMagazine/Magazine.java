@@ -63,5 +63,14 @@ public class Magazine {
                 .orElse(null);
     }
 
+    public int getCount() {
+        return this.data.size();
+    }
 
+    public String report() {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        
+
+    }
 }
