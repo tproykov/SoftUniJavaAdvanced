@@ -70,7 +70,8 @@ public class Magazine {
     public String report() {
         StringBuilder stringBuilder = new StringBuilder();
 
-        
-
+        stringBuilder.append(this.type).append(" magazine contains:").append(System.lineSeparator());
+        data.forEach(cloth -> stringBuilder.append(cloth.toString()).append(System.lineSeparator()));
+        return stringBuilder.toString();
     }
 }
