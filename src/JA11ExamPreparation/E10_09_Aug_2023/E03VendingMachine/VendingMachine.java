@@ -50,11 +50,24 @@ public class VendingMachine {
                 .orElse(null);
     }
 
+    public Drink getCheapest() {
+        return this.drinks.stream()
+                .min(Comparator.comparing(Drink::getPrice))
+                .orElse(null);
+    }
 
+    public String buyDrink(String name) {
+        Drink drink = this.drinks.stream()
+                .filter(d -> d.getName().equals(name))
+                .findFirst()
+                .orElse(null);
+        return drink != null ? drink.toString().trim() : "";
+    }
 
-
-
-
-
-
+    public String report() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Drinks available:").append("\n");
+        drinks.forEach(drink -> stringBuilder.append(drink.getName().trim()).append("\n"));
+        return stringBuilder.toString();
+    }
 }
