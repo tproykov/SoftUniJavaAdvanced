@@ -1,6 +1,7 @@
 package JA11ExamPreparation.E11_12_Apr_2023.E03ClothesMagazine;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class Magazine {
@@ -39,5 +40,28 @@ public class Magazine {
         this.data = data;
     }
 
-    
+    public void addCloth(Cloth cloth) {
+        if (this.capacity > data.size()) {
+            this.data.add(cloth);
+        }
+    }
+
+    public boolean removeCloth(String color) {
+        return this.data.removeIf(cloth -> cloth.getColor().equals(color));
+    }
+
+    public Cloth getSmallestCloth() {
+        return data.stream()
+                .min(Comparator.comparing(Cloth::getSize))
+                .orElse(null);
+    }
+
+    public Cloth getCloth(String color) {
+        return data.stream()
+                .filter(c -> c.getColor().equals(color))
+                .findFirst()
+                .orElse(null);
+    }
+
+
 }
