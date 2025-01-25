@@ -17,7 +17,10 @@ public class E01RubberDuckDebuggers {
                 .map(Integer::parseInt)
                 .collect(Collectors.toCollection(ArrayDeque::new));
 
-        Map<String, Integer> ducks = new HashMap<>();
+        int darthVaderDucks = 0;
+        int thorDucks = 0;
+        int bigBlueRubberDucks = 0;
+        int smallYellowRubberDucks = 0;
 
         while (!requiredTimes.isEmpty() && !tasksGiven.isEmpty()) {
 
@@ -34,20 +37,16 @@ public class E01RubberDuckDebuggers {
             }
             else {
                 if (calculatedTime > 180) {
-                    ducks.putIfAbsent("Small Yellow Rubber Ducky", 0);
-                    ducks.put("Small Yellow Rubber Ducky", ducks.get("Small Yellow Rubber Ducky") + 1);
+                    smallYellowRubberDucks++;
                 }
                 else if (calculatedTime > 120) {
-                    ducks.putIfAbsent("Big Blue Rubber Ducky", 0);
-                    ducks.put("Big Blue Rubber Ducky", ducks.get("Big Blue Rubber Ducky") + 1);
+                    bigBlueRubberDucks++;
                 }
                 else if (calculatedTime > 60) {
-                    ducks.putIfAbsent("Thor Ducky", 0);
-                    ducks.put("Thor Ducky", ducks.get("Thor Ducky") + 1);
+                    thorDucks++;
                 }
                 else {
-                    ducks.putIfAbsent("Darth Vader Ducky", 0);
-                    ducks.put("Darth Vader Ducky", ducks.get("Darth Vader Ducky") + 1);
+                    darthVaderDucks++;
                 }
 
                 requiredTimes.pollFirst();
@@ -57,8 +56,9 @@ public class E01RubberDuckDebuggers {
 
         System.out.println("Congratulations, all tasks have been completed! Rubber ducks rewarded:");
 
-        for (Map.Entry<String, Integer> entry : ducks.entrySet()) {
-            System.out.println(entry.getKey() + ": " + entry.getValue());
-        }
+        System.out.println("Darth Vader Ducky: " + darthVaderDucks);
+        System.out.println("Thor Ducky: " + thorDucks);
+        System.out.println("Big Blue Rubber Ducky: " + bigBlueRubberDucks);
+        System.out.println("Small Yellow Rubber Ducky: " + smallYellowRubberDucks);
     }
 }
