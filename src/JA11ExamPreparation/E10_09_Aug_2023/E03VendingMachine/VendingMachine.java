@@ -67,7 +67,7 @@ public class VendingMachine {
     public String report() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("Drinks available:").append("\n");
-        drinks.forEach(drink -> stringBuilder.append(drink.getName().trim()).append("\n"));
+        drinks.forEach(drink -> stringBuilder.append(drink.toString().trim()).append("\n"));
         return stringBuilder.toString();
     }
 }
