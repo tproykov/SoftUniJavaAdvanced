@@ -38,46 +38,48 @@ public class E01ApocalypsePreparation {
                 items.put(table.get(healingItem), items.get(table.get(healingItem)) + 1);
                 textiles.pollFirst();
                 medicines.pollLast();
-            }
-            else {
+            } else {
                 if (healingItem > 100) {
-                    textiles.pollFirst();
-                    medicines.pollLast();
-                    int remainder = healingItem - 100;
-                    if (!medicines.isEmpty()) {
-                        int tempValue = remainder + medicines.pollLast();
-                        medicines.offerLast(tempValue);
+                    if (!items.containsKey("MedKit")) {
+                        items.put("MedKit", 0);
                     }
-                    else {
+                    items.put("MedKit", items.get("MedKit") + 1);
+
+                    int remainder = healingItem - 100;
+
+                    medicines.pollLast();
+                    textiles.pollFirst();
+
+                    if (!medicines.isEmpty()) {
+                        medicines.offerLast(medicines.pollLast() + remainder);
+                    } else {
                         medicines.offerLast(remainder);
                     }
-                }
-                else {
+                } else {
                     textiles.pollFirst();
                     medicines.pollLast();
-                    int tempValue = currentMedicine + 10;
-                    medicines.offerLast(tempValue);
+
+                    if (!medicines.isEmpty()) {
+                        medicines.offerLast(medicines.pollLast() + 10);
+                    }
+                    else {
+                        medicines.offerLast(10);
+                    }
                 }
 
 
             }
-
 
 
         }
 
         if (textiles.isEmpty() && medicines.isEmpty()) {
             System.out.println("Textiles and medicaments are both empty.");
-        }
-        else if (textiles.isEmpty()) {
+        } else if (textiles.isEmpty()) {
             System.out.println("Textiles are empty.");
-        }
-        else {
+        } else {
             System.out.println("Medicaments are empty.");
         }
-
-
-
 
 
     }
