@@ -82,7 +82,7 @@ public class E02DeliveryBoy {
                 || deliveryBoyColPosition >= cols;
     }
 
-    public static void printField(char[][] field) {
+    private static void printField(char[][] field) {
         for (char[] chars : field) {
             for (char currentChar : chars) {
                 System.out.print(currentChar + "");
