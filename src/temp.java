@@ -5,21 +5,13 @@ public class temp {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        Queue<Integer> textiles = new ArrayDeque<>(
-                Arrays.stream(scanner.nextLine().split("\\s+"))
-                        .map(Integer::parseInt)
-                        .collect(Collectors.toList())
-        );
+        ArrayDeque<Integer> textiles = Arrays.stream(scanner.nextLine().split(" "))
+                .map(Integer::parseInt)
+                .collect(Collectors.toCollection(ArrayDeque::new));
 
-        Stack<Integer> medicaments = new Stack<>();
-        Stack<Integer> reverseMedicaments = new Stack<>();
-
-        String[] medicamentsArray = scanner.nextLine().split("\\s+");
-
-
-        for (int i = 0; i < medicamentsArray.length; i++) {
-            medicaments.add(Integer.parseInt(medicamentsArray[i]));
-        }
+        ArrayDeque<Integer> medicines = Arrays.stream(scanner.nextLine().split(" "))
+                .map(Integer::parseInt)
+                .collect(Collectors.toCollection(ArrayDeque::new));
 
         Map<Integer, String> table = new HashMap<>();
         table.put(30, "Patch");
@@ -28,38 +20,44 @@ public class temp {
 
         Map<String, Integer> items = new HashMap<>();
 
-        while (!textiles.isEmpty() && !medicaments.isEmpty()) {
-            int sum = textiles.peek() + medicaments.peek();
+        while (!medicines.isEmpty() && !textiles.isEmpty()) {
 
-            if (table.containsKey(sum)) {
-                if (!items.containsKey(table.get(sum))) {
-                    items.put(table.get(sum), 0);
-                }
+            int currentTextile = textiles.peekFirst();
+            int currentMedicine = medicines.peekLast();
 
-                items.put(table.get(sum), items.get(table.get(sum)) + 1);
+            int healingItem = currentTextile + currentMedicine;
 
-                textiles.poll();
-                medicaments.pop();
+            if (table.containsKey(healingItem)) {
+                items.putIfAbsent(table.get(healingItem), 0);
+                items.put(table.get(healingItem), items.get(table.get(healingItem)) + 1);
+
+                textiles.pollFirst();
+                medicines.pollLast();
             } else {
-                if (sum > 100) {
-                    if (!items.containsKey("MedKit")) {
-                        items.put("MedKit", 0);
-                    }
-
+                if (healingItem > 100) {
+                    items.putIfAbsent("MedKit", 0);
                     items.put("MedKit", items.get("MedKit") + 1);
 
-                    sum -= 100;
-                    medicaments.pop();
-                    medicaments.push(medicaments.pop() + sum);
-                    textiles.remove();
+                    int remainder = healingItem - 100;
+                    medicines.pollLast();
+                    textiles.pollFirst();
+
+                    // Keep the original logic: If empty, add the remainder as a new medicament
+                    if (!medicines.isEmpty()) {
+                        medicines.offerLast(medicines.pollLast() + remainder);
+                    } else {
+                        medicines.offerLast(remainder);
+                    }
                 } else {
-                    medicaments.push(medicaments.pop() + 10);
-                    textiles.remove();
+                    textiles.pollFirst();
+                    // "Can't create anything" -> remove only textile, add 10 to the medicament
+                    medicines.offerLast(medicines.pollLast() + 10);
                 }
             }
         }
 
-        if (textiles.isEmpty() && medicaments.isEmpty()) {
+        // Print which collection is empty
+        if (textiles.isEmpty() && medicines.isEmpty()) {
             System.out.println("Textiles and medicaments are both empty.");
         } else if (textiles.isEmpty()) {
             System.out.println("Textiles are empty.");
@@ -67,36 +65,44 @@ public class temp {
             System.out.println("Medicaments are empty.");
         }
 
-        List<Map.Entry<String, Integer>> orderedItems =
-                new ArrayList<>(items.entrySet());
-        Collections.sort(orderedItems,
-                Comparator.comparing(Map.Entry<String, Integer>::getValue).reversed().
-                        thenComparing(Map.Entry<String, Integer>::getKey));
+        // Sort and print created items
+        List<Map.Entry<String, Integer>> orderedItems = new ArrayList<>(items.entrySet());
+        orderedItems.sort(
+                Comparator
+                        .comparing(Map.Entry<String, Integer>::getValue).reversed()
+                        .thenComparing(Map.Entry<String, Integer>::getKey)
+        );
 
         for (Map.Entry<String, Integer> item : orderedItems) {
             System.out.println(item.getKey() + " - " + item.getValue());
         }
 
+        // Print leftover textiles if any
         if (!textiles.isEmpty()) {
-            System.out.println("Textiles left: " + String.join(", ", textiles.toString()).replace("[", "").replace("]", "").trim());
-        } else if (!medicaments.isEmpty()) {
-            for (int i = 0; i < medicaments.size(); i++) {
-                reverseMedicaments.add(medicaments.get(i));
-            }
-            ArrayList<String> result = new ArrayList<>();
+            System.out.println(
+                    "Textiles left: " +
+                            String.join(", ", textiles.toString()
+                                    .replace("[", "")
+                                    .replace("]", "")
+                                    .trim())
+            );
+        }
 
-            while (!reverseMedicaments.isEmpty()) {
-                String temp = String.valueOf(reverseMedicaments.pop());
-                result.add(temp);
-                if (reverseMedicaments.isEmpty()) {
-                    break;
-                }
-                temp = "";
+        // Print leftover medicaments if any, reversing them like your second code
+        if (!medicines.isEmpty()) {
+            // Push all medicaments onto a stack to reverse the order
+            Stack<Integer> reverseStack = new Stack<>();
+            for (Integer medicament : medicines) {
+                reverseStack.push(medicament);
             }
-            System.out.print("Medicaments left: ");
-            String joined = String.join(", ", result);
 
-            System.out.println(joined);
+            // Pop from the stack into a list of strings
+            List<String> reversedOutput = new ArrayList<>();
+            while (!reverseStack.isEmpty()) {
+                reversedOutput.add(String.valueOf(reverseStack.pop()));
+            }
+
+            System.out.println("Medicaments left: " + String.join(", ", reversedOutput));
         }
     }
 }
