@@ -57,13 +57,7 @@ public class E01ApocalypsePreparation {
                     }
                 } else {
                     textiles.pollFirst();
-                    medicines.pollLast();
-
-                    if (!medicines.isEmpty()) {
-                        medicines.offerLast(medicines.pollLast() + 10);
-                    } else {
-                        medicines.offerLast(10);
-                    }
+                    medicines.offerLast(medicines.pollLast() + 10);
                 }
             }
         }
