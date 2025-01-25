@@ -58,14 +58,5 @@ public class Main {
 //Name: Latte, Price: $3.5, Volume: 220 ml
 //Name: Cappuccino, Price: $2.8, Volume: 180 ml
 //Name: Mocha, Price: $2.1, Volume: 150 ml
-
-
-
-
-
-
-
-
-
     }
 }
