@@ -61,16 +61,11 @@ public class E01ApocalypsePreparation {
 
                     if (!medicines.isEmpty()) {
                         medicines.offerLast(medicines.pollLast() + 10);
-                    }
-                    else {
+                    } else {
                         medicines.offerLast(10);
                     }
                 }
-
-
             }
-
-
         }
 
         if (textiles.isEmpty() && medicines.isEmpty()) {
@@ -81,6 +76,24 @@ public class E01ApocalypsePreparation {
             System.out.println("Medicaments are empty.");
         }
 
+        List<Map.Entry<String, Integer>> orderedItems = new ArrayList<>(items.entrySet());
+        Collections.sort(orderedItems,
+                Comparator.comparing(Map.Entry<String, Integer>::getValue).reversed()
+                        .thenComparing(Map.Entry<String, Integer>::getKey));
 
+        for (Map.Entry<String, Integer> item : orderedItems) {
+            System.out.println(item.getKey() + " - " + item.getValue());
+
+        }
+
+        if (!textiles.isEmpty()) {
+            System.out.println("Textiles left: " + String.join(", ", textiles.toString())
+                    .replace("[", "").replace("]", "").trim());
+        }
+
+        if (!medicines.isEmpty()) {
+            System.out.println("Medicaments left: " + String.join(", ", medicines.toString()
+                    .replace("[", "").replace("]", "").trim()));
+        }
     }
 }
