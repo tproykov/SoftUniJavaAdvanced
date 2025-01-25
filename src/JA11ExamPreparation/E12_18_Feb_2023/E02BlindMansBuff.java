@@ -8,7 +8,7 @@ public class E02BlindMansBuff {
 
         Scanner scanner = new Scanner(System.in);
 
-        
+
 
     }
 
