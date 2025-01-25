@@ -53,9 +53,6 @@ public class Magazine {
     }
 
     public Cloth getSmallestCloth() {
-        if (data == null || data.isEmpty()) {
-            return null;
-        }
         return data.stream()
                 .min(Comparator.comparing(Cloth::getSize))
                 .orElse(null);
@@ -72,11 +69,13 @@ public class Magazine {
         return this.data.size();
     }
 
-    public String report() {
-        StringBuilder stringBuilder = new StringBuilder();
+    public String report(){
 
-        stringBuilder.append(this.type).append(" magazine contains:").append(System.lineSeparator());
-        data.forEach(cloth -> stringBuilder.append(cloth.toString()).append(System.lineSeparator()));
-        return stringBuilder.toString();
+        StringBuilder sb = new StringBuilder();
+        sb.append(String.format("%s magazine contains:%n", type)).trimToSize();
+
+        data.forEach(egg -> sb.append(egg.toString()).append(String.format("%n")));
+
+        return sb.toString().trim();
     }
 }
