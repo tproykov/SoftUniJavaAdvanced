@@ -51,6 +51,9 @@ public class Magazine {
     }
 
     public Cloth getSmallestCloth() {
+        if (data == null || data.isEmpty()) {
+            return null;
+        }
         return data.stream()
                 .min(Comparator.comparing(Cloth::getSize))
                 .orElse(null);
