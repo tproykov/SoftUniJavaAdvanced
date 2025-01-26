@@ -21,9 +21,10 @@ public class E02BlindMansBuff {
             char[] row = scanner.nextLine().replace(" ", "").toCharArray();
             for (int j = 0; j < cols; j++) {
                 playGround[i][j] = row[j];
-                playerRowPosition = i;
-                playerColPosition = j;
-                playGround[i][j] = '-';
+                if (playGround[i][j] == 'B') {
+                    playerRowPosition = i;
+                    playerColPosition = j;
+                }
             }
         }
 
