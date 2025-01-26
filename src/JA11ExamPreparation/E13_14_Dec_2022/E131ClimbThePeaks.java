@@ -56,12 +56,12 @@ public class E131ClimbThePeaks {
 
         if (conqueredPeaks.size() == 5) {
             System.out.println("Alex did it! He climbed all top five Pirin peaks in one week -> @FIVEinAWEEK");
-            System.out.println("Conquered peaks:");
         } else {
             System.out.println("Alex failed! He has to organize his journey better next time -> @PIRINWINS");
         }
 
         if (!conqueredPeaks.isEmpty()) {
+            System.out.println("Conquered peaks:");
             conqueredPeaks.forEach(System.out::println);
         }
     }
