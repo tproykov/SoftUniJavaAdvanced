@@ -9,11 +9,11 @@ public class E131ClimbThePeaks {
 
         Scanner scanner = new Scanner(System.in);
 
-        ArrayDeque<Integer> food = Arrays.stream(scanner.nextLine().split("\\s+"))
+        ArrayDeque<Integer> food = Arrays.stream(scanner.nextLine().split(", "))
                 .map(Integer::parseInt)
                 .collect(Collectors.toCollection(ArrayDeque::new));
 
-        ArrayDeque<Integer> stamina = Arrays.stream(scanner.nextLine().split(""))
+        ArrayDeque<Integer> stamina = Arrays.stream(scanner.nextLine().split(", "))
                 .map(Integer::parseInt)
                 .collect(Collectors.toCollection(ArrayDeque::new));
 
@@ -33,7 +33,7 @@ public class E131ClimbThePeaks {
 
         List<String> conqueredPeaks = new ArrayList<>();
 
-        while (!food.isEmpty() && !stamina.isEmpty()) {
+        while (!food.isEmpty() && !stamina.isEmpty() && !peaks.isEmpty()) {
 
             int dailyFood = food.peekLast();
             int dailyStamina = stamina.peekFirst();
@@ -50,11 +50,7 @@ public class E131ClimbThePeaks {
             }
             else {
                 food.pollLast();
-                stamina.pollLast();
-            }
-
-            if (peaks.isEmpty()) {
-                break;
+                stamina.pollFirst();
             }
         }
 
