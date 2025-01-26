@@ -1,7 +1,9 @@
 package JA11ExamPreparation.E12_18_Feb_2023.E03SoftUniKnderGarten;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Kindergarten {
 
@@ -62,9 +64,17 @@ public class Kindergarten {
                 .orElse(null);
     }
 
+    public String registryReport() {
 
+        List<Child> sortedChildren = this.registry.stream()
+                .sorted(Comparator.comparing(Child::getAge)
+                        .thenComparing(Child::getFirstName)
+                        .thenComparing(Child::getLastName))
+                .collect(Collectors.toList());
 
-
-
-
+        StringBuilder report = new StringBuilder();
+        report.append("Registered children in ").append(this.name).append(":\n");
+        sortedChildren.forEach(child -> report.append(child.toString()).append("\n"));
+        return report.toString().trim();
+    }
 }
