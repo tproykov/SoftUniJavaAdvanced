@@ -33,7 +33,8 @@ public class E131ClimbThePeaks {
 
         List<String> conqueredPeaks = new ArrayList<>();
 
-        while (!food.isEmpty() && !stamina.isEmpty() && !peaks.isEmpty()) {
+        int days = 0;
+        while (!food.isEmpty() && !stamina.isEmpty() && !peaks.isEmpty() && days < 7) {
 
             int dailyFood = food.peekLast();
             int dailyStamina = stamina.peekFirst();
@@ -45,20 +46,18 @@ public class E131ClimbThePeaks {
             if (sum >= difficulty) {
                 conqueredPeaks.add(peakToClimb);
                 peaks.pollFirst();
-                food.pollLast();
-                stamina.pollFirst();
             }
-            else {
-                food.pollLast();
-                stamina.pollFirst();
-            }
+
+            food.pollLast();
+            stamina.pollFirst();
+
+            days++;
         }
 
         if (conqueredPeaks.size() == 5) {
             System.out.println("Alex did it! He climbed all top five Pirin peaks in one week -> @FIVEinAWEEK");
             System.out.println("Conquered peaks:");
-        }
-        else {
+        } else {
             System.out.println("Alex failed! He has to organize his journey better next time -> @PIRINWINS");
         }
 
