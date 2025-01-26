@@ -69,7 +69,7 @@ public class SoftUni {
     public String getStatistics() {
 
         StringBuilder statistics = new StringBuilder();
-        statistics.append("Hall size: ").append(this.capacity).append("\n");
+        statistics.append("Hall size: ").append(this.getCount()).append("\n");
         data.forEach(student -> statistics.append(student.toString()).append("\n"));
 
         return statistics.toString();

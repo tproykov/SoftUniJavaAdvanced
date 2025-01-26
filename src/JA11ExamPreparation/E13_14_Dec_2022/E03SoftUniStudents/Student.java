@@ -38,6 +38,6 @@ public class Student {
 
     @Override
     public String toString() {
-        return String.format("%s %s, Best course = %s", firstName, lastName, bestCourse);
+        return String.format("Student: %s %s, Best Course = %s", firstName, lastName, bestCourse);
     }
 }
