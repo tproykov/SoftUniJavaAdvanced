@@ -74,7 +74,15 @@ public class Kindergarten {
 
         StringBuilder report = new StringBuilder();
         report.append("Registered children in ").append(this.name).append(":\n");
-        sortedChildren.forEach(child -> report.append(child.toString()).append("\n"));
+
+        for (int i = 0; i < sortedChildren.size(); i++) {
+            report.append("--\n");
+            report.append(sortedChildren.get(i));
+            if (i < sortedChildren.size() - 1) {
+                report.append("\n");
+            }
+        }
+
         return report.toString().trim();
     }
 }
