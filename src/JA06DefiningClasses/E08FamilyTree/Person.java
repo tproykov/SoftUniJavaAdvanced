@@ -70,7 +70,6 @@ public class Person {
 
     @Override
     public String toString() {
-
         if (firstName != null && lastName != null) {
             return firstName + " " + lastName + (birthDate != null ? " " + birthDate : "");
         }

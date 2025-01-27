@@ -7,7 +7,9 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         FamilyTree familyTree = new FamilyTree();
 
-        String searchPerson = scanner.nextLine();
+        String searchPerson = scanner.nextLine().trim();
+
+        familyTree.getOrCreatePerson(searchPerson);
 
         String line;
         while (!(line = scanner.nextLine()).equals("End")) {

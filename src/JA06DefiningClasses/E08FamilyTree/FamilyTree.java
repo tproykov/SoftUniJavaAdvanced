@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class FamilyTree {
     private Map<String, Person> peopleByName;
@@ -15,8 +14,9 @@ public class FamilyTree {
         this.peopleByBirthDate = new HashMap<>();
     }
 
-    private Person getOrCreatePerson(String identifier) {
+    public Person getOrCreatePerson(String identifier) {
         identifier = identifier.trim();
+
 
         if (identifier.contains("/")) {
             Person person = peopleByBirthDate.get(identifier);
@@ -32,7 +32,6 @@ public class FamilyTree {
                     }
                 }
             }
-
             return person;
 
         } else {
@@ -43,6 +42,7 @@ public class FamilyTree {
                 person = new Person(names[0], names[1]);
                 peopleByName.put(identifier, person);
 
+                // Check if there's a birth-date-based Person with the same date
                 for (Person p : peopleByBirthDate.values()) {
                     if (person.getBirthDate() != null && person.getBirthDate().equals(p.getBirthDate())) {
                         mergePeople(person, p);
@@ -73,32 +73,23 @@ public class FamilyTree {
             peopleByBirthDate.put(main.getBirthDate(), main);
         }
 
-        for (Person p : other.getParents()) {
-            if (!main.getParents().contains(p)) {
-                main.getParents().add(p);
-            }
-        }
-
-        for (Person c : other.getChildren()) {
-            if (!main.getChildren().contains(c)) {
-                main.getChildren().add(c);
-            }
-        }
-
         for (Person parent : other.getParents()) {
-            List<Person> parentChildren = parent.getChildren();
-            for (int i = 0; i < parentChildren.size(); i++) {
-                if (parentChildren.get(i) == other) {
-                    parentChildren.set(i, main);
+            if (!main.getParents().contains(parent)) {
+                main.getParents().add(parent);
+                parent.getChildren().remove(other);
+                if (!parent.getChildren().contains(main)) {
+                    parent.getChildren().add(main);
                 }
             }
         }
 
+
         for (Person child : other.getChildren()) {
-            List<Person> childParents = child.getParents();
-            for (int i = 0; i < childParents.size(); i++) {
-                if (childParents.get(i) == other) {
-                    childParents.set(i, main);
+            if (!main.getChildren().contains(child)) {
+                main.getChildren().add(child);
+                child.getParents().remove(other);
+                if (!child.getParents().contains(main)) {
+                    child.getParents().add(main);
                 }
             }
         }
