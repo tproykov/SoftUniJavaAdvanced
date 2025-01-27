@@ -50,5 +50,10 @@ public class E01EnergyDrinks {
                     .map(String::valueOf)
                     .collect(Collectors.joining(", ")));
         }
+        else {
+            System.out.println("At least Stamat wasn't exceeding the maximum caffeine.");
+        }
+
+        System.out.println("Stamat is going to sleep with " + caffeineConsumed + " mg caffeine.");
     }
 }
