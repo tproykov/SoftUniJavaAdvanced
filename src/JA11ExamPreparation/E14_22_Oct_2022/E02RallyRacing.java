@@ -15,8 +15,7 @@ public class E02RallyRacing {
 
         fillMatrix(matrix, scanner);
 
-        int[] tunnelCoordinates;
-        tunnelCoordinates = getTunnelCoordinates(matrix);
+        int[] tunnelCoordinates = getTunnelCoordinates(matrix);
 
         int carRowPosition = 0;
         int carColPosition = 0;
@@ -35,25 +34,26 @@ public class E02RallyRacing {
                 case "left" -> carColPosition--;
                 case "right" -> carColPosition++;
             }
-            if (matrix[carRowPosition][carColPosition] == '.') {
+
+            char currentCell = matrix[carRowPosition][carColPosition];
+
+            if (currentCell == 'F') {
                 distance += 10;
-            }
-            else if (carRowPosition == tunnelCoordinates[0] && carColPosition == tunnelCoordinates[1]) {
-                carRowPosition = tunnelCoordinates[2];
-                carColPosition = tunnelCoordinates[3];
-                distance += 30;
-                matrix[carRowPosition][carColPosition] = '.';
-            }
-            else if (carRowPosition == tunnelCoordinates[2] && carColPosition == tunnelCoordinates[3]) {
-                carRowPosition = tunnelCoordinates[0];
-                carColPosition = tunnelCoordinates[1];
-                distance += 30;
-                matrix[carRowPosition][carColPosition] = '.';
-            }
-            else if (matrix[carRowPosition][carColPosition] == 'F') {
                 finishReached = true;
-                distance += 10;
                 break;
+            } else if (currentCell == 'T') {
+                if (carRowPosition == tunnelCoordinates[0] && carColPosition == tunnelCoordinates[1]) {
+                    carRowPosition = tunnelCoordinates[2];
+                    carColPosition = tunnelCoordinates[3];
+                } else {
+                    carRowPosition = tunnelCoordinates[0];
+                    carColPosition = tunnelCoordinates[1];
+                }
+                distance += 30;
+                matrix[tunnelCoordinates[0]][tunnelCoordinates[1]] = '.';
+                matrix[tunnelCoordinates[2]][tunnelCoordinates[3]] = '.';
+            } else {
+                distance += 10;
             }
         }
 
@@ -61,13 +61,10 @@ public class E02RallyRacing {
 
         if (finishReached) {
             System.out.println("Racing car " + carNumber + " finished the stage!");
-            System.out.println("Distance covered: " + distance);
-        }
-        else {
+        } else {
             System.out.println("Racing car " + carNumber + " DNF.");
-            System.out.println("Distance covered: " + distance);
         }
-
+        System.out.println("Distance covered " + distance + " km.");
         printMatrix(matrix);
     }
 
@@ -82,11 +79,19 @@ public class E02RallyRacing {
 
     private static int[] getTunnelCoordinates(char[][] matrix) {
         int[] tunnelCoordinates = new int[4];
+        boolean firstFound = false;
         for (int row = 0; row < matrix.length; row++) {
             for (int col = 0; col < matrix[row].length; col++) {
-                if (matrix[row][col] == '.') {
-                    tunnelCoordinates[row] = row;
-                    tunnelCoordinates[col] = col;
+                if (matrix[row][col] == 'T') {
+                    if (!firstFound) {
+                        tunnelCoordinates[0] = row;
+                        tunnelCoordinates[1] = col;
+                        firstFound = true;
+                    } else {
+                        tunnelCoordinates[2] = row;
+                        tunnelCoordinates[3] = col;
+                        return tunnelCoordinates;
+                    }
                 }
             }
         }
@@ -94,9 +99,9 @@ public class E02RallyRacing {
     }
 
     private static void printMatrix(char[][] matrix) {
-        for (char[] chars : matrix) {
-            for (char aChar : chars) {
-                System.out.print(aChar);
+        for (char[] row : matrix) {
+            for (char cell : row) {
+                System.out.print(cell);
             }
             System.out.println();
         }
