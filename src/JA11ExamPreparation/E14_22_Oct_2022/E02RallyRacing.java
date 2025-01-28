@@ -1,6 +1,5 @@
 package JA11ExamPreparation.E14_22_Oct_2022;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class E02RallyRacing {
@@ -16,7 +15,7 @@ public class E02RallyRacing {
 
         fillMatrix(matrix, scanner);
 
-        int[] tunnelCoordinates = new int[4];
+        int[] tunnelCoordinates;
         tunnelCoordinates = getTunnelCoordinates(matrix);
 
         int carRowPosition = 0;
@@ -61,13 +60,15 @@ public class E02RallyRacing {
         matrix[carRowPosition][carColPosition] = 'C';
 
         if (finishReached) {
-
+            System.out.println("Racing car " + carNumber + " finished the stage!");
+            System.out.println("Distance covered: " + distance);
+        }
+        else {
+            System.out.println("Racing car " + carNumber + " DNF.");
+            System.out.println("Distance covered: " + distance);
         }
 
-
-
-
-
+        printMatrix(matrix);
     }
 
     private static void fillMatrix(char[][] matrix, Scanner scanner) {
@@ -93,9 +94,9 @@ public class E02RallyRacing {
     }
 
     private static void printMatrix(char[][] matrix) {
-        for (int row = 0; row < matrix.length; row++) {
-            for (int col = 0; col < matrix[row].length; col++) {
-                System.out.print(matrix[row][col]);
+        for (char[] chars : matrix) {
+            for (char aChar : chars) {
+                System.out.print(aChar);
             }
             System.out.println();
         }
