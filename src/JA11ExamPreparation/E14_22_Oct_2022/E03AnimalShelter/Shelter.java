@@ -59,10 +59,11 @@ public class Shelter {
 
     public String getStatistics() {
 
-
+        StringBuilder statistics = new StringBuilder();
+        statistics.append("The shelter has the following animals:\n");
+        for (Animal animal : data) {
+            statistics.append(animal.toString()).append("\n");
+        }
+        return statistics.toString();
     }
-
-
-
-
 }
