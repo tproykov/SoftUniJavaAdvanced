@@ -62,7 +62,7 @@ public class Shelter {
         StringBuilder statistics = new StringBuilder();
         statistics.append("The shelter has the following animals:\n");
         for (Animal animal : data) {
-            statistics.append(animal.getName()).append(" ").append(animal.getCaretaker());
+            statistics.append(animal.getName()).append(" ").append(animal.getCaretaker()).append("\n");
         }
         return statistics.toString();
     }
