@@ -1,6 +1,7 @@
 package JA11ExamPreparation.E14_22_Oct_2022.E03AnimalShelter;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class Shelter {
@@ -37,11 +38,31 @@ public class Shelter {
 
     public boolean remove(String name) {
         return this.data.removeIf(animal -> animal.getName().equals(name));
+    }
 
+    public Animal getAnimal(String name, String caretaker) {
+        return this.data.stream()
+                .filter(animal -> animal.getName().equals(name) && animal.getCaretaker().equals(caretaker))
+                .findFirst()
+                .orElse(null);
+    }
 
+    public Animal getOldestAnimal() {
+        return this.data.stream()
+                .max(Comparator.comparing(Animal::getAge))
+                .orElse(null);
+    }
+
+    public int getCount() {
+        return this.data.size();
+    }
+
+    public String getStatistics() {
 
 
     }
+
+
 
 
 }
