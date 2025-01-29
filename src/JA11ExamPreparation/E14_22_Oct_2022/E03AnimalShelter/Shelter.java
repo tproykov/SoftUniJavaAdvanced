@@ -6,11 +6,11 @@ import java.util.List;
 public class Shelter {
 
     private int capacity;
-    private List<Animal> animals;
+    private List<Animal> data;
 
     public Shelter(int capacity) {
         this.capacity = capacity;
-        this.animals = new ArrayList<>();
+        this.data = new ArrayList<>();
     }
 
     public int getCapacity() {
@@ -21,13 +21,27 @@ public class Shelter {
         this.capacity = capacity;
     }
 
-    public List<Animal> getAnimals() {
-        return animals;
+    public List<Animal> getData() {
+        return data;
     }
 
-    public void setAnimals(List<Animal> animals) {
-        this.animals = animals;
+    public void setData(List<Animal> data) {
+        this.data = data;
     }
 
-    
+    public void add(Animal animal) {
+        if (this.capacity > this.data.size()) {
+            this.data.add(animal);
+        }
+    }
+
+    public boolean remove(String name) {
+        return this.data.removeIf(animal -> animal.getName().equals(name));
+
+
+
+
+    }
+
+
 }
