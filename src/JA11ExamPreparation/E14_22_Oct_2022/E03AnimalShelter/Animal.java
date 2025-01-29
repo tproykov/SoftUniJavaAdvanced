@@ -38,6 +38,6 @@ public class Animal {
 
     @Override
     public String toString() {
-        return this.name + " " + this.age + "(" + this.caretaker + ")";
+        return this.name + " " + this.age + " (" + this.caretaker + ")";
     }
 }
