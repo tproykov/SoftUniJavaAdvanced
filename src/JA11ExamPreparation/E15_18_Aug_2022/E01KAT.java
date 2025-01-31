@@ -23,8 +23,8 @@ public class E01KAT {
         int registeredCars = 0;
         while (!licensePlates.isEmpty() && !cars.isEmpty()) {
 
-            int currentPlates = licensePlates.peekFirst();
-            int currentCars = cars.peekLast();
+            int currentPlates = licensePlates.pollFirst();
+            int currentCars = cars.pollLast();
 
             int possibleRegistrations = currentPlates / 2;
 
