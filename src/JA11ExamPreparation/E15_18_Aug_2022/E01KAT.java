@@ -19,21 +19,29 @@ public class E01KAT {
                 .map(Integer::parseInt)
                 .collect(Collectors.toCollection(ArrayDeque::new));
 
+        int days = 0;
+        int registeredCars = 0;
         while (!licensePlates.isEmpty() && !cars.isEmpty()) {
 
             int currentLicensePlates = licensePlates.peekFirst();
             int currentCars = cars.peekLast();
 
+            if (currentLicensePlates == 1) {
+                break;
+            }
+
             if (currentCars > currentLicensePlates * 2) {
                 licensePlates.pollFirst();
                 cars.pollLast();
                 int leftoverCars = currentCars - currentLicensePlates * 2;
+                registeredCars += currentCars - leftoverCars;
                 cars.offerLast(leftoverCars);
             }
             else if (currentCars < currentLicensePlates * 2) {
                 licensePlates.pollFirst();
                 cars.pollLast();
                 int leftoverPlates = currentLicensePlates - currentCars * 2;
+                registeredCars += currentCars;
                 licensePlates.offerFirst(leftoverPlates);
             }
             else {
@@ -41,15 +49,9 @@ public class E01KAT {
                 cars.pollLast();
             }
 
-
-
-
-
-
-
-
-
-
+            days++;
         }
+
+        
     }
 }
