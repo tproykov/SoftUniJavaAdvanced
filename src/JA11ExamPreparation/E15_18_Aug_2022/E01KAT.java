@@ -52,6 +52,24 @@ public class E01KAT {
             days++;
         }
 
-        
+        System.out.println(registeredCars + " cars were registered for " + days + " days!");
+
+        if (!licensePlates.isEmpty()) {
+            int finalLicensePlates = 0;
+            while (!licensePlates.isEmpty()) {
+                finalLicensePlates += licensePlates.pollFirst();
+            }
+            System.out.println(finalLicensePlates + " license plates remain!");
+        }
+        else if (!cars.isEmpty()) {
+            int finalCars = 0;
+            while (!cars.isEmpty()) {
+                finalCars += cars.pollLast();
+            }
+            System.out.println(finalCars + " cars remain without license plates!");
+        }
+        else {
+            System.out.println("Good job! There is no queue in front of the KAT");
+        }
     }
 }
