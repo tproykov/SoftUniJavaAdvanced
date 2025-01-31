@@ -23,27 +23,24 @@ public class E01KAT {
         int registeredCars = 0;
         while (!licensePlates.isEmpty() && !cars.isEmpty()) {
 
-            int currentLicensePlates = licensePlates.peekFirst();
+            int currentPlates = licensePlates.peekFirst();
             int currentCars = cars.peekLast();
 
-            if (currentCars * 2 > currentLicensePlates) {
-                licensePlates.pollFirst();
-                cars.pollLast();
-                int leftoverCars = currentCars - currentLicensePlates * 2;
-                registeredCars += currentCars - leftoverCars;
-                cars.offerFirst(leftoverCars);
-            }
-            else if (currentCars * 2 < currentLicensePlates) {
-                licensePlates.pollFirst();
-                cars.pollLast();
-                int leftoverPlates = currentLicensePlates - currentCars * 2;
+            int possibleRegistrations = currentPlates / 2;
+
+            if (possibleRegistrations > currentCars) {
                 registeredCars += currentCars;
-                licensePlates.offerLast(leftoverPlates);
+                int leftoverPlates = currentPlates - currentCars * 2;
+                if (leftoverPlates > 0) {
+                    licensePlates.offerLast(leftoverPlates);
+                }
             }
             else {
-                licensePlates.pollFirst();
-                cars.pollLast();
-                registeredCars += currentCars;
+                registeredCars += possibleRegistrations;
+                int leftoverCars = currentCars - possibleRegistrations;
+                if (leftoverCars > 0) {
+                    cars.addFirst(leftoverCars);
+                }
             }
 
             days++;
