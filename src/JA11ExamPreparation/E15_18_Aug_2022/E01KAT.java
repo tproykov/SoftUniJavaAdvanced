@@ -26,27 +26,24 @@ public class E01KAT {
             int currentLicensePlates = licensePlates.peekFirst();
             int currentCars = cars.peekLast();
 
-            if (currentLicensePlates == 1) {
-                break;
-            }
-
-            if (currentCars > currentLicensePlates * 2) {
+            if (currentCars * 2 > currentLicensePlates) {
                 licensePlates.pollFirst();
                 cars.pollLast();
                 int leftoverCars = currentCars - currentLicensePlates * 2;
                 registeredCars += currentCars - leftoverCars;
-                cars.offerLast(leftoverCars);
+                cars.offerFirst(leftoverCars);
             }
-            else if (currentCars < currentLicensePlates * 2) {
+            else if (currentCars * 2 < currentLicensePlates) {
                 licensePlates.pollFirst();
                 cars.pollLast();
                 int leftoverPlates = currentLicensePlates - currentCars * 2;
                 registeredCars += currentCars;
-                licensePlates.offerFirst(leftoverPlates);
+                licensePlates.offerLast(leftoverPlates);
             }
             else {
                 licensePlates.pollFirst();
                 cars.pollLast();
+                registeredCars += currentCars;
             }
 
             days++;
@@ -55,21 +52,15 @@ public class E01KAT {
         System.out.println(registeredCars + " cars were registered for " + days + " days!");
 
         if (!licensePlates.isEmpty()) {
-            int finalLicensePlates = 0;
-            while (!licensePlates.isEmpty()) {
-                finalLicensePlates += licensePlates.pollFirst();
-            }
-            System.out.println(finalLicensePlates + " license plates remain!");
+            int remainingPlates = licensePlates.stream().mapToInt(Integer::intValue).sum();
+            System.out.println(remainingPlates + " license plates remain!");
         }
         else if (!cars.isEmpty()) {
-            int finalCars = 0;
-            while (!cars.isEmpty()) {
-                finalCars += cars.pollLast();
-            }
-            System.out.println(finalCars + " cars remain without license plates!");
+            int remainingCars = cars.stream().mapToInt(Integer::intValue).sum();
+            System.out.println(remainingCars + " cars remain without license plates!");
         }
         else {
-            System.out.println("Good job! There is no queue in front of the KAT");
+            System.out.println("Good job! There is no queue in front of the KAT!");
         }
     }
 }
