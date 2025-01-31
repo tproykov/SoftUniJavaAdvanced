@@ -19,6 +19,19 @@ public class E01KAT {
                 .map(Integer::parseInt)
                 .collect(Collectors.toCollection(ArrayDeque::new));
 
+        while (!licensePlates.isEmpty() && !cars.isEmpty()) {
+
+
+
+
+
+
+
+
+
+            
+        }
+
 
 
     }
