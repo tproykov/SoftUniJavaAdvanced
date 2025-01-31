@@ -37,7 +37,8 @@ public class E01KAT {
                 licensePlates.offerFirst(leftoverPlates);
             }
             else {
-                
+                licensePlates.pollFirst();
+                cars.pollLast();
             }
 
 
@@ -50,15 +51,5 @@ public class E01KAT {
 
 
         }
-
-
-
     }
-
-
-
 }
-
-
-
-
