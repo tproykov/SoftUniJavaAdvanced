@@ -18,7 +18,7 @@ public class E02TreasureHunt {
         int playerColPosition = 0;
 
         for (int i = 0; i < rows; i++) {
-            String[] tokens = scanner.nextLine().split(" ");
+            String[] tokens = scanner.nextLine().split("\\s+");
             for (int j = 0; j < cols; j++) {
                 field[i][j] = tokens[j].charAt(0);
                 if (field[i][j] == 'Y') {
@@ -30,11 +30,11 @@ public class E02TreasureHunt {
 
         List<String> directions = new ArrayList<>();
         String command;
-        while (scanner.hasNextLine() && !"Finish".equals(command = scanner.nextLine())) {
+        while (!"Finish".equals(command = scanner.nextLine())) {
             int playerLastRowPosition = playerRowPosition;
             int playerLastColPosition = playerColPosition;
 
-            switch (command.toLowerCase()) {  // Handle case sensitivity
+            switch (command) {
                 case "up" -> playerRowPosition--;
                 case "down" -> playerRowPosition++;
                 case "left" -> playerColPosition--;
