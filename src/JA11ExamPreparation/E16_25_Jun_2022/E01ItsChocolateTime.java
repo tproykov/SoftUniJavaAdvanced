@@ -44,7 +44,7 @@ public class E01ItsChocolateTime {
         }
 
         if (milkChocolate > 0 && darkChocolate > 0 && bakingChocolate > 0) {
-            System.out.println("It's a Chocolate Time. All chocolate types are prepared.");
+            System.out.println("It’s a Chocolate Time. All chocolate types are prepared.");
         }
         else {
             System.out.println("Sorry, but you didn't succeed to prepare all types of chocolates.");
