@@ -49,8 +49,5 @@ public class Main {
 //Workout type: strength
 //Exercise: Deadlift, back, 50
 //Exercise: Squats, legs, 60
-
-
-
     }
 }

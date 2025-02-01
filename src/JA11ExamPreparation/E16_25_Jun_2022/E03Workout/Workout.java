@@ -1,6 +1,7 @@
 package JA11ExamPreparation.E16_25_Jun_2022.E03Workout;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class Workout {
@@ -58,6 +59,17 @@ public class Workout {
                 .findFirst()
                 .orElse(null);
     }
+
+    public Exercise getMostBurnedCaloriesExercise() {
+        return exercises.stream().max(Comparator.comparing(Exercise::getBurnedCalories))
+                .orElse(null);
+    }
+
+    public int getExercisesCount() {
+        return exercises.size();
+    }
+
+    
 
 
 }
