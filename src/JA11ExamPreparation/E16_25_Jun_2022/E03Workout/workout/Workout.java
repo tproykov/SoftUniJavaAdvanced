@@ -1,4 +1,4 @@
-package JA11ExamPreparation.E16_25_Jun_2022.E03Workout;
+package workout;
 
 import java.util.ArrayList;
 import java.util.Comparator;
