@@ -37,8 +37,4 @@ System.out.println(park.getReport());
 //Saved elephants in the park:
 //Bibi came from: Private Zoo
 //Lola came from: National Circus of Thailand
-
-
-
-
 }
