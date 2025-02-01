@@ -19,7 +19,7 @@ public class E02TreasureHunt {
         int playerColPosition = 0;
 
         for (int i = 0; i < rows; i++) {
-            String[] tokens = scanner.nextLine().split(" ");
+            String[] tokens = scanner.nextLine().split("\\s+");
             for (int j = 0; j < cols; j++) {
                 field[i][j] = tokens[j].charAt(0);
                 if (field[i][j] == 'Y') {
