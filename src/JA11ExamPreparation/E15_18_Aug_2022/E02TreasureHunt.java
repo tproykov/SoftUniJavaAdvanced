@@ -50,7 +50,7 @@ public class E02TreasureHunt {
                 directions.add(command);
             }
         }
-        
+
         if (field[playerRowPosition][playerColPosition] == 'X') {
             System.out.println("I've found the treasure!");
             if (!directions.isEmpty()) {
