@@ -1,5 +1,7 @@
 package JA11ExamPreparation.E15_18_Aug_2022;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class E02TreasureHunt {
@@ -17,10 +19,9 @@ public class E02TreasureHunt {
         int playerColPosition = 0;
 
         for (int i = 0; i < rows; i++) {
-//            char[] line = scanner.nextLine().split(" ").toCharArray();
-            String line = scanner.nextLine();
+            String[] tokens = scanner.nextLine().split(" ");
             for (int j = 0; j < cols; j++) {
-                field[i][j] = line.charAt(j);
+                field[i][j] = tokens[j].charAt(0);
                 if (field[i][j] == 'Y') {
                     playerRowPosition = i;
                     playerColPosition = j;
@@ -28,11 +29,44 @@ public class E02TreasureHunt {
             }
         }
 
+        List<String> directions = new ArrayList<>();
+        String command;
+        while (!"Finish".equals(command = scanner.nextLine())) {
 
+            int playerLastRowPosition = playerRowPosition;
+            int playerLastColPosition = playerColPosition;
 
+            directions.add(command);
+
+            switch (command) {
+                case "up" -> playerRowPosition--;
+                case "down" -> playerRowPosition++;
+                case "left" -> playerColPosition--;
+                case "right" -> playerColPosition++;
+            }
+
+            if (isOutOfBounds(rows, cols, playerRowPosition, playerColPosition)) {
+                playerRowPosition = playerLastRowPosition;
+                playerColPosition = playerLastColPosition;
+            }
+
+            if (field[playerRowPosition][playerColPosition] == 'T') {
+                playerRowPosition = playerLastRowPosition;
+                playerColPosition = playerLastColPosition;
+            }
+        }
+
+        if (field[playerRowPosition][playerColPosition] == 'X') {
+            System.out.println("I've found the treasure!");
+            System.out.print("The right path is ");
+            System.out.println(String.join(", ", directions));
+        }
+        else {
+            System.out.println("The map is fake!");
+        }
     }
 
-    public boolean isOutOfBounds(int rows, int cols, int playerRowPosition, int playerColPosition) {
+    public static boolean isOutOfBounds(int rows, int cols, int playerRowPosition, int playerColPosition) {
         return playerRowPosition >= rows || playerColPosition >= cols || playerRowPosition < 0
                 || playerColPosition < 0;
     }
