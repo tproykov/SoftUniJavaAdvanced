@@ -7,44 +7,34 @@ import java.util.Scanner;
 public class E02TreasureHunt {
 
     public static void main(String[] args) {
-
         Scanner scanner = new Scanner(System.in);
 
-        String[] dimensions = scanner.nextLine().split("\\s+");
-        int rows = Integer.parseInt(dimensions[0]);
-        int cols = Integer.parseInt(dimensions[1]);
+        int rows = scanner.nextInt();
+        int cols = scanner.nextInt();
+        scanner.nextLine();
 
-        char[][] field = readField(scanner, rows);
-        String[] directions = readDirections(scanner);
-        int[] playerPositions = findPlayerPositions(field);
-        int playerRowPosition = playerPositions[0];
-        int playerColPosition = playerPositions[1];
-
-        List<String> moves = new ArrayList<>();
-
-        for (String direction : directions) {
-
-
-
-
-
-            
-        }
-
-
+        char[][] field = new char[rows][cols];
+        int playerRowPosition = 0;
+        int playerColPosition = 0;
 
         for (int i = 0; i < rows; i++) {
-            field[i] = scanner.nextLine().replace(" ", "").toCharArray();
+            String[] tokens = scanner.nextLine().split(" ");
+            for (int j = 0; j < cols; j++) {
+                field[i][j] = tokens[j].charAt(0);
+                if (field[i][j] == 'Y') {
+                    playerRowPosition = i;
+                    playerColPosition = j;
+                }
+            }
         }
 
         List<String> directions = new ArrayList<>();
         String command;
-        while (!"Finish".equals(command = scanner.nextLine())) {
-
+        while (scanner.hasNextLine() && !"Finish".equals(command = scanner.nextLine())) {
             int playerLastRowPosition = playerRowPosition;
             int playerLastColPosition = playerColPosition;
 
-            switch (command) {
+            switch (command.toLowerCase()) {  // Handle case sensitivity
                 case "up" -> playerRowPosition--;
                 case "down" -> playerRowPosition++;
                 case "left" -> playerColPosition--;
@@ -68,54 +58,17 @@ public class E02TreasureHunt {
 
         if (field[playerRowPosition][playerColPosition] == 'X') {
             System.out.println("I've found the treasure!");
-            System.out.print("The right path is ");
-            System.out.println(String.join(", ", directions));
+            if (!directions.isEmpty()) {
+                System.out.print("The right path is ");
+                System.out.println(String.join(", ", directions));
+            }
         } else {
             System.out.println("The map is fake!");
         }
     }
 
-    public static char[][] readField(Scanner scanner, int rows) {
-        char[][] field = new char[rows][];
-        for (int i = 0; i < rows; i++) {
-            field[i] = scanner.nextLine().replace(" ", "").toCharArray();
-        }
-        return field;
-    }
-
-    private static String[] readDirections(Scanner scanner) {
-        String command = scanner.nextLine();
-        List<String> directions = new ArrayList<>();
-        while (!"Finish".equals(command)) {
-            directions.add(command);
-        }
-        return directions.toArray(String[]::new);
-    }
-
-    private static int[] findPlayerPositions(char[][] field) {
-        int[] playerPositions = new int[2];
-        for (int i = 0; i < field.length; i++) {
-            for (int j = 0; j < field[i].length; j++) {
-                if (field[i][j] == 'Y') {
-                    playerPositions[0] = i;
-                    playerPositions[1] = j;
-                }
-            }
-        }
-        return playerPositions;
-    }
-
-    private static boolean isOutOfBounds(int rows, int cols, int playerRowPosition, int playerColPosition) {
+    public static boolean isOutOfBounds(int rows, int cols, int playerRowPosition, int playerColPosition) {
         return playerRowPosition >= rows || playerColPosition >= cols || playerRowPosition < 0
                 || playerColPosition < 0;
-    }
-
-    private static void printBoard(char[][] board) {
-        for (char[] chars : board) {
-            for (char aChar : chars) {
-                System.out.print(aChar + "");
-            }
-            System.out.println();
-        }
     }
 }
