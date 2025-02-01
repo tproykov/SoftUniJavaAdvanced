@@ -15,8 +15,23 @@ public class E02TreasureHunt {
         int cols = Integer.parseInt(dimensions[1]);
 
         char[][] field = readField(scanner, rows);
-        int playerRowPosition = 0;
-        int playerColPosition = 0;
+        String[] directions = readDirections(scanner);
+        int[] playerPositions = findPlayerPositions(field);
+        int playerRowPosition = playerPositions[0];
+        int playerColPosition = playerPositions[1];
+
+        List<String> moves = new ArrayList<>();
+
+        for (String direction : directions) {
+
+
+
+
+
+            
+        }
+
+
 
         for (int i = 0; i < rows; i++) {
             field[i] = scanner.nextLine().replace(" ", "").toCharArray();
@@ -75,6 +90,19 @@ public class E02TreasureHunt {
             directions.add(command);
         }
         return directions.toArray(String[]::new);
+    }
+
+    private static int[] findPlayerPositions(char[][] field) {
+        int[] playerPositions = new int[2];
+        for (int i = 0; i < field.length; i++) {
+            for (int j = 0; j < field[i].length; j++) {
+                if (field[i][j] == 'Y') {
+                    playerPositions[0] = i;
+                    playerPositions[1] = j;
+                }
+            }
+        }
+        return playerPositions;
     }
 
     private static boolean isOutOfBounds(int rows, int cols, int playerRowPosition, int playerColPosition) {
