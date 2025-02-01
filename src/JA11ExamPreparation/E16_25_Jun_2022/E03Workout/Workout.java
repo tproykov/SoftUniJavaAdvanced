@@ -39,5 +39,18 @@ public class Workout {
         this.exercises = exercises;
     }
 
-    
+    public void addExercise(Exercise exercise) {
+        if (exerciseCount > exercises.size()) {
+            exercises.add(exercise);
+        }
+    }
+
+    public boolean removeExercise(String name, String muscle) {
+        return exercises.removeIf(exercise -> exercise.getName().equals(name)
+                && exercise.getMuscle().equals(muscle));
+
+
+    }
+
+
 }
