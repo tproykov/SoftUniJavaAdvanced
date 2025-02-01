@@ -12,4 +12,28 @@ public class Habitat {
         this.capacity = capacity;
         this.data = new ArrayList<Elephant>();
     }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
+    }
+
+    public List<Elephant> getData() {
+        return data;
+    }
+
+    public void setData(List<Elephant> data) {
+        this.data = data;
+    }
+
+    public void add(Elephant elephant) {
+        if (capacity > data.size()) {
+            data.add(elephant);
+        }
+    }
+
+
 }
