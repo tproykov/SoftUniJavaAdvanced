@@ -36,8 +36,6 @@ public class E02TreasureHunt {
             int playerLastRowPosition = playerRowPosition;
             int playerLastColPosition = playerColPosition;
 
-            directions.add(command);
-
             switch (command) {
                 case "up" -> playerRowPosition--;
                 case "down" -> playerRowPosition++;
@@ -48,12 +46,16 @@ public class E02TreasureHunt {
             if (isOutOfBounds(rows, cols, playerRowPosition, playerColPosition)) {
                 playerRowPosition = playerLastRowPosition;
                 playerColPosition = playerLastColPosition;
+                continue;
             }
 
             if (field[playerRowPosition][playerColPosition] == 'T') {
                 playerRowPosition = playerLastRowPosition;
                 playerColPosition = playerLastColPosition;
+                continue;
             }
+
+            directions.add(command);
         }
 
         if (field[playerRowPosition][playerColPosition] == 'X') {
