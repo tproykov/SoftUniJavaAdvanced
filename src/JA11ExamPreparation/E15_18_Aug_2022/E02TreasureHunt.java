@@ -17,7 +17,7 @@ public class E02TreasureHunt {
         int playerColPosition = 0;
 
         for (int i = 0; i < rows; i++) {
-            char[] line = scanner.nextLine().split(" ").toCharArray();
+//            char[] line = scanner.nextLine().split(" ").toCharArray();
             String line = scanner.nextLine();
             for (int j = 0; j < cols; j++) {
                 field[i][j] = line.charAt(j);

@@ -4,14 +4,12 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Pickle pickle1 = new Pickle();
-        Pickle pickle2 = new Pickle();
-
         Jar<Pickle> jarOfPickles = new Jar<>();
 
-        jarOfPickles.add(pickle1);
-        jarOfPickles.add(pickle2);
+        jarOfPickles.add(new Pickle());
+        jarOfPickles.add(new Pickle());
 
-        jarOfPickles.remove();
+        Pickle pickle = jarOfPickles.remove();
+
     }
 }
