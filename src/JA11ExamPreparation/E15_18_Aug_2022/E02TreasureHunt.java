@@ -9,23 +9,19 @@ public class E02TreasureHunt {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        // Read dimensions more robustly using split
         int[] dimensions = Arrays.stream(scanner.nextLine().split("\\s+"))
                 .mapToInt(Integer::parseInt)
                 .toArray();
         int rows = dimensions[0];
         int cols = dimensions[1];
 
-        // Create and populate field more safely
         char[][] field = new char[rows][cols];
         int playerRowPosition = 0;
         int playerColPosition = 0;
 
-        // Read field data more reliably
         for (int i = 0; i < rows; i++) {
             String line = scanner.nextLine().replace(" ", "");
             field[i] = line.toCharArray();
-            // Find player position
             for (int j = 0; j < cols; j++) {
                 if (field[i][j] == 'Y') {
                     playerRowPosition = i;
@@ -41,7 +37,6 @@ public class E02TreasureHunt {
             int newRow = playerRowPosition;
             int newCol = playerColPosition;
 
-            // Calculate new position without moving yet
             switch (command) {
                 case "up" -> newRow--;
                 case "down" -> newRow++;
@@ -49,15 +44,13 @@ public class E02TreasureHunt {
                 case "right" -> newCol++;
             }
 
-            // Validate move before actually moving
             if (!isOutOfBounds(rows, cols, newRow, newCol) && field[newRow][newCol] != 'T') {
                 playerRowPosition = newRow;
                 playerColPosition = newCol;
                 directions.add(command);
             }
         }
-
-        // Check final position
+        
         if (field[playerRowPosition][playerColPosition] == 'X') {
             System.out.println("I've found the treasure!");
             if (!directions.isEmpty()) {
