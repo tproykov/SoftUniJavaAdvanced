@@ -52,5 +52,12 @@ public class Workout {
 
     }
 
+    public Exercise getExercise(String name, String muscle) {
+        return exercises.stream()
+                .filter(exercise -> exercise.getName().equals(name) && exercise.getMuscle().equals(muscle))
+                .findFirst()
+                .orElse(null);
+    }
+
 
 }
