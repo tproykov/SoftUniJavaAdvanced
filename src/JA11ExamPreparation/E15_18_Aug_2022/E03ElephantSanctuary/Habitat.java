@@ -35,5 +35,18 @@ public class Habitat {
         }
     }
 
+    public boolean remove(String name) {
+        return data.removeIf(elephant -> elephant.getName().equals(name));
+    }
+
+    public Elephant getElephant(String retiredFrom) {
+        return data.stream()
+                .filter(elephant -> elephant.getRetiredFrom().equals(retiredFrom))
+                .findFirst()
+                .orElse(null);
+    }
+
+
+
 
 }
