@@ -69,7 +69,10 @@ public class Workout {
         return exercises.size();
     }
 
-    
-
-
+    public String getStatistics() {
+        StringBuilder statistics = new StringBuilder();
+        statistics.append("Workout type: ").append(type).append("\n");
+        exercises.forEach(exercise -> statistics.append("Exercise: ").append(exercise.getName()).append("\n"));
+        return statistics.toString();
+    }
 }
