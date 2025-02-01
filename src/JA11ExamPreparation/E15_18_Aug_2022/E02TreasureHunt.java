@@ -29,6 +29,7 @@ public class E02TreasureHunt {
         }
 
         List<String> directions = new ArrayList<>();
+        boolean treasureFound = false;
         String command;
         while (!"Finish".equals(command = scanner.nextLine())) {
             int playerLastRowPosition = playerRowPosition;
@@ -54,14 +55,17 @@ public class E02TreasureHunt {
             }
 
             directions.add(command);
+
+            if (field[playerRowPosition][playerColPosition] == 'X') {
+                treasureFound = true;
+                break;
+            }
         }
 
-        if (field[playerRowPosition][playerColPosition] == 'X') {
+        if (treasureFound) {
             System.out.println("I've found the treasure!");
-            if (!directions.isEmpty()) {
-                System.out.print("The right path is ");
-                System.out.println(String.join(", ", directions));
-            }
+            System.out.print("The right path is ");
+            System.out.println(String.join(", ", directions));
         } else {
             System.out.println("The map is fake!");
         }
