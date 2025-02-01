@@ -32,10 +32,6 @@ public class Elephant {
         return retiredFrom;
     }
 
-    public void setRetiredFrom(String retiredFrom) {
-        this.retiredFrom = retiredFrom;
-    }
-
     @Override
     public String toString() {
         return this.name + " " + this.age + " - " + this.retiredFrom;
