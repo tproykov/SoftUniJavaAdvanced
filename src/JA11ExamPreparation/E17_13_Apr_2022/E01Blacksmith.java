@@ -31,10 +31,10 @@ public class E01Blacksmith {
             int mix = currentSteel + currentCarbon;
 
             switch (mix) {
-                case 70 -> swords.putIfAbsent("Gladius", swords.get("Gladius") + 1);
-                case 80 -> swords.putIfAbsent("Shamshir", swords.get("Shamshir") + 1);
-                case 90 -> swords.putIfAbsent("Katana", swords.get("Katana") + 1);
-                case 110 -> swords.putIfAbsent("Sabre", swords.get("Sabre") + 1);
+                case 70 -> swords.put("Gladius", swords.get("Gladius") + 1);
+                case 80 -> swords.put("Shamshir", swords.get("Shamshir") + 1);
+                case 90 -> swords.put("Katana", swords.get("Katana") + 1);
+                case 110 -> swords.put("Sabre", swords.get("Sabre") + 1);
                 default -> {
                     currentCarbon += 5;
                     carbon.offerLast(currentCarbon);
@@ -48,9 +48,9 @@ public class E01Blacksmith {
         }
 
         if (swordsCount > 0) {
-            System.out.println("You have forged " + swordsCount + " swords");
+            System.out.println("You have forged " + swordsCount + " swords.");
         } else {
-            System.out.println("You did not have enough resources to forge a sword");
+            System.out.println("You did not have enough resources to forge a sword.");
         }
 
         if (steel.isEmpty()) {
@@ -66,14 +66,16 @@ public class E01Blacksmith {
             System.out.println("Carbon left: none");
         } else {
             System.out.print("Carbon left: ");
-            System.out.println(carbon.stream()
+            List<Integer> reversedCarbon = new ArrayList<>(carbon);
+            Collections.reverse(reversedCarbon);
+            System.out.println(reversedCarbon.stream()
                     .map(Object::toString)
                     .collect(Collectors.joining(", ")));
         }
 
         for (Map.Entry<String, Integer> entry : swords.entrySet()) {
             if (entry.getValue() > 0) {
-                System.out.print(entry.getKey() + ": " + entry.getValue());
+                System.out.println(entry.getKey() + ": " + entry.getValue());
             }
         }
     }
