@@ -31,18 +31,10 @@ public class E01Blacksmith {
             int mix = currentSteel + currentCarbon;
 
             switch (mix) {
-                case 70 -> {
-                    swords.putIfAbsent("Gladius", swords.get("Gladius") + 1);
-                }
-                case 80 -> {
-                    swords.putIfAbsent("Shamshir", swords.get("Shamshir") + 1);
-                }
-                case 90 -> {
-                    swords.putIfAbsent("Katana", swords.get("Katana") + 1);
-                }
-                case 110 -> {
-                    swords.putIfAbsent("Sabre", swords.get("Sabre") + 1);
-                }
+                case 70 -> swords.putIfAbsent("Gladius", swords.get("Gladius") + 1);
+                case 80 -> swords.putIfAbsent("Shamshir", swords.get("Shamshir") + 1);
+                case 90 -> swords.putIfAbsent("Katana", swords.get("Katana") + 1);
+                case 110 -> swords.putIfAbsent("Sabre", swords.get("Sabre") + 1);
                 default -> {
                     currentCarbon += 5;
                     carbon.offerLast(currentCarbon);
