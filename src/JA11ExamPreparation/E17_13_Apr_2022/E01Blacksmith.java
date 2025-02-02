@@ -57,11 +57,28 @@ public class E01Blacksmith {
 
         if (swordsCount > 0) {
             System.out.println("You have forged " + swordsCount + " swords");
-        }
-        else {
+        } else {
             System.out.println("You did not have enough resources to forge a sword");
         }
 
-        
+        if (steel.isEmpty()) {
+            System.out.println("Steel left: none");
+        } else {
+            System.out.print("Steel left: ");
+            System.out.println(steel.stream()
+                    .map(Object::toString)
+                    .collect(Collectors.joining(", ")));
+        }
+
+        if (carbon.isEmpty()) {
+            System.out.println("Carbon left: none");
+        } else {
+            System.out.print("Carbon left: ");
+            System.out.println(carbon.stream()
+                    .map(Object::toString)
+                    .collect(Collectors.joining(", ")));
+        }
+
+
     }
 }
