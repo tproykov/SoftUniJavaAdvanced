@@ -8,7 +8,7 @@ public class E01Blacksmith {
 
         Scanner scanner = new Scanner(System.in);
 
-        
+
 
     }
 
