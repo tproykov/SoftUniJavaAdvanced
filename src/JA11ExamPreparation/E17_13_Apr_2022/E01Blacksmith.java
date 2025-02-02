@@ -79,6 +79,10 @@ public class E01Blacksmith {
                     .collect(Collectors.joining(", ")));
         }
 
-
+        for (Map.Entry<String, Integer> entry : swords.entrySet()) {
+            if (entry.getValue() > 0) {
+                System.out.print(entry.getKey() + ": " + entry.getValue());
+            }
+        }
     }
 }
