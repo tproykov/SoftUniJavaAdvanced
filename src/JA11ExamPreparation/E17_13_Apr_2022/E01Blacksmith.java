@@ -19,7 +19,18 @@ public class E01Blacksmith {
                 .map(Integer::parseInt)
                 .collect(Collectors.toCollection(ArrayDeque::new));
 
-        
+        while (!steel.isEmpty() && !coal.isEmpty()) {
+
+            int currentSteel = steel.pollFirst();
+            int currentCoal = coal.pollLast();
+
+            int mix = currentSteel + currentCoal;
+
+
+
+        }
+
+
 
 
 
