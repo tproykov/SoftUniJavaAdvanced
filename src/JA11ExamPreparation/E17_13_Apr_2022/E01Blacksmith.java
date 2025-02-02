@@ -49,5 +49,19 @@ public class E01Blacksmith {
                 }
             }
         }
+
+        int swordsCount = 0;
+        for (Map.Entry<String, Integer> entry : swords.entrySet()) {
+            swordsCount += entry.getValue();
+        }
+
+        if (swordsCount > 0) {
+            System.out.println("You have forged " + swordsCount + " swords");
+        }
+        else {
+            System.out.println("You did not have enough resources to forge a sword");
+        }
+
+        
     }
 }
