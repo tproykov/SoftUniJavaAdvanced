@@ -38,6 +38,6 @@ public class Egg {
 
     @Override
     public String toString() {
-        return this.color + "egg, with " + this.strength + " strength and " + this.shape + ".";
+        return this.color + " egg, with " + this.strength + " strength and " + this.shape + " shape.";
     }
 }
