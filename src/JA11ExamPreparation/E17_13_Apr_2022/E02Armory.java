@@ -43,6 +43,7 @@ public class E02Armory {
                 armory[officerRowPosition][officerColPosition] = 'A';
             }
             else if (armory[officerRowPosition][officerColPosition] == 'M') {
+                armory[officerRowPosition][officerColPosition] = '-';
                 int[] officerNewPosition = teleport(armory, officerRowPosition, officerColPosition);
                 officerRowPosition = officerNewPosition[0];
                 officerColPosition = officerNewPosition[1];
