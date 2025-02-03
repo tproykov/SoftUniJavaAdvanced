@@ -70,8 +70,11 @@ public class Basket {
     public String report() {
         StringBuilder report = new StringBuilder();
         report.append(this.material).append(" basket contains:").append(System.lineSeparator());
-        for (Egg egg : data) {
-            report.append(egg).append(System.lineSeparator());
+        for (int i = 0; i < data.size(); i++) {
+            report.append(data.get(i).toString());
+            if (i != data.size() - 1) {
+                report.append(System.lineSeparator());
+            }
         }
         return report.toString();
     }
