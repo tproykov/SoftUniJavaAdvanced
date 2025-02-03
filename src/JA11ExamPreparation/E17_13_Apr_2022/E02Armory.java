@@ -8,7 +8,7 @@ public class E02Armory {
 
         Scanner scanner = new Scanner(System.in);
 
-        
+
 
     }
 
