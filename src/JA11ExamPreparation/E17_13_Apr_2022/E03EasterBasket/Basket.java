@@ -1,6 +1,7 @@
 package JA11ExamPreparation.E17_13_Apr_2022.E03EasterBasket;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class Basket {
@@ -49,11 +50,25 @@ public class Basket {
         return this.data.removeIf(egg -> egg.getColor().equals(color));
     }
 
+    public Egg getStrongestEgg() {
+        return this.data.stream()
+                .max(Comparator.comparing(Egg::getStrength))
+                .orElse(null);
+    }
 
+    public Egg getEgg(String color) {
+        return this.data.stream()
+                .filter(egg -> egg.getColor().equals(color))
+                .findFirst()
+                .orElse(null);
+    }
 
-
-
-
-
-
+    public String report() {
+        StringBuilder report = new StringBuilder();
+        report.append(this.material).append(" basket contains:").append(System.lineSeparator());
+        for (Egg egg : data) {
+            report.append(egg).append(System.lineSeparator());
+        }
+        return report.toString();
+    }
 }
