@@ -21,34 +21,50 @@ public class E01Meeting {
                 .map(Integer::parseInt)
                 .forEach(females::offer);
 
+        int matches = 0;
         while (!males.isEmpty() && !females.isEmpty()) {
 
-            int currentMale = males.pop();
+            int currentMale = males.peek();
             if (currentMale <= 0) {
-                currentMale = males.pop();
+                males.pop();
+                continue;
+            }
+            if (currentMale % 25 == 0) {
+                males.pop();
+                males.pop();
+                continue;
             }
 
-
-            int currentFemale = females.poll();
+            int currentFemale = females.peek();
             if (currentFemale <= 0) {
-                currentFemale = females.poll();
+                females.poll();
+                continue;
+            }
+            if (currentFemale % 25 == 0) {
+                females.poll();
+                females.poll();
+                continue;
             }
 
+            males.pop();
+            females.poll();
 
-            
             if (currentMale != currentFemale) {
                 currentMale -= 2;
                 males.push(currentMale);
             }
+            else {
+                matches++;
+            }
         }
 
-
-
-
-
-
-
-
-
+        System.out.println("Matches: " + matches);
+        System.out.print("Males left: ");
+        if (males.isEmpty()) {
+            System.out.println("none");
+        }
+        else {
+            System.out.println(males.toString().replaceAll("[\\[\\]]", ""));
+        }
     }
 }
