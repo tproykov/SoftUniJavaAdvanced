@@ -69,16 +69,16 @@ public class Cage {
         }
         return toReturn;
     }
-    
+
     public int count() {
         return this.data.size();
     }
 
     public String report() {
         StringBuilder report = new StringBuilder();
-        report.append("Parrots available at ").append(this.name).append("\n");
+        report.append("Parrots available at ").append(this.name).append(":");
         for (Parrot parrot : data) {
-            report.append(parrot);
+            report.append(System.lineSeparator()).append(parrot);
         }
         return report.toString();
     }
