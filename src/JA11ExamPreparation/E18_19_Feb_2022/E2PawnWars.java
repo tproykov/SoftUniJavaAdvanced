@@ -1,5 +1,6 @@
 package JA11ExamPreparation.E18_19_Feb_2022;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class E2PawnWars {
@@ -13,36 +14,38 @@ public class E2PawnWars {
         fillBoard(chessBoard, scanner);
 
         int[] pawnsPositions = new int[4];
+        findPawnsPositions(chessBoard, pawnsPositions);
+
         int whiteRowPosition = pawnsPositions[0];
         int whiteColPosition = pawnsPositions[1];
         int blackRowPosition = pawnsPositions[2];
         int blackColPosition = pawnsPositions[3];
 
-        findPawnsPositions(chessBoard, pawnsPositions);
-
         while (true) {
 
-            whiteRowPosition++;
+            if (Math.abs(whiteColPosition - blackColPosition) == 1 && whiteRowPosition - blackRowPosition == 1) {
+                System.out.println("Game over! White capture on " + columnCode(blackColPosition) +
+                        (8 - blackRowPosition) + ".");
+                return;
+            }
+
+            whiteRowPosition--;
             if (whiteRowPosition == 0) {
                 System.out.println("Game over! White pawn is promoted to a queen at "
                         + columnCode(whiteColPosition) + "8.");
                 return;
             }
-            if (Math.abs(whiteColPosition - blackColPosition) == 1 && whiteRowPosition - blackRowPosition == 1) {
-                System.out.println("Game over! White capture on " + columnCode(blackColPosition) +
-                        (8 - blackRowPosition));
+
+            if (Math.abs(blackColPosition - whiteColPosition) == 1 && whiteRowPosition - blackRowPosition == 1) {
+                System.out.println("Game over! Black capture on " + columnCode(whiteColPosition) +
+                        (8 - whiteRowPosition) + ".");
                 return;
             }
 
-            blackRowPosition--;
+            blackRowPosition++;
             if (blackRowPosition == 7) {
                 System.out.println("Game over! Black pawn is promoted to a queen at "
                 + columnCode(blackColPosition) + "1.");
-                return;
-            }
-            if (Math.abs(blackColPosition - whiteColPosition) == 1 && blackRowPosition - whiteRowPosition == 1) {
-                System.out.println("Game over! Black capture on " + columnCode(whiteColPosition) +
-                        (8 - whiteRowPosition));
                 return;
             }
         }
@@ -50,14 +53,14 @@ public class E2PawnWars {
 
     private static String columnCode(int column) {
         return switch (column) {
-            case 0 -> "h";
-            case 1 -> "g";
-            case 2 -> "f";
-            case 3 -> "e";
-            case 4 -> "d";
-            case 5 -> "c";
-            case 6 -> "b";
-            case 7 -> "a";
+            case 0 -> "a";
+            case 1 -> "b";
+            case 2 -> "c";
+            case 3 -> "d";
+            case 4 -> "e";
+            case 5 -> "f";
+            case 6 -> "g";
+            case 7 -> "h";
             default -> throw new IllegalStateException("Unexpected value: " + column);
         };
     }
@@ -74,15 +77,6 @@ public class E2PawnWars {
                     pawnsPositions[3] = j;
                 }
             }
-        }
-    }
-
-    private static void printBoard(char[][] chessBoard) {
-        for (char[] chars : chessBoard) {
-            for (char aChar : chars) {
-                System.out.print(aChar);
-            }
-            System.out.println();
         }
     }
 
