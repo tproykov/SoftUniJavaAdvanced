@@ -26,14 +26,7 @@ public class E01FoodFinder {
             char currentVowel = vowels.poll();
             char currentConsonant = consonants.poll();
 
-            for (String word : words) {
-                if (word.contains(currentVowel + "")) {
-                    foundCharacters.add(currentVowel);
-                }
-                if (word.contains(currentConsonant + "")) {
-                    foundCharacters.add(currentConsonant);
-                }
-            }
+            findCharacters(words, foundCharacters, currentVowel, currentConsonant);
 
             vowels.offer(currentVowel);
         }
@@ -55,6 +48,18 @@ public class E01FoodFinder {
         System.out.println("Words found: " + foundWords.size());
         for (String word : foundWords) {
             System.out.println(word);
+        }
+    }
+
+    private static void findCharacters(String[] words, Set<Character> foundCharacters,
+                                       char currentVowel, char currentConsonant) {
+        for (String word : words) {
+            if (word.contains(currentVowel + "")) {
+                foundCharacters.add(currentVowel);
+            }
+            if (word.contains(currentConsonant + "")) {
+                foundCharacters.add(currentConsonant);
+            }
         }
     }
 }
