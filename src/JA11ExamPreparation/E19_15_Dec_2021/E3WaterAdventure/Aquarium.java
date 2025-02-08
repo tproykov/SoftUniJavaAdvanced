@@ -45,10 +45,6 @@ public class Aquarium {
         return fishInPool.size();
     }
 
-    public void setFishInPool(List<Fish> fishInPool) {
-        this.fishInPool = fishInPool;
-    }
-
     public void add(Fish fish) {
         if (this.capacity > fishInPool.size()) {
             fishInPool.add(fish);
@@ -68,12 +64,10 @@ public class Aquarium {
 
     public String report() {
         StringBuilder report = new StringBuilder();
-
-
-        
-
+        report.append("Aquarium: " + this.name + " ^ Size: " + this.size);
+        for (Fish fish : this.fishInPool) {
+            report.append(System.lineSeparator()).append(fish.toString());
+        }
         return report.toString();
     }
-
-
 }
