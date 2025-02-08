@@ -32,6 +32,20 @@ public class E01FoodFinder {
         }
 
         List<String> foundWords = new ArrayList<>();
+
+        findWords(words, foundCharacters, foundWords);
+
+        printOutput(foundWords);
+    }
+
+    private static void printOutput(List<String> foundWords) {
+        System.out.println("Words found: " + foundWords.size());
+        for (String word : foundWords) {
+            System.out.println(word);
+        }
+    }
+
+    private static void findWords(String[] words, Set<Character> foundCharacters, List<String> foundWords) {
         for (String word : words) {
             boolean foundWord = true;
             for (int i = 0; i < word.length(); i++) {
@@ -43,11 +57,6 @@ public class E01FoodFinder {
             if (foundWord) {
                 foundWords.add(word);
             }
-        }
-
-        System.out.println("Words found: " + foundWords.size());
-        for (String word : foundWords) {
-            System.out.println(word);
         }
     }
 
