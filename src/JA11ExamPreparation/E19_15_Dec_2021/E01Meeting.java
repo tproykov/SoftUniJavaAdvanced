@@ -59,12 +59,21 @@ public class E01Meeting {
         }
 
         System.out.println("Matches: " + matches);
+
         System.out.print("Males left: ");
         if (males.isEmpty()) {
             System.out.println("none");
         }
         else {
             System.out.println(males.toString().replaceAll("[\\[\\]]", ""));
+        }
+
+        System.out.print("Females left: ");
+        if (females.isEmpty()) {
+            System.out.println("none");
+        }
+        else {
+            System.out.println(females.toString().replaceAll("[\\[\\]]", ""));
         }
     }
 }
