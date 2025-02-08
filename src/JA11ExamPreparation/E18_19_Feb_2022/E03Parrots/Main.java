@@ -45,11 +45,5 @@ public class Main {
 //Parrots available at Wildness:
 //Parrot (Loriinae): Fluffy
 //Parrot (Arinae): Marlin
-
-
-
-
-
-
     }
 }
