@@ -22,6 +22,13 @@ public class E01Meeting {
                 .forEach(females::offer);
 
         int matches = 0;
+
+        matches = getMatches(males, females, matches);
+
+        printOutput(matches, males, females);
+    }
+
+    private static int getMatches(Deque<Integer> males, Deque<Integer> females, int matches) {
         while (!males.isEmpty() && !females.isEmpty()) {
 
             int currentMale = males.peek();
@@ -57,7 +64,10 @@ public class E01Meeting {
                 matches++;
             }
         }
+        return matches;
+    }
 
+    private static void printOutput(int matches, Deque<Integer> males, Deque<Integer> females) {
         System.out.println("Matches: " + matches);
 
         System.out.print("Males left: ");
