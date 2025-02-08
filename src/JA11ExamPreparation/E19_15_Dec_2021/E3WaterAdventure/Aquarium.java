@@ -41,17 +41,39 @@ public class Aquarium {
         this.size = size;
     }
 
-    public List<Fish> getFishInPool() {
-        return fishInPool;
+    public int getFishInPool() {
+        return fishInPool.size();
     }
 
     public void setFishInPool(List<Fish> fishInPool) {
         this.fishInPool = fishInPool;
     }
 
-    public void addFish(Fish fish) {
+    public void add(Fish fish) {
         if (this.capacity > fishInPool.size()) {
             fishInPool.add(fish);
         }
     }
+
+    public boolean remove(String name) {
+        return this.fishInPool.removeIf(fish -> fish.getName().equals(name));
+    }
+
+    public Fish findFish(String name) {
+        return this.fishInPool.stream()
+                .filter(f -> f.getName().equals(name))
+                .findFirst()
+                .orElse(null);
+    }
+
+    public String report() {
+        StringBuilder report = new StringBuilder();
+
+
+        
+
+        return report.toString();
+    }
+
+
 }
