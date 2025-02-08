@@ -18,7 +18,7 @@ public class E01AutumnCocktails {
                 .map(Integer::parseInt)
                 .forEach(freshnessLevels::push);
 
-        Map<String, Integer> cocktailsProduced = new HashMap<>();
+        Map<String, Integer> cocktailsProduced = new TreeMap<>();
         cocktailsProduced.put("Pear Sour", 0);
         cocktailsProduced.put("The Harvest", 0);
         cocktailsProduced.put("Apple Hinny", 0);
@@ -62,6 +62,26 @@ public class E01AutumnCocktails {
             if (fourCocktailsDone) {
                 break;
             }
+        }
+
+        if (fourCocktailsDone) {
+            System.out.println("It's party time! The cocktails are ready!");
+        }
+        else {
+            System.out.println("What a pity! You didn't manage to prepare all cocktails.");
+        }
+
+        if (!ingredients.isEmpty()) {
+            System.out.print("Ingredients left: ");
+            int sum = 0;
+            for (Integer ingredient : ingredients) {
+                sum += ingredient;
+            }
+            System.out.println(sum);
+        }
+
+        for (Map.Entry<String, Integer> entry : cocktailsProduced.entrySet()) {
+            System.out.println(" # " + entry.getKey() + " --> " + entry.getValue());
         }
     }
 }
