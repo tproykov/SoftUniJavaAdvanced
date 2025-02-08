@@ -1,91 +1,89 @@
 package JA11ExamPreparation.E18_19_Feb_2022;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class E2PawnWars {
+    private static final int BOARD_SIZE = 8;
+    private static final char WHITE_PAWN = 'w';
+    private static final char BLACK_PAWN = 'b';
+
+    // Represent pawn positions as a class instead of array for better readability
+    private static class Position {
+        int row, col;
+        Position(int row, int col) {
+            this.row = row;
+            this.col = col;
+        }
+    }
 
     public static void main(String[] args) {
-
         Scanner scanner = new Scanner(System.in);
-
-        char[][] chessBoard = new char[8][8];
-
+        char[][] chessBoard = new char[BOARD_SIZE][BOARD_SIZE];
         fillBoard(chessBoard, scanner);
 
-        int[] pawnsPositions = new int[4];
-        findPawnsPositions(chessBoard, pawnsPositions);
+        Position whitePawn = findPawn(chessBoard, WHITE_PAWN);
+        Position blackPawn = findPawn(chessBoard, BLACK_PAWN);
 
-        int whiteRowPosition = pawnsPositions[0];
-        int whiteColPosition = pawnsPositions[1];
-        int blackRowPosition = pawnsPositions[2];
-        int blackColPosition = pawnsPositions[3];
+        simulateGame(whitePawn, blackPawn);
+    }
 
+    private static void simulateGame(Position white, Position black) {
         while (true) {
-
-            if (Math.abs(whiteColPosition - blackColPosition) == 1 && whiteRowPosition - blackRowPosition == 1) {
-                System.out.println("Game over! White capture on " + columnCode(blackColPosition) +
-                        (8 - blackRowPosition) + ".");
+            // Check white capture
+            if (canCapture(white, black)) {
+                System.out.printf("Game over! White capture on %s%d.%n",
+                        columnCode(black.col), BOARD_SIZE - black.row);
                 return;
             }
 
-            whiteRowPosition--;
-            if (whiteRowPosition == 0) {
-                System.out.println("Game over! White pawn is promoted to a queen at "
-                        + columnCode(whiteColPosition) + "8.");
+            // Move white pawn
+            white.row--;
+            if (white.row == 0) {
+                System.out.printf("Game over! White pawn is promoted to a queen at %s8.%n",
+                        columnCode(white.col));
                 return;
             }
 
-            if (Math.abs(blackColPosition - whiteColPosition) == 1 && whiteRowPosition - blackRowPosition == 1) {
-                System.out.println("Game over! Black capture on " + columnCode(whiteColPosition) +
-                        (8 - whiteRowPosition) + ".");
+            // Check black capture
+            if (canCapture(white, black)) {
+                System.out.printf("Game over! Black capture on %s%d.%n",
+                        columnCode(white.col), BOARD_SIZE - white.row);
                 return;
             }
 
-            blackRowPosition++;
-            if (blackRowPosition == 7) {
-                System.out.println("Game over! Black pawn is promoted to a queen at "
-                + columnCode(blackColPosition) + "1.");
+            // Move black pawn
+            black.row++;
+            if (black.row == BOARD_SIZE - 1) {
+                System.out.printf("Game over! Black pawn is promoted to a queen at %s1.%n",
+                        columnCode(black.col));
                 return;
             }
         }
+    }
+
+    private static boolean canCapture(Position white, Position black) {
+        return Math.abs(white.col - black.col) == 1 && white.row - black.row == 1;
     }
 
     private static String columnCode(int column) {
-        return switch (column) {
-            case 0 -> "a";
-            case 1 -> "b";
-            case 2 -> "c";
-            case 3 -> "d";
-            case 4 -> "e";
-            case 5 -> "f";
-            case 6 -> "g";
-            case 7 -> "h";
-            default -> throw new IllegalStateException("Unexpected value: " + column);
-        };
+        return String.valueOf((char)('a' + column));
     }
 
-    private static void findPawnsPositions(char[][] chessBoard, int[] pawnsPositions) {
-        for (int i = 0; i < chessBoard.length; i++) {
-            for (int j = 0; j < chessBoard[i].length; j++) {
-                if (chessBoard[i][j] == 'w') {
-                    pawnsPositions[0] = i;
-                    pawnsPositions[1] = j;
-                }
-                if (chessBoard[i][j] == 'b') {
-                    pawnsPositions[2] = i;
-                    pawnsPositions[3] = j;
+    private static Position findPawn(char[][] board, char pawnType) {
+        for (int i = 0; i < BOARD_SIZE; i++) {
+            for (int j = 0; j < BOARD_SIZE; j++) {
+                if (board[i][j] == pawnType) {
+                    return new Position(i, j);
                 }
             }
         }
+        throw new IllegalStateException("Pawn not found: " + pawnType);
     }
 
-    private static void fillBoard(char[][] chessBoard, Scanner scanner) {
-        for (int row = 0; row < 8; row++) {
+    private static void fillBoard(char[][] board, Scanner scanner) {
+        for (int row = 0; row < BOARD_SIZE; row++) {
             String line = scanner.nextLine();
-            for (int col = 0; col < line.length(); col++) {
-                chessBoard[row][col] = line.charAt(col);
-            }
+            board[row] = line.toCharArray();
         }
     }
 }
