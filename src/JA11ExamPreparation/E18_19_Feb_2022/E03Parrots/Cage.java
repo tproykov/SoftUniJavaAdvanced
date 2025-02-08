@@ -2,6 +2,7 @@ package JA11ExamPreparation.E18_19_Feb_2022.E03Parrots;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Cage {
 
@@ -50,25 +51,21 @@ public class Cage {
     }
 
     public Parrot sellParrot(String name) {
-        Parrot toReturn = null;
-        for (Parrot parrot : data) {
-            if (parrot.getName().equals(name)) {
-                parrot.setAvailable(false);
-                toReturn = parrot;
-            }
-        }
-        return toReturn;
+        return data.stream()
+                .filter(parrot -> parrot.getName().equals(name))
+                .findFirst()
+                .map(parrot -> {
+                    parrot.setAvailable(false);
+                    return parrot;
+                })
+                .orElse(null);
     }
 
     public List<Parrot> sellParrotBySpecies(String species) {
-        List<Parrot> toReturn = new ArrayList<>();
-        for (Parrot parrot : data) {
-            if (parrot.getSpecies().equals(species)) {
-                parrot.setAvailable(false);
-                toReturn.add(parrot);
-            }
-        }
-        return toReturn;
+        return data.stream()
+                .filter(parrot -> parrot.getSpecies().equals(species))
+                .peek(parrot -> parrot.setAvailable(false))
+                .collect(Collectors.toList());
     }
 
     public int count() {
