@@ -64,6 +64,7 @@ public class Cage {
         List<Parrot> toReturn = new ArrayList<>();
         for (Parrot parrot : data) {
             if (parrot.getSpecies().equals(species)) {
+                parrot.setAvailable(false);
                 toReturn.add(parrot);
             }
         }
@@ -77,9 +78,9 @@ public class Cage {
     public String report() {
         StringBuilder report = new StringBuilder();
         report.append("Parrots available at ").append(this.name).append(":");
-        for (Parrot parrot : data) {
-            report.append(System.lineSeparator()).append(parrot);
-        }
+        this.data.stream()
+                .filter(Parrot::isAvailable)
+                .forEach(parrot -> report.append(System.lineSeparator()).append(parrot.toString()));
         return report.toString();
     }
 }
