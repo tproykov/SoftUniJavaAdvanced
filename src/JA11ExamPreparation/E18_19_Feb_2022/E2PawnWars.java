@@ -7,7 +7,6 @@ public class E2PawnWars {
     private static final char WHITE_PAWN = 'w';
     private static final char BLACK_PAWN = 'b';
 
-    // Represent pawn positions as a class instead of array for better readability
     private static class Position {
         int row, col;
         Position(int row, int col) {
@@ -29,14 +28,12 @@ public class E2PawnWars {
 
     private static void simulateGame(Position white, Position black) {
         while (true) {
-            // Check white capture
             if (canCapture(white, black)) {
                 System.out.printf("Game over! White capture on %s%d.%n",
                         columnCode(black.col), BOARD_SIZE - black.row);
                 return;
             }
 
-            // Move white pawn
             white.row--;
             if (white.row == 0) {
                 System.out.printf("Game over! White pawn is promoted to a queen at %s8.%n",
@@ -44,14 +41,12 @@ public class E2PawnWars {
                 return;
             }
 
-            // Check black capture
             if (canCapture(white, black)) {
                 System.out.printf("Game over! Black capture on %s%d.%n",
                         columnCode(white.col), BOARD_SIZE - white.row);
                 return;
             }
 
-            // Move black pawn
             black.row++;
             if (black.row == BOARD_SIZE - 1) {
                 System.out.printf("Game over! Black pawn is promoted to a queen at %s1.%n",
