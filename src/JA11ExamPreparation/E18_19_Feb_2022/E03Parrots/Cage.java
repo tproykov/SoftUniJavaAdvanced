@@ -60,5 +60,26 @@ public class Cage {
         return toReturn;
     }
 
+    public List<Parrot> sellParrotBySpecies(String species) {
+        List<Parrot> toReturn = new ArrayList<>();
+        for (Parrot parrot : data) {
+            if (parrot.getSpecies().equals(species)) {
+                toReturn.add(parrot);
+            }
+        }
+        return toReturn;
+    }
+    
+    public int count() {
+        return this.data.size();
+    }
 
+    public String report() {
+        StringBuilder report = new StringBuilder();
+        report.append("Parrots available at ").append(this.name).append("\n");
+        for (Parrot parrot : data) {
+            report.append(parrot);
+        }
+        return report.toString();
+    }
 }
