@@ -1,6 +1,7 @@
 package JA11ExamPreparation.E21_18_Aug_2021.E03Cafe;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class Cafe {
@@ -39,5 +40,37 @@ public class Cafe {
         this.employees = employees;
     }
 
-    
+    public void addEmployee(Employee employee) {
+        if (capacity > employees.size()) {
+            employees.add(employee);
+        }
+    }
+
+    public boolean removeEmployee(String name) {
+        return employees.removeIf(employee -> employee.getName().equals(name));
+    }
+
+    public Employee getOldestEmployee() {
+        return employees.stream()
+                .max(Comparator.comparingInt(Employee::getAge))
+                .orElse(null);
+    }
+
+    public Employee getEmployee(String name) {
+        return employees.stream().filter(employee -> employee.getName().equals(name))
+                .findFirst()
+                .orElse(null);
+
+    }
+
+    public int getCount() {
+        return employees.size();
+    }
+
+    public String report() {
+        StringBuilder report = new StringBuilder();
+        report.append("Employees working at Cafe ").append(name).append("\n");
+        employees.stream().forEach(employee -> report.append(employee.toString()).append("\n"));
+        return report.toString();
+    }
 }
