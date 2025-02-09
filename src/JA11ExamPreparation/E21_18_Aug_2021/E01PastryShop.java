@@ -36,12 +36,18 @@ public class E01PastryShop {
             int currentIngredient = ingredients.pop();
             int mix = currentLiquid + currentIngredient;
 
-
-
-
-
-
-
+            boolean cooked = false;
+            for (Map.Entry<String, Integer> entry : foodTable.entrySet()) {
+                if (entry.getValue() == mix) {
+                    cooked = true;
+                    String foodCooked = entry.getKey();
+                    foodsCooked.put(foodCooked, foodsCooked.get(foodCooked) + 1);
+                }
+            }
+            if (!cooked) {
+                currentIngredient += 3;
+                ingredients.push(currentIngredient);
+            }
         }
 
 
