@@ -62,7 +62,7 @@ public class Hotel {
 
     public String getStatistics() {
         StringBuilder statistics = new StringBuilder();
-        statistics.append("The people in the hotel ").append(this.name).append(" are: ");
+        statistics.append("The people in the hotel ").append(this.name).append(" are:");
         for (Person person : roster) {
             statistics.append(System.lineSeparator()).append(person.toString());
         }
