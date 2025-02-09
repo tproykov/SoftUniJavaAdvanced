@@ -36,7 +36,7 @@ public class E01PastryShop {
             int currentIngredient = ingredients.pop();
             int mix = currentLiquid + currentIngredient;
 
-            
+
 
 
 
