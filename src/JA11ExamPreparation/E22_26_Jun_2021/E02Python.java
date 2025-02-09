@@ -10,7 +10,7 @@ public class E02Python {
 
         int screenSize = Integer.parseInt(scanner.nextLine());
 
-        String[] commands = scanner.nextLine().split(", ");
+        String[] turns = scanner.nextLine().split(", ");
 
         char[][] screen = new char[screenSize][screenSize];
 
@@ -22,12 +22,40 @@ public class E02Python {
         screen[pythonRowPosition][pythonColPosition] = '*';
 
         int length = 1;
+        for ( int turn = 1; turn <= turns.length; turn++) {
+
+            String command = turns[turn];
+
+            switch (command) {
+                case "up" -> pythonRowPosition--;
+                case "down" -> pythonRowPosition++;
+                case "left" -> pythonColPosition--;
+                case "right" -> pythonColPosition++;
+            }
+
+            if (isOutOfBounds(screen, pythonRowPosition, pythonColPosition)) {
+                teleport(pythonRowPosition, pythonColPosition, command);
+            }
+
+
+
+        }
 
 
 
 
 
 
+
+    }
+
+    private static boolean isOutOfBounds(char[][] screen, int pythonRowPosition, int pythonColPosition) {
+        return pythonRowPosition < 0 || pythonRowPosition >= screen.length || pythonColPosition < 0
+                || pythonColPosition >= screen[0].length;
+    }
+
+    private static void teleport(int pythonRowPosition, int pythonColPosition, String command) {
+        
     }
 
     private static void fillScreen(char[][] screen, Scanner scanner) {
