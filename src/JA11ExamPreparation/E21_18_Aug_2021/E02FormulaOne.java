@@ -20,7 +20,7 @@ public class E02FormulaOne {
         matrix[playerRowPosition][playerColPosition] = '.';
 
         boolean finish = false;
-        for (int move = 1; move < movesNumber; move++) {
+        for (int move = 1; move <= movesNumber; move++) {
 
             String command = scanner.nextLine();
 
@@ -82,6 +82,8 @@ public class E02FormulaOne {
 
     private static int[] teleport(int matrixSIze, String command, int playerRowPosition, int playerColPosition) {
         int[] teleportedPosition = new int[2];
+        teleportedPosition[0] = playerRowPosition;
+        teleportedPosition[1] = playerColPosition;
         switch (command) {
             case "up" -> teleportedPosition[0] = matrixSIze + playerRowPosition;
             case "down" -> teleportedPosition[0] = playerRowPosition - matrixSIze;
