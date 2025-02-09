@@ -12,33 +12,37 @@ public class E01OsPlanning {
         Scanner scanner = new Scanner(System.in);
 
         Deque<Integer> tasks = new ArrayDeque<>();
-        Arrays.stream(scanner.nextLine().split("\\s+"))
+        Arrays.stream(scanner.nextLine().split(", "))
                 .mapToInt(Integer::parseInt)
                 .forEach(tasks::push);
 
         Deque<Integer> threads = new ArrayDeque<>();
         Arrays.stream(scanner.nextLine().split("\\s+"))
                 .mapToInt(Integer::parseInt)
-                .forEach(tasks::offer);
+                .forEach(threads::offer);
 
         int taskToKill = Integer.parseInt(scanner.nextLine());
 
         int taskKiller;
         while (true) {
 
-            int currentTask = tasks.pop();
-            int currentThread = threads.poll();
+            int currentTask = tasks.peek();
+            int currentThread = threads.peek();
+
+            if (taskToKill == currentTask) {
+                taskKiller = currentThread;
+                break;
+            }
+
+            tasks.pop();
+            threads.poll();
 
             if (currentThread < currentTask) {
                 tasks.push(currentTask);
             }
-            else if (taskToKill == currentTask) {
-                taskKiller = currentThread;
-                break;
-            }
         }
 
         System.out.println("Thread with value " + taskKiller + " killed task " + taskToKill);
-        System.out.println(String.join(" ", threads.toString()));
+        threads.forEach(thread -> System.out.print(thread + " "));
     }
 }
