@@ -21,8 +21,7 @@ public class E131ClimbThePeaks {
 
         List<String> conqueredPeaks = new ArrayList<>();
 
-        int days = 0;
-        while (!food.isEmpty() && !stamina.isEmpty() && !peaks.isEmpty() && days < 7) {
+        for (int day = 1; day <= 7; day++) {
 
             int dailyFood = food.peekLast();
             int dailyStamina = stamina.peekFirst();
@@ -38,8 +37,6 @@ public class E131ClimbThePeaks {
 
             food.pollLast();
             stamina.pollFirst();
-
-            days++;
         }
 
         if (peaks.isEmpty()) {
