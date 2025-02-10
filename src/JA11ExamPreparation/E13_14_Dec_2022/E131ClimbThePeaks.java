@@ -17,12 +17,7 @@ public class E131ClimbThePeaks {
                 .map(Integer::parseInt)
                 .collect(Collectors.toCollection(ArrayDeque::new));
 
-        Map<String, Integer> table = new LinkedHashMap<>();
-        table.put("Vihren", 80);
-        table.put("Kutelo", 90);
-        table.put("Banski Suhodol", 100);
-        table.put("Polezhan", 60);
-        table.put("Kamenitza", 70);
+        Map<String, Integer> table = fillPeaksTable();
 
         ArrayDeque<String> peaks = new ArrayDeque<>();
         peaks.offerLast("Vihren");
@@ -64,5 +59,15 @@ public class E131ClimbThePeaks {
             System.out.println("Conquered peaks:");
             conqueredPeaks.forEach(System.out::println);
         }
+    }
+
+    private static Map<String, Integer> fillPeaksTable() {
+        Map<String, Integer> table = new LinkedHashMap<>();
+        table.put("Vihren", 80);
+        table.put("Kutelo", 90);
+        table.put("Banski Suhodol", 100);
+        table.put("Polezhan", 60);
+        table.put("Kamenitza", 70);
+        return table;
     }
 }
