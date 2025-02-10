@@ -17,14 +17,7 @@ public class E131ClimbThePeaks {
                 .map(Integer::parseInt)
                 .collect(Collectors.toCollection(ArrayDeque::new));
 
-        Map<String, Integer> table = fillPeaksTable();
-
-        ArrayDeque<String> peaks = new ArrayDeque<>();
-        peaks.offerLast("Vihren");
-        peaks.offerLast("Kutelo");
-        peaks.offerLast("Banski Suhodol");
-        peaks.offerLast("Polezhan");
-        peaks.offerLast("Kamenitza");
+        Map<String, Integer> peaks = fillPeaksTable();
 
         List<String> conqueredPeaks = new ArrayList<>();
 
@@ -35,12 +28,12 @@ public class E131ClimbThePeaks {
             int dailyStamina = stamina.peekFirst();
             int sum = dailyFood + dailyStamina;
 
-            String peakToClimb = peaks.peekFirst();
-            int difficulty = table.get(peakToClimb);
+            int difficulty = peaks.entrySet().stream().findFirst().get().getValue();
 
             if (sum >= difficulty) {
-                conqueredPeaks.add(peakToClimb);
-                peaks.pollFirst();
+                String peak = peaks.entrySet().stream().findFirst().get().getKey();
+                conqueredPeaks.add(peak);
+                peaks.remove(peak);
             }
 
             food.pollLast();
@@ -49,7 +42,7 @@ public class E131ClimbThePeaks {
             days++;
         }
 
-        if (conqueredPeaks.size() == 5) {
+        if (peaks.isEmpty()) {
             System.out.println("Alex did it! He climbed all top five Pirin peaks in one week -> @FIVEinAWEEK");
         } else {
             System.out.println("Alex failed! He has to organize his journey better next time -> @PIRINWINS");
@@ -62,12 +55,12 @@ public class E131ClimbThePeaks {
     }
 
     private static Map<String, Integer> fillPeaksTable() {
-        Map<String, Integer> table = new LinkedHashMap<>();
-        table.put("Vihren", 80);
-        table.put("Kutelo", 90);
-        table.put("Banski Suhodol", 100);
-        table.put("Polezhan", 60);
-        table.put("Kamenitza", 70);
-        return table;
+        Map<String, Integer> peaks = new LinkedHashMap<>();
+        peaks.put("Vihren", 80);
+        peaks.put("Kutelo", 90);
+        peaks.put("Banski Suhodol", 100);
+        peaks.put("Polezhan", 60);
+        peaks.put("Kamenitza", 70);
+        return peaks;
     }
 }
