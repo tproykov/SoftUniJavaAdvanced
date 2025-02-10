@@ -55,7 +55,7 @@ public class E02Python {
     }
 
     private static void teleport(int pythonRowPosition, int pythonColPosition, String command) {
-        
+
     }
 
     private static void fillScreen(char[][] screen, Scanner scanner) {
