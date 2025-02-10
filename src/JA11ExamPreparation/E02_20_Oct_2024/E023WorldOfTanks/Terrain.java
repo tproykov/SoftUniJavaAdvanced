@@ -101,6 +101,4 @@ public class Terrain {
     private String toLowerCase() {
         return String.format(this.type).toLowerCase();
     }
-
-
 }
