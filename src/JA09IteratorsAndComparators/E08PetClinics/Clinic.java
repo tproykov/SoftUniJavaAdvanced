@@ -60,7 +60,7 @@ public class Clinic {
     public boolean hasEmptyRooms() {
 
         for (Pet pet : rooms) {
-            
+
             if (pet == null) {
                 return true;
             }
