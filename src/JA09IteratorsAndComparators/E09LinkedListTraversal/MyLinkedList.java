@@ -82,7 +82,7 @@ class MyLinkedList<T> implements Iterable<T> {
     public Iterator<T> iterator() {
         return new MyLinkedListIterator();
     }
-    
+
     private class MyLinkedListIterator implements Iterator<T> {
         private Node<T> current = head;
 
