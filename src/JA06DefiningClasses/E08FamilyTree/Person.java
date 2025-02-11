@@ -1,56 +1,35 @@
 package JA06DefiningClasses.E08FamilyTree;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Person {
-
-    private static int globalCounter = 0;
-
-    private int index;
-    private String firstName;
-    private String lastName;
+    private String name;
     private String birthDate;
     private List<Person> parents;
     private List<Person> children;
 
-    public Person(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.index = globalCounter++;
+    public Person() {
         this.parents = new ArrayList<>();
         this.children = new ArrayList<>();
     }
 
-    public Person(String birthDate) {
-        this.birthDate = birthDate;
-        this.index = globalCounter++;
-        this.parents = new ArrayList<>();
-        this.children = new ArrayList<>();
+    public Person(String identifier) {
+        this();
+        if (identifier.contains("/")) {
+            this.birthDate = identifier;
+        } else {
+            this.name = identifier;
+        }
     }
 
-    public int getIndex() {
-        return index;
+    public String getName() {
+        return name;
     }
 
-    public void setIndex(int index) {
-        this.index = index;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getBirthDate() {
@@ -62,21 +41,36 @@ public class Person {
     }
 
     public List<Person> getParents() {
-        return parents;
+        return Collections.unmodifiableList(parents);
     }
 
     public List<Person> getChildren() {
-        return children;
+        return Collections.unmodifiableList(children);
+    }
+
+    public void addChild(Person child) {
+        if (!this.children.contains(child)) {
+            this.children.add(child);
+            child.addParent(this);
+        }
+    }
+
+    private void addParent(Person parent) {
+        if (!this.parents.contains(parent)) {
+            this.parents.add(parent);
+        }
+    }
+
+    public boolean hasName() {
+        return this.name != null;
+    }
+
+    public boolean hasBirthDate() {
+        return this.birthDate != null;
     }
 
     @Override
     public String toString() {
-
-        if (firstName != null && lastName != null) {
-            return firstName + " " + lastName +
-                    (birthDate != null ? " " + birthDate : "");
-        }
-
-        return (birthDate != null ? birthDate : "");
+        return String.format("%s %s", this.name, this.birthDate);
     }
 }

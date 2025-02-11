@@ -1,201 +1,112 @@
 package JA06DefiningClasses.E08FamilyTree;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.List;
-import java.util.Comparator;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class FamilyTree {
-    private Map<String, Person> peopleByName;
-    private Map<String, Person> peopleByBirthDate;
+    private Person descendent;
+    private List<Person> allPeople;
+    private Map<String, List<String>> relations;
 
     public FamilyTree() {
-        this.peopleByName = new HashMap<>();
-        this.peopleByBirthDate = new HashMap<>();
+        this.allPeople = new ArrayList<>();
+        this.relations = new LinkedHashMap<>();
     }
 
-    public Person getOrCreatePerson(String identifier) {
-        identifier = identifier.trim();
-
-        if (identifier.contains("/")) {
-
-            Person byDate = peopleByBirthDate.get(identifier);
-            if (byDate == null) {
-
-                byDate = new Person(identifier);
-                peopleByBirthDate.put(identifier, byDate);
-
-                for (Person p : peopleByName.values()) {
-                    if (identifier.equals(p.getBirthDate()) && p != byDate) {
-                        return mergePreservingEarliest(p, byDate);
-                    }
-                }
-            }
-            return byDate;
-        } else {
-
-            Person byName = peopleByName.get(identifier);
-            if (byName == null) {
-
-                String[] tokens = identifier.split("\\s+");
-                byName = new Person(tokens[0], tokens[1]);
-                peopleByName.put(identifier, byName);
-
-                for (Person p : peopleByBirthDate.values()) {
-                    if (byName.getBirthDate() != null &&
-                            byName.getBirthDate().equals(p.getBirthDate()) &&
-                            p != byName) {
-                        return mergePreservingEarliest(byName, p);
-                    }
-                }
-            }
-            return byName;
-        }
+    public void setDescendent(Person descendent) {
+        this.descendent = descendent;
     }
 
-    private Person mergePreservingEarliest(Person a, Person b) {
-        Person earlier = (a.getIndex() <= b.getIndex()) ? a : b;
-        Person later   = (earlier == a) ? b : a;
-
-        mergePeople(earlier, later);
-        return earlier;
-    }
-
-    private void mergePeople(Person main, Person other) {
-        if (main == other) {
-            return;
-        }
-
-        main.setIndex(Math.min(main.getIndex(), other.getIndex()));
-
-        if ((main.getFirstName() == null || main.getLastName() == null) &&
-                other.getFirstName() != null && other.getLastName() != null) {
-            main.setFirstName(other.getFirstName());
-            main.setLastName(other.getLastName());
-            String fullName = main.getFirstName() + " " + main.getLastName();
-            peopleByName.put(fullName, main);
-        }
-
-        if (main.getBirthDate() == null && other.getBirthDate() != null) {
-            main.setBirthDate(other.getBirthDate());
-            peopleByBirthDate.put(main.getBirthDate(), main);
-        }
-
-        for (Person parent : other.getParents()) {
-            if (!main.getParents().contains(parent)) {
-                main.getParents().add(parent);
-                parent.getChildren().remove(other); // remove old child link
-                if (!parent.getChildren().contains(main)) {
-                    parent.getChildren().add(main);
-                }
-            }
-        }
-
-        for (Person child : other.getChildren()) {
-            if (!main.getChildren().contains(child)) {
-                main.getChildren().add(child);
-                child.getParents().remove(other); // remove old parent link
-                if (!child.getParents().contains(main)) {
-                    child.getParents().add(main);
-                }
-            }
-        }
-
-        if (other.getFirstName() != null && other.getLastName() != null) {
-            String oldName = other.getFirstName() + " " + other.getLastName();
-            peopleByName.remove(oldName);
-        }
-        if (other.getBirthDate() != null) {
-            peopleByBirthDate.remove(other.getBirthDate());
-        }
+    public void addRelation(String parent, String child) {
+        relations.putIfAbsent(parent, new ArrayList<>());
+        relations.get(parent).add(child);
     }
 
     public void addPersonInfo(String name, String birthDate) {
 
-        Person byName = peopleByName.get(name);
-        Person byDate = peopleByBirthDate.get(birthDate);
+        Person person = findOrCreatePerson(name, birthDate);
 
-        String[] nameParts = name.split("\\s+");
-        String firstName = nameParts[0];
-        String lastName  = nameParts[1];
+        if (person.getName() == null) {
+            person.setName(name);
+        }
+        if (person.getBirthDate() == null) {
+            person.setBirthDate(birthDate);
+        }
 
-        if (byName == null && byDate == null) {
-
-            Person newPerson = new Person(firstName, lastName);
-            newPerson.setBirthDate(birthDate);
-
-            peopleByName.put(name, newPerson);
-            peopleByBirthDate.put(birthDate, newPerson);
-
-        } else if (byName != null && byDate == null) {
-            byName.setBirthDate(birthDate);
-            peopleByBirthDate.put(birthDate, byName);
-
-        } else if (byName == null && byDate != null) {
-            byDate.setFirstName(firstName);
-            byDate.setLastName(lastName);
-            peopleByName.put(name, byDate);
-
-        } else {
-
-            Person merged = mergePreservingEarliest(byName, byDate);
-
-            if (merged.getFirstName() == null || merged.getLastName() == null) {
-                merged.setFirstName(firstName);
-                merged.setLastName(lastName);
-                peopleByName.put(name, merged);
-            }
-            if (merged.getBirthDate() == null) {
-                merged.setBirthDate(birthDate);
-                peopleByBirthDate.put(birthDate, merged);
-            }
+        if (!allPeople.contains(person)) {
+            allPeople.add(person);
         }
     }
 
-    public void addRelation(String leftSide, String rightSide) {
-        Person parent = getOrCreatePerson(leftSide);
-        Person child  = getOrCreatePerson(rightSide);
+    public void processInformation() {
 
-        if (!parent.getChildren().contains(child)) {
-            parent.getChildren().add(child);
+        for (Map.Entry<String, List<String>> entry : relations.entrySet()) {
+            Person parent = findPerson(entry.getKey());
+
+            if (parent == null) continue;
+
+            for (String childIdentifier : entry.getValue()) {
+                Person child = findPerson(childIdentifier);
+                if (child == null) continue;
+
+                parent.addChild(child);
+            }
         }
-        if (!child.getParents().contains(parent)) {
-            child.getParents().add(parent);
-        }
+
+        this.descendent = findPerson(getIdentifier(descendent));
     }
 
     private Person findPerson(String identifier) {
-        Person person = peopleByName.get(identifier);
-        if (person == null) {
-            person = peopleByBirthDate.get(identifier);
+        for (Person person : allPeople) {
+            if ((person.getName() != null && person.getName().equals(identifier)) ||
+                    (person.getBirthDate() != null && person.getBirthDate().equals(identifier))) {
+                return person;
+            }
         }
+        return null;
+    }
+
+    private Person findOrCreatePerson(String name, String birthDate) {
+
+        Person person = findPerson(name);
+        if (person == null) {
+            person = findPerson(birthDate);
+        }
+
+        if (person == null) {
+            person = new Person();
+            allPeople.add(person);
+        }
+
         return person;
     }
 
-    public void printPerson(String identifier) {
+    private String getIdentifier(Person person) {
+        return person.hasName() ? person.getName() : person.getBirthDate();
+    }
 
-        Person person = findPerson(identifier);
-        if (person == null) {
-            person = getOrCreatePerson(identifier);
+    @Override
+    public String toString() {
+        StringBuilder result = new StringBuilder();
+
+        result.append(descendent.toString()).append("\n");
+
+        result.append("Parents:").append("\n");
+        if (!descendent.getParents().isEmpty()) {
+            String parentsStr = descendent.getParents().stream()
+                    .map(Person::toString)
+                    .collect(Collectors.joining("\n"));
+            result.append(parentsStr).append("\n");
+        }
+        
+        result.append("Children:").append("\n");
+        if (!descendent.getChildren().isEmpty()) {
+            String childrenStr = descendent.getChildren().stream()
+                    .map(Person::toString)
+                    .collect(Collectors.joining("\n"));
+            result.append(childrenStr);
         }
 
-        System.out.println(person);
-
-        List<Person> sortedParents = person.getParents().stream()
-                .sorted(Comparator.comparingInt(Person::getIndex))
-                .toList();
-        List<Person> sortedChildren = person.getChildren().stream()
-                .sorted(Comparator.comparingInt(Person::getIndex))
-                .toList();
-
-        System.out.println("Parents:");
-        for (Person parent : sortedParents) {
-            System.out.println(parent);
-        }
-
-        System.out.println("Children:");
-        for (Person child : sortedChildren) {
-            System.out.println(child);
-        }
+        return result.toString();
     }
 }

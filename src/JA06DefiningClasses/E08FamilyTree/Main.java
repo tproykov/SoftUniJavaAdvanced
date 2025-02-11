@@ -9,25 +9,36 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         FamilyTree familyTree = new FamilyTree();
 
-        String searchPerson = scanner.nextLine().trim();
+        String searchPerson = scanner.nextLine();
+        familyTree.setDescendent(createPerson(searchPerson));
 
-        familyTree.getOrCreatePerson(searchPerson);
+        String input;
+        while (!(input = scanner.nextLine()).equals("End")) {
+            String[] tokens = input.split(" - ");
 
-        String line;
-        while (!(line = scanner.nextLine()).equals("End")) {
-            if (line.contains(" - ")) {
+            if (tokens.length == 2) {
 
-                String[] parts = line.split(" - ");
-                familyTree.addRelation(parts[0].trim(), parts[1].trim());
+                String parent = tokens[0].trim();
+                String child = tokens[1].trim();
+                familyTree.addRelation(parent, child);
             } else {
 
-                String[] parts = line.split(" ");
-                String birthDate = parts[parts.length - 1];
-                String name = line.substring(0, line.length() - birthDate.length() - 1).trim();
+                String birthDate = input.substring(input.lastIndexOf(" ") + 1);
+                String name = input.substring(0, input.lastIndexOf(" "));
                 familyTree.addPersonInfo(name, birthDate);
             }
         }
 
-        familyTree.printPerson(searchPerson);
+        familyTree.processInformation();
+
+        System.out.print(familyTree);
+    }
+
+    private static Person createPerson(String input) {
+        if (input.contains("/")) {
+            return new Person(input);
+        } else {
+            return new Person(input);
+        }
     }
 }
