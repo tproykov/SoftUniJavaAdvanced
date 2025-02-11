@@ -5,75 +5,82 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
+
     public static void main(String[] args) {
+
         Scanner scanner = new Scanner(System.in);
+
         int nCommands = Integer.parseInt(scanner.nextLine());
 
         Map<String, Pet> pets = new HashMap<>();
         Map<String, Clinic> clinics = new HashMap<>();
 
         for (int i = 0; i < nCommands; i++) {
-            String line = scanner.nextLine();
-            String[] tokens = line.split("\\s+");
+
+            String[] tokens = scanner.nextLine().split("\\s+");
+
             String command = tokens[0];
 
             try {
+
+                String clinicName;
+                String petName;
                 switch (command) {
-                    case "Create":
+
+                    case "Create" -> {
 
                         if (tokens[1].equals("Pet")) {
 
-                            String petName = tokens[2];
+                            petName = tokens[2];
                             int petAge = Integer.parseInt(tokens[3]);
                             String petKind = tokens[4];
                             Pet pet = new Pet(petName, petAge, petKind);
                             pets.put(petName, pet);
 
-                        }
-                        else if (tokens[1].equals("Clinic")) {
+                        } else if (tokens[1].equals("Clinic")) {
 
-                            String clinicName = tokens[2];
+                            clinicName = tokens[2];
                             int roomsCount = Integer.parseInt(tokens[3]);
                             Clinic clinic = new Clinic(clinicName, roomsCount);
                             clinics.put(clinicName, clinic);
                         }
-                        break;
+                    }
 
-                    case "Add":
-
-                        String petName = tokens[1];
-                        String clinicName = tokens[2];
+                    case "Add" -> {
+                        petName = tokens[1];
+                        clinicName = tokens[2];
 
                         if (!pets.containsKey(petName) || !clinics.containsKey(clinicName)) {
                             throw new IllegalArgumentException();
                         }
                         boolean addResult = clinics.get(clinicName).add(pets.get(petName));
                         System.out.println(addResult);
-                        break;
+                    }
 
-                    case "Release":
-
+                    case "Release" -> {
                         clinicName = tokens[1];
+
                         if (!clinics.containsKey(clinicName)) {
                             throw new IllegalArgumentException();
                         }
                         boolean releaseResult = clinics.get(clinicName).release();
                         System.out.println(releaseResult);
-                        break;
+                    }
 
-                    case "HasEmptyRooms":
-
+                    case "HasEmptyRooms" -> {
                         clinicName = tokens[1];
+
                         if (!clinics.containsKey(clinicName)) {
                             throw new IllegalArgumentException();
                         }
                         boolean emptyRooms = clinics.get(clinicName).hasEmptyRooms();
                         System.out.println(emptyRooms);
-                        break;
+                    }
 
-                    case "Print":
+                    case "Print" -> {
 
                         clinicName = tokens[1];
+
                         if (!clinics.containsKey(clinicName)) {
                             throw new IllegalArgumentException();
                         }
@@ -84,12 +91,11 @@ public class Main {
                             int roomNumber = Integer.parseInt(tokens[2]);
                             clinic.printRoom(roomNumber);
                         }
-                        break;
-
-                    default:
-                        break;
+                    }
                 }
+
             } catch (IllegalArgumentException ex) {
+
                 System.out.println("Invalid Operation!");
             }
         }
