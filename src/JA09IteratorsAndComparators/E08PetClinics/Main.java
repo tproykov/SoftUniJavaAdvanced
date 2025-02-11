@@ -28,7 +28,9 @@ public class Main {
                             String petKind = tokens[4];
                             Pet pet = new Pet(petName, petAge, petKind);
                             pets.put(petName, pet);
-                        } else if (tokens[1].equals("Clinic")) {
+
+                        }
+                        else if (tokens[1].equals("Clinic")) {
 
                             String clinicName = tokens[2];
                             int roomsCount = Integer.parseInt(tokens[3]);
@@ -91,7 +93,5 @@ public class Main {
                 System.out.println("Invalid Operation!");
             }
         }
-
-        scanner.close();
     }
 }
