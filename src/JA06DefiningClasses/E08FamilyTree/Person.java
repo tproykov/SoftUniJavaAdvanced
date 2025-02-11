@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Person {
-    // Global counter used to track first appearance order
+
     private static int globalCounter = 0;
 
     private int index;
@@ -14,7 +14,6 @@ public class Person {
     private List<Person> parents;
     private List<Person> children;
 
-    // Constructor for a Person known by name
     public Person(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -23,7 +22,6 @@ public class Person {
         this.children = new ArrayList<>();
     }
 
-    // Constructor for a Person known only by birth date
     public Person(String birthDate) {
         this.birthDate = birthDate;
         this.index = globalCounter++;
@@ -73,12 +71,12 @@ public class Person {
 
     @Override
     public String toString() {
-        // Usually we want "FirstName LastName BirthDate" if available
+
         if (firstName != null && lastName != null) {
             return firstName + " " + lastName +
                     (birthDate != null ? " " + birthDate : "");
         }
-        // Otherwise, if we only know birth date
+
         return (birthDate != null ? birthDate : "");
     }
 }
