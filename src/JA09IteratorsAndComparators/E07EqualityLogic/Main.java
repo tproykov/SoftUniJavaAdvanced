@@ -1,9 +1,6 @@
 package JA09IteratorsAndComparators.E07EqualityLogic;
 
-import java.util.HashSet;
 import java.util.Scanner;
-import java.util.Set;
-import java.util.TreeSet;
 
 public class Main {
 
@@ -12,22 +9,22 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         int n = Integer.parseInt(scanner.nextLine());
-        Set<Person> treeSet = new TreeSet<>();
-        Set<Person> hashSet = new HashSet<>();
 
+        PersonTreeSet personTreeSet = new PersonTreeSet();
+        PersonHashSet personHashSet = new PersonHashSet();
 
-        while (n-- > 0) {
-            String[] tokens = scanner.nextLine().split("\\s+");
-            String name = tokens[0];
-            int age = Integer.parseInt(tokens[1]);
+        for (int i = 0; i < n; i++) {
+            String line = scanner.nextLine();
+            String[] parts = line.split("\\s+");
+            String name = parts[0];
+            int age = Integer.parseInt(parts[1]);
 
             Person person = new Person(name, age);
-            treeSet.add(person);
-            hashSet.add(person);
-
+            personTreeSet.add(person);
+            personHashSet.add(person);
         }
 
-        System.out.println(treeSet.size());
-        System.out.println(hashSet.size());
+        System.out.println(personTreeSet.size());
+        System.out.println(personHashSet.size());
     }
 }
