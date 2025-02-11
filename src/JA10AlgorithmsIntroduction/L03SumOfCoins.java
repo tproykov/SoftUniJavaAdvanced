@@ -41,9 +41,6 @@ public class L03SumOfCoins {
 
     public static Map<Integer, Integer> chooseCoins(int[] availableCoins, int targetSum) {
 
-        // TODO
-        //throw new IllegalArgumentException();
-
         Arrays.sort(availableCoins);
 
         Map<Integer, Integer> usedCoins = new LinkedHashMap<>();
