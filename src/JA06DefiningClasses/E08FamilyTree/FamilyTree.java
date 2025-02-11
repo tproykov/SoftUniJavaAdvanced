@@ -98,7 +98,7 @@ public class FamilyTree {
                     .collect(Collectors.joining("\n"));
             result.append(parentsStr).append("\n");
         }
-        
+
         result.append("Children:").append("\n");
         if (!descendent.getChildren().isEmpty()) {
             String childrenStr = descendent.getChildren().stream()
