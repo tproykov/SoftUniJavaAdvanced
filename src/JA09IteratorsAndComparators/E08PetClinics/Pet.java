@@ -1,6 +1,7 @@
 package JA09IteratorsAndComparators.E08PetClinics;
 
 public class Pet {
+
     private String name;
     private int age;
     private String kind;

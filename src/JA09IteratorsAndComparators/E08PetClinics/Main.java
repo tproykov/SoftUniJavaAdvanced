@@ -57,6 +57,7 @@ public class Main {
                         System.out.println(addResult);
                     }
 
+
                     case "Release" -> {
                         clinicName = tokens[1];
 
@@ -93,6 +94,7 @@ public class Main {
                         }
                     }
                 }
+
 
             } catch (IllegalArgumentException ex) {
 

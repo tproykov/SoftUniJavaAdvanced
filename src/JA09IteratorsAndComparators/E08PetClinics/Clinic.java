@@ -1,6 +1,7 @@
 package JA09IteratorsAndComparators.E08PetClinics;
 
 public class Clinic {
+
     private String name;
     private Pet[] rooms;
 
@@ -10,12 +11,15 @@ public class Clinic {
         if (roomsCount % 2 == 0) {
             throw new IllegalArgumentException("Invalid Operation!");
         }
+
         this.rooms = new Pet[roomsCount];
     }
 
     public boolean add(Pet pet) {
+
         int n = this.rooms.length;
-        int center = n / 2; // zero-indexed center
+        int center = n / 2;
+
         for (int i = 0; i < n; i++) {
             int index;
 
@@ -24,6 +28,7 @@ public class Clinic {
             } else {
                 index = center - ((i + 1) / 2);
             }
+
             if (rooms[index] == null) {
                 rooms[index] = pet;
                 return true;
@@ -53,7 +58,9 @@ public class Clinic {
     }
 
     public boolean hasEmptyRooms() {
+
         for (Pet pet : rooms) {
+            
             if (pet == null) {
                 return true;
             }
@@ -62,7 +69,9 @@ public class Clinic {
     }
 
     public void printRoom(int roomNumber) {
+
         int index = roomNumber - 1;
+
         if (rooms[index] == null) {
             System.out.println("Room empty");
         } else {
@@ -71,7 +80,9 @@ public class Clinic {
     }
 
     public void printAll() {
+
         for (Pet pet : rooms) {
+
             if (pet == null) {
                 System.out.println("Room empty");
             } else {
