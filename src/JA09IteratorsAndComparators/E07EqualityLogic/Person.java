@@ -39,7 +39,7 @@ public class Person implements Comparable<Person> {
         Person person = (Person) obj;
         return age == person.age && name.equals(person.name);
     }
-    
+
     @Override
     public int hashCode() {
         return Objects.hash(name, age);
