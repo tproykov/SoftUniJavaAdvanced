@@ -8,37 +8,25 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         ListyIterator<String> listyIterator = null;
 
-        String input = scanner.nextLine();
-        while (!input.equals("END")) {
-            String[] tokens = input.split("\\s+");
-            String command = tokens[0];
+        String command;
+        while (!"END".equals(command =scanner.nextLine())) {
+            String[] tokens = command.split("\\s+");
+            String commandType = tokens[0];
 
             try {
-                switch (command) {
-                    case "Create":
+                switch (commandType) {
+                    case "Create" -> {
                         String[] elements = Arrays.copyOfRange(tokens, 1, tokens.length);
                         listyIterator = new ListyIterator<>(elements);
-                        break;
-                    case "Move":
-                        System.out.println(listyIterator.move());
-                        break;
-                    case "Print":
-                        listyIterator.print();
-                        break;
-                    case "HasNext":
-                        System.out.println(listyIterator.hasNext());
-                        break;
-                    case "PrintAll":
-                        listyIterator.printAll();
-                        break;
+                    }
+                    case "Move" -> System.out.println(listyIterator.move());
+                    case "Print" -> listyIterator.print();
+                    case "HasNext" -> System.out.println(listyIterator.hasNext());
+                    case "PrintAll" -> listyIterator.printAll();
                 }
             } catch (IllegalStateException e) {
                 System.out.println(e.getMessage());
             }
-
-            input = scanner.nextLine();
         }
-
-        scanner.close();
     }
 }

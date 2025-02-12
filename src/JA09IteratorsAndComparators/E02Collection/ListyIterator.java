@@ -6,11 +6,13 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 public class ListyIterator<T> implements Iterator<T>, Iterable<T> {
+
     private List<T> elements;
     private int currentIndex;
 
     @SafeVarargs
     public ListyIterator(T... elements) {
+        
         this.elements = new ArrayList<>();
         for (T element : elements) {
             this.elements.add(element);
