@@ -1,4 +1,4 @@
-package JA09IteratorsAndComparators.E06StrategyPattern;
+
 
 import java.util.Scanner;
 import java.util.TreeSet;
