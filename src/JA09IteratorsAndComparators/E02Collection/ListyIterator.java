@@ -1,3 +1,5 @@
+package JA09IteratorsAndComparators.E02Collection;
+
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -58,7 +60,7 @@ public class ListyIterator<T> implements Iterator<T>, Iterable<T> {
                 .toArray(String[]::new));
         System.out.println(result);
     }
-    
+
     @Override
     public Iterator<T> iterator() {
         return this;
