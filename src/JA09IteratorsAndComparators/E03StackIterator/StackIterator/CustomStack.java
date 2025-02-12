@@ -1,4 +1,4 @@
-package JA09IteratorsAndComparators.E03StackIterator;
+
 
 import java.util.ArrayList;
 import java.util.Iterator;
