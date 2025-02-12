@@ -12,7 +12,7 @@ public class ListyIterator<T> implements Iterator<T>, Iterable<T> {
 
     @SafeVarargs
     public ListyIterator(T... elements) {
-        
+
         this.elements = new ArrayList<>();
         for (T element : elements) {
             this.elements.add(element);
