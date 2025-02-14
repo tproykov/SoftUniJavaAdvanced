@@ -1,4 +1,4 @@
-
+package JA06DefiningClasses.E09CatLady.CatLady;
 
 public class StreetExtraordinaire extends Cat {
 

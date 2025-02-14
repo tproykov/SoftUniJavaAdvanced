@@ -1,4 +1,4 @@
-
+package JA06DefiningClasses.E09CatLady.CatLady;
 
 import java.util.HashMap;
 import java.util.Map;
