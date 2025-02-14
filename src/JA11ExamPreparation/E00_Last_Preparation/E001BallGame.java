@@ -54,7 +54,24 @@ public class E001BallGame {
             }
         }
 
-        
+        if (goalsCount == 3) {
+            System.out.println("Paul scored a hat-trick!");
+        }
+        else if (goalsCount == 0) {
+            System.out.println("Paul failed to score a single goal.");
+        }
+        else if (goalsCount > 3) {
+            System.out.println("Paul performed remarkably well!");
+        }
+        else {
+            System.out.println("Paul failed to make a hat-trick!");
+        }
+
+        if (goalsCount > 0) {
+            System.out.println("Goals scored: " + goalsCount);
+        }
+
+
 
 
 
