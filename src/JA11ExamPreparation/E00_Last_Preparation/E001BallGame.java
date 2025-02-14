@@ -1,8 +1,7 @@
 package JA11ExamPreparation.E00_Last_Preparation;
 
-import java.util.ArrayDeque;
-import java.util.Arrays;
-import java.util.Scanner;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class E001BallGame {
 
@@ -72,14 +71,16 @@ public class E001BallGame {
         }
 
         if (!strengthsStack.isEmpty()) {
-            System.out.print("Strength values : ");
-            System.out.print(String.join(", ", strengthsStack.stream()
+            System.out.print("Strength values left: ");
+            List<String> reversedList = strengthsStack.stream()
                     .map(String::valueOf)
-                    .toList()));
+                    .collect(Collectors.toList());
+            Collections.reverse(reversedList);
+            System.out.println(String.join(", ", reversedList));
         }
         if (!accuracyQueue.isEmpty()) {
-            System.out.print("Accuracy values : ");
-            System.out.print(String.join(", ", accuracyQueue.stream()
+            System.out.print("Accuracy values left: ");
+            System.out.println(String.join(", ", accuracyQueue.stream()
                     .map(String::valueOf)
                     .toList()));
         }
