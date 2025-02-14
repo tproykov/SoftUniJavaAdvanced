@@ -71,11 +71,17 @@ public class E001BallGame {
             System.out.println("Goals scored: " + goalsCount);
         }
 
-
-
-
-
-
-
+        if (!strengthsStack.isEmpty()) {
+            System.out.print("Strength values : ");
+            System.out.print(String.join(", ", strengthsStack.stream()
+                    .map(String::valueOf)
+                    .toList()));
+        }
+        if (!accuracyQueue.isEmpty()) {
+            System.out.print("Accuracy values : ");
+            System.out.print(String.join(", ", accuracyQueue.stream()
+                    .map(String::valueOf)
+                    .toList()));
+        }
     }
 }
