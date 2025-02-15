@@ -24,7 +24,8 @@ public class E002BombHasBeenPlanted {
         int counterTerroristColumnPosition = counterTerroristPosition[1];
         matrix[counterTerroristRowPosition][counterTerroristColumnPosition] = '*';
 
-        while (true) {
+        int timeRemaining = 16;
+        while (timeRemaining > 0) {
 
             String command = scanner.nextLine();
 
@@ -33,13 +34,23 @@ public class E002BombHasBeenPlanted {
                 case "up" -> counterTerroristRowPosition--;
                 case "down" -> counterTerroristRowPosition++;
                 case "left" -> counterTerroristColumnPosition--;
+                case "right" -> counterTerroristColumnPosition++;
+            }
+
+            if (isOutOfBound(matrixRows, matrixColumns, counterTerroristRowPosition, counterTerroristColumnPosition)) {
+                continue;
             }
 
 
 
+            timeRemaining--;
         }
 
+    }
 
+    private static boolean isOutOfBound(int matrixRows, int matrixColumns, int counterTerroristRowPosition, int counterTerroristColumnPosition) {
+        return counterTerroristRowPosition < 0 || counterTerroristColumnPosition < 0
+                || counterTerroristRowPosition >= matrixRows || counterTerroristColumnPosition >= matrixColumns;
     }
 
     private static void fillMatrix(char[][] matrix, int matrixRows, int matrixColumns, Scanner scanner) {
