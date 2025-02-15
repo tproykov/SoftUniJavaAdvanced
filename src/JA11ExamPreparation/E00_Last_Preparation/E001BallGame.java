@@ -45,8 +45,8 @@ public class E001BallGame {
                 }
             }
             else {
-                currentStrength -= 10;
                 strengthsStack.pop();
+                currentStrength -= 10;
                 strengthsStack.push(currentStrength);
                 accuracyQueue.poll();
                 accuracyQueue.offer(currentAccuracy);
@@ -63,7 +63,7 @@ public class E001BallGame {
             System.out.println("Paul performed remarkably well!");
         }
         else {
-            System.out.println("Paul failed to make a hat-trick!");
+            System.out.println("Paul failed to make a hat-trick.");
         }
 
         if (goalsCount > 0) {
